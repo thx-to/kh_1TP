@@ -1,4 +1,4 @@
--- 테이블 생성용 쿼리들
+-- 테이블 생성용 쿼리들 (2-4-3-1-5)
 CREATE TABLE ACC_INFO(
 	user_id varchar2(20) PRIMARY KEY,
 	user_pw varchar2(20) CHECK(LENGTH(user_pw) > 7),
