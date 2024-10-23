@@ -1,4 +1,4 @@
-package VO;
+package TEST_241022.VO;
 
 public class StoreVO {
     private String storeId;

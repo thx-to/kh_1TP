@@ -1,6 +1,5 @@
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.List;
+package TEST_241023;
+
 import java.util.Scanner;
 
 public class HSMain {
