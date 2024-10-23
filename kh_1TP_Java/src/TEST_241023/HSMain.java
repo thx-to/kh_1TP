@@ -1,6 +1,6 @@
 package TEST_241023;
 
-import TEST_241022.DAO.Inv_OrderDAO;
+import TEST_241023.DAO.Inv_OrderDAO;
 import TEST_241023.VO.Inv_OrderVO;
 
 import java.util.List;
@@ -49,39 +49,5 @@ public class HSMain {
         }
     }
 
-    public static Inv_OrderVO menuInsertInput() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("추가하실 메뉴 정보를 입력하세요.");
-        System.out.print("메뉴 이름 : ");
-        String menuName = sc.next();
-        System.out.print("메뉴 가격 : ");
-        int price = sc.nextInt();
-        System.out.print("카테고리(버거, 사이드, 음료) : ");
-        String category = sc.next();
-
-        return new Inv_OrderVO(menuName, price, category);
-    }
-
-    public static Inv_OrderVO menuUpdateInput() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("수정하실 메뉴 정보를 입력하세요, 이름은 수정할 수 없습니다.");
-        System.out.print("메뉴 이름 : ");
-        String menuName = sc.next();
-        System.out.print("변경할 가격 : ");
-        int price = sc.nextInt();
-        System.out.print("변경할 카테고리(버거, 사이드, 음료) : ");
-        String category = sc.next();
-
-        return new Inv_OrderVO(menuName, price, category);
-    }
-
-    public static Inv_OrderVO menuDeleteInput() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("삭제하실 메뉴 정보를 입력하세요.");
-        System.out.print("삭제할 메뉴 이름 : ");
-        String menuName = sc.next();
-
-        return new Inv_OrderVO();
-    }
 
 }
