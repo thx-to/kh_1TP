@@ -10,7 +10,7 @@ CREATE TABLE ACC_INFO(
 );
 
 CREATE TABLE INV_ORDER(
-	menu_name varchar2(10) PRIMARY KEY,
+	menu_name varchar2(20) PRIMARY KEY,
 	price number(5) NOT NULL,
 	category varchar2(10) CHECK (category IN ('버거', '사이드', '음료'))
 );
@@ -40,3 +40,17 @@ CREATE TABLE ORDER_RECORD(
 );
 
 --DROP TABLE INV;
+
+
+-- INV_ORDER 테이블 테스트 값
+-- 버거, 사이드, 음료 카테고리 각 3개 제품 추가
+INSERT INTO INV_ORDER VALUES ('빅맥', 6300, '버거');
+INSERT INTO INV_ORDER VALUES ('슈비버거', 6600, '버거');
+INSERT INTO INV_ORDER VALUES ('치즈버거', 3600, '버거');
+INSERT INTO INV_ORDER VALUES ('맥너겟', 3400, '사이드');
+INSERT INTO INV_ORDER VALUES ('후렌치후라이', 2300, '사이드');
+INSERT INTO INV_ORDER VALUES ('치즈스틱', 3600, '사이드');
+INSERT INTO INV_ORDER VALUES ('코카콜라', 2600, '음료');
+INSERT INTO INV_ORDER VALUES ('아메리카노', 3300, '음료');
+INSERT INTO INV_ORDER VALUES ('바닐라쉐이크', 3500, '음료');
+
