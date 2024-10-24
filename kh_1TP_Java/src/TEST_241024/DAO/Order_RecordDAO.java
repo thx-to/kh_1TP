@@ -10,16 +10,16 @@ import java.util.Scanner;
 
 public class Order_RecordDAO {
 
-    Connection conn = null;
-    Statement stmt = null;
+    static Connection conn = null;
+    static Statement stmt = null;
     PreparedStatement pstmt = null;
-    ResultSet rs = null;
+    static ResultSet rs = null;
 
     Scanner sc = new Scanner(System.in);
     boolean isSuccess = false;
 
     //주문 내역 출력을 위해 list 생성
-    public List<Order_RecordVO> Order_RecordSelect() {
+    public static List<Order_RecordVO> Order_RecordSelect() {
         List<Order_RecordVO> list = new ArrayList<>(0);
 
         try {
@@ -28,7 +28,7 @@ public class Order_RecordDAO {
 
             // ORDER_RECORD 보여주기
             // ORDER_CODE 기준 오름차순 정렬 (기본)
-            String query = "SELECT * FROM ORDER_RECORD BY ORDER_CODE";
+            String query = "SELECT * FROM ORDER_RECORD ORDER BY ORDER_CODE";
             rs = stmt.executeQuery(query);
 
             while (rs.next()) {
@@ -47,12 +47,12 @@ public class Order_RecordDAO {
             Common.close(rs);
             Common.close(stmt);
             Common.close(conn);
-            return list;
         }
+        return list;
     }
 
     // 주문 정보 출력
-    public void Order_RecordSelectResult(List<Order_RecordVO> list) {
+    public static void Order_RecordSelectResult(List<Order_RecordVO> list) {
         System.out.println("----------- 주문 정보 ------------");
 
         for (Order_RecordVO e : list) {

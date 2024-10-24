@@ -18,12 +18,12 @@ public class Inv_OrderDAO {
     // Connection : 자바와 오라클 DB 연결 설정
     // PreparedStatement : SQL문 수행 객체
     // ResultSet : PreparedStatement 동작에 대한 결과로 전달되는 DB 내용
-    Connection conn = null;
-    Statement stmt = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
+    static Connection conn = null;
+    static Statement stmt = null;
+    static PreparedStatement pstmt = null;
+    static ResultSet rs = null;
 
-    Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
     boolean isSuccess = false;
 
 
@@ -69,7 +69,7 @@ public class Inv_OrderDAO {
     // 메뉴 확인 (Select)
     // 로우데이터를 받아내기 위해 ArrayList 생성
     // Inv_Order테이블과 똑같이 만들어둔 Inv_OrderVO 클래스
-    public List<Inv_OrderVO> Inv_OrderSelect() {
+    public static List<Inv_OrderVO> Inv_OrderSelect() {
         List<Inv_OrderVO> list = new ArrayList<>();
 
         try {
@@ -105,7 +105,7 @@ public class Inv_OrderDAO {
         }
     }
 
-    public void Inv_OrderSelectResult(List<Inv_OrderVO> list) {
+    public static void Inv_OrderSelectResult(List<Inv_OrderVO> list) {
         System.out.println("----------- 메뉴 정보 ------------");
 
         for (Inv_OrderVO e : list) {
@@ -120,7 +120,7 @@ public class Inv_OrderDAO {
 
 
     // 메뉴 추가 (Insert)
-    public boolean Inv_OrderInsert() {
+    public static boolean Inv_OrderInsert() {
 
         System.out.println("추가하실 메뉴 정보를 입력하세요.");
         System.out.print("메뉴 이름 : ");
@@ -161,7 +161,7 @@ public class Inv_OrderDAO {
     }
 
     // 메뉴 수정 (Update)
-    public boolean Inv_OrderUpdate() {
+    public static boolean Inv_OrderUpdate() {
 
         System.out.println("수정하실 메뉴 정보를 입력하세요, 이름은 수정할 수 없습니다.");
         System.out.print("메뉴 이름 : ");
@@ -202,7 +202,7 @@ public class Inv_OrderDAO {
     }
 
     // 메뉴 삭제 (Delete)
-    public boolean Inv_OrderDelete() {
+    public static boolean Inv_OrderDelete() {
 
         System.out.println("삭제하실 메뉴 정보를 입력하세요.");
         System.out.print("삭제할 메뉴 이름 : ");
