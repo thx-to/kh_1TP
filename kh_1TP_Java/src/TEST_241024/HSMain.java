@@ -27,7 +27,7 @@ public class HSMain {
             System.out.println("버거집에 오신 것을 환영합니다.");
             System.out.println("이용을 위해서는 로그인을 해야합니다. 회원이 아니라면 가입해주세요 :)");
 
-            System.out.println("메뉴를 선택 : ");
+            System.out.println("메뉴를 선택하세요.");
             System.out.print("[1]로그인 [2]회원가입 [3]프로그램 종료 [4]회원정보 조회 [5]ADMIN 로그인 [6]HQ 로그인 : ");
             int choice = sc.nextInt();
             switch (choice) {
