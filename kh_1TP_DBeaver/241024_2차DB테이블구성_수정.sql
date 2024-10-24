@@ -52,3 +52,19 @@ INSERT INTO INV_ORDER VALUES ('코카콜라', 2600, '음료', '콜라는 역시 
 INSERT INTO INV_ORDER VALUES ('아메리카노', 3300, '음료', '얼죽아 아시죠?');
 INSERT INTO INV_ORDER VALUES ('바닐라쉐이크', 3500, '음료', '감튀 디핑소스');
 
+-- STORE 데이터 생성 쿼리
+INSERT INTO STORE (store_id, sales, capital)
+	VALUES ('구로점', 0, 3000000);
+INSERT INTO STORE (store_id, sales, capital)
+	VALUES ('화곡점', 0, 3000000);
+INSERT INTO STORE (store_id, sales, capital)
+	VALUES ('시청점', 0, 3000000);
+
+-- ACC_INFO 데이터 생성 쿼리
+INSERT INTO ACC_INFO (USER_ID, USER_PW, USER_NAME, USER_PHONE, AUTH_LV, STORE_ID)
+	VALUES('RED', 'red12345', 'redMonkey', '010-1234-5678', 1, '구로점');
+INSERT INTO ACC_INFO (USER_ID, USER_PW, USER_NAME, USER_PHONE, AUTH_LV, STORE_ID)
+	VALUES('BLUE', 'blue12345', 'blueMonkey', '010-4567-8912', 1, '화곡점');
+INSERT INTO ACC_INFO (USER_ID, USER_PW, USER_NAME, USER_PHONE, AUTH_LV, STORE_ID)
+	VALUES('YELLOW', 'yellow12345', 'yellowMonkey', '010-7891-2345', 1, '시청점');
+
