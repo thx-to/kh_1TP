@@ -44,10 +44,11 @@ CREATE TABLE ORDER_RECORD(
 -- 버거, 사이드, 음료 카테고리 각 3개 제품 추가
 INSERT INTO INV_ORDER VALUES ('빅맥', 6300, '버거', '맥도날드의 간판 메뉴');
 INSERT INTO INV_ORDER VALUES ('슈비버거', 6600, '버거', '슈림프와 비프');
-INSERT INTO INV_ORDER VALUES ('치즈버거', 3600, '버거', '패티 위 슬라이스 치즈');
+INSERT INTO INV_ORDER VALUES ('치즈버거', 3600, '버거', '패티에 슬라이스 치즈');
 INSERT INTO INV_ORDER VALUES ('맥너겟', 3400, '사이드', '맥도날드의 치킨너겟');
 INSERT INTO INV_ORDER VALUES ('후렌치후라이', 2300, '사이드', '바싹 튀긴 감자튀김');
 INSERT INTO INV_ORDER VALUES ('치즈스틱', 3600, '사이드', '치즈가 쭈욱 늘어나요');
 INSERT INTO INV_ORDER VALUES ('코카콜라', 2600, '음료', '콜라는 역시 COKE');
 INSERT INTO INV_ORDER VALUES ('아메리카노', 3300, '음료', '얼죽아 아시죠?');
-INSERT INTO INV_ORDER VALUES ('바닐라쉐이크', 3500, '음료', '후렌치후라이 디핑소스');
+INSERT INTO INV_ORDER VALUES ('바닐라쉐이크', 3500, '음료', '감튀 디핑소스');
+

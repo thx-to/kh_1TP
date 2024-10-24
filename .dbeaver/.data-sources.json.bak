@@ -46,7 +46,7 @@
 		"oracle_thin-192b337786d-7a219d80af4a2d04": {
 			"provider": "oracle",
 			"driver": "oracle_thin",
-			"name": "localhost 2",
+			"name": "HAMBURGERSHOP",
 			"save-password": true,
 			"configuration": {
 				"host": "localhost",

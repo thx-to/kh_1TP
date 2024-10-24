@@ -8,20 +8,34 @@ public class Acc_InfoVO {
     private String userName;
     private String userPhone;// DB에서 char(13)라는 고정 값을 쓰므로 JDBC에선 유연성을 위해 문자열 처리
     private Date joinDate;
-    private final int authLv = 3; // 회원가입할 아이디는 소비자로 한정되므로 authLv을 3으로 final & 하드코딩 처리.
-    //세터에서도 제거, 생성자에서도 제거.
+    private int authLv;
     private String storeId;
 
-    public Acc_InfoVO(String userId, String userPw, String userName, String userPhone, Date joinDate, String storeId) {
+    public Acc_InfoVO(String userId, String userPw, String userName, String userPhone, Date joinDate, String storeId, int authLv) {
         this.userId = userId;
         this.userPw = userPw;
         this.userName = userName;
         this.userPhone = userPhone;
         this.joinDate = joinDate;
+        this.authLv = authLv;
         this.storeId = storeId;
     }
 
     public Acc_InfoVO() {
+    }
+
+    public Acc_InfoVO(String userId, String userName) {
+        this.userId = userId;
+        this.userName = userName;
+    }
+
+    public Acc_InfoVO(String userId, String userPw, String userName, String userPhone, Date joinDate, int authLv) {
+        this.userId = userId;
+        this.userPw = userPw;
+        this.userName = userName;
+        this.userPhone = userPhone;
+        this.joinDate = joinDate;
+        this.authLv = authLv;
     }
 
     public String getUserId() {
@@ -74,6 +88,10 @@ public class Acc_InfoVO {
 
     public void setJoinDate(Date joinDate) {
         this.joinDate = joinDate;
+    }
+
+    public void setAuthLv(int authLv) {
+        this.authLv = authLv;
     }
 
     public void setStoreId(String storeId) {
