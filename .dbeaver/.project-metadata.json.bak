@@ -1,1 +1,1 @@
-{"resources":{"241021_2차DB테이블구성.sql":{"default-schema":"SCOTT","default-datasource":"oracle_thin-192ae40acbf-59915b17a7653e94"}}}
+{"resources":{"Scripts/Script.sql":{"default-datasource":"oracle_thin-192b337786d-7a219d80af4a2d04","default-schema":"HAMBURGERSHOP"}}}
