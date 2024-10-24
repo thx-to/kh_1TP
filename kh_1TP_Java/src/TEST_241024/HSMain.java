@@ -37,7 +37,7 @@ public class HSMain {
                 case 1:
 
                     System.out.print("아이디 : ");
-                    String userId = sc.next();
+                    userId = sc.next();
                     System.out.print("비밀번호 : ");
                     String userPw = sc.next();
                     int authLevel = aiDAO.checkUserAuthLevel(userId, userPw);
@@ -118,10 +118,37 @@ public class HSMain {
         boolean isAdminLoggedIn = true;
         StoreDAO sDAO = new StoreDAO();
         Order_RecordDAO orDAO = new Order_RecordDAO();
+        boolean storeCapital = false;
 
         while (isAdminLoggedIn) {
             System.out.println("ADMIN 페이지");
-            System.out.print("[1]계좌 송금 [2]기능 [3]기능 [4]로그아웃 : ");
+            System.out.print("[1]발주 [2]재고확인 [3]매출현황 [4]매장계좌 [5]로그아웃 : ");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    System.out.println("발주");
+                    break;
+                case 2:
+                    System.out.println("재고확인");
+                    break;
+                case 3:
+                    sDAO.slSelectResult(sDAO.slSelect(sDAO.getSlStoreId(HSMain.userId)));
+                    break;
+                case 4:
+                    storeCapital = true;
+                    break;
+                case 5:
+                    System.out.println("로그아웃 합니다");
+                    isAdminLoggedIn = false;
+                    break;
+                default:
+                    System.out.println("메뉴를 잘못 선택하셨습니다.");
+            }
+            if (storeCapital) break;
+        }
+        while (storeCapital) {
+            System.out.println("매장 계좌 페이지");
+            System.out.print("[1]계좌 입금 [2]계좌 잔액 현황 [3]뒤로가기 : ");
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
@@ -130,19 +157,16 @@ public class HSMain {
                     else System.out.println("계좌에 송금이 실패했습니다.");
                     break;
                 case 2:
-                    System.out.println("ADMIN 기능 2");
+                    sDAO.cpSelectResult(sDAO.cpSelect(sDAO.getCpStoreId(userId)));
                     break;
                 case 3:
-                    System.out.println("ADMIN 기능 3");
-                    break;
-                case 4:
-                    System.out.println("로그아웃 합니다");
-                    isAdminLoggedIn = false;
+                    adminMenu();
                     break;
                 default:
                     System.out.println("메뉴를 잘못 선택하셨습니다.");
             }
         }
+
     }
 
     // HQ 접속 메뉴
