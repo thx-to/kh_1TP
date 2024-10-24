@@ -88,10 +88,11 @@ public class Inv_OrderDAO {
                 String menuName = rs.getString("MENU_NAME");
                 int price = rs.getInt("PRICE");
                 String category = rs.getString("CATEGORY");
+                String descr = rs.getString("DESCR");
 
                 // Inv_OrderVO 객체를 만들어서 생성자 불러오기
                 // 하나로 모아서 리스트에 담기
-                Inv_OrderVO vo = new Inv_OrderVO(menuName, price, category);
+                Inv_OrderVO vo = new Inv_OrderVO(menuName, price, category, descr);
                 list.add(vo);
             }
         } catch (Exception e) {
@@ -105,15 +106,16 @@ public class Inv_OrderDAO {
     }
 
     public void Inv_OrderSelectResult(List<Inv_OrderVO> list) {
-        System.out.println("------ 메뉴 정보 -------");
+        System.out.println("----------- 메뉴 정보 ------------");
 
         for (Inv_OrderVO e : list) {
             System.out.print(e.getMenuName() + " ");
             System.out.print(e.getPrice() + " ");
-            System.out.print(e.getCategory());
+            System.out.print(e.getCategory() + " ");
+            System.out.print(e.getDescr());
             System.out.println();
         }
-        System.out.println("-----------------------");
+        System.out.println("---------------------------------");
     }
 
 
@@ -127,8 +129,10 @@ public class Inv_OrderDAO {
         int price = sc.nextInt();
         System.out.print("카테고리(버거, 사이드, 음료) : ");
         String category = sc.next();
+        System.out.print("메뉴 설명 : ");
+        String descr = sc.next();
 
-        String sql = "INSERT INTO INV_ORDER(MENU_NAME, PRICE, CATEGORY) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO INV_ORDER(MENU_NAME, PRICE, CATEGORY, DESCR) VALUES (?, ?, ?, ?)";
 
         try {
             conn = Common.getConnection();
@@ -137,6 +141,7 @@ public class Inv_OrderDAO {
             pstmt.setString(1, menuName);
             pstmt.setInt(2, price);
             pstmt.setString(3, category);
+            pstmt.setString(4, descr);
 
             // INSERT 해당 함수
             pstmt.executeUpdate();
@@ -165,8 +170,10 @@ public class Inv_OrderDAO {
         int price = sc.nextInt();
         System.out.print("변경할 카테고리(버거, 사이드, 음료) : ");
         String category = sc.next();
+        System.out.print("변경할 설명 : ");
+        String descr = sc.next();
 
-        String sql = "UPDATE INV_ORDER SET PRICE = ?, CATEGORY = ? WHERE MENU_NAME = ?";
+        String sql = "UPDATE INV_ORDER SET PRICE = ?, CATEGORY = ?, DESCR = ? WHERE MENU_NAME = ?";
 
         try {
             conn = Common.getConnection();
@@ -174,7 +181,8 @@ public class Inv_OrderDAO {
 
             pstmt.setInt(1, price);
             pstmt.setString(2, category);
-            pstmt.setString(3, menuName);
+            pstmt.setString(3, descr);
+            pstmt.setString(4, menuName);
 
             // UPDATE 해당 함수
             pstmt.executeUpdate();

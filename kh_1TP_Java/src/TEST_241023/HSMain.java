@@ -1,11 +1,12 @@
 package TEST_241023;
 
-import TEST_241022.DAO.Inv_OrderDAO;
-import TEST_241023.VO.Inv_OrderVO;
+import TEST_241024.DAO.Inv_OrderDAO;
+import TEST_241024.VO.Inv_OrderVO;
 
 import java.util.List;
 import java.util.Scanner;
 
+/*
 public class HSMain {
     public static void main(String[] args) {
         menuSelect();
@@ -85,3 +86,5 @@ public class HSMain {
     }
 
 }
+
+ */
