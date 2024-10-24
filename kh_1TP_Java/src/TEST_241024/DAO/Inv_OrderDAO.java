@@ -1,7 +1,7 @@
-package TEST_241023.DAO;
+package TEST_241024.DAO;
 
-import TEST_241023.Common.Common;
-import TEST_241023.VO.Inv_OrderVO;
+import TEST_241024.Common.Common;
+import TEST_241024.VO.Inv_OrderVO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class Inv_OrderDAO {
 
+
     // 기본 인스턴스필드
     // Connection : 자바와 오라클 DB 연결 설정
     // PreparedStatement : SQL문 수행 객체
@@ -23,6 +24,47 @@ public class Inv_OrderDAO {
     ResultSet rs = null;
 
     Scanner sc = new Scanner(System.in);
+    boolean isSuccess = false;
+
+
+    // 메뉴 선택
+    public void runInv_Order() {
+
+        while (true) {
+
+            System.out.println("INV_ORDER TEST");
+            System.out.print("[1]메뉴조회 [2]메뉴추가 [3]메뉴수정 [4]메뉴삭제 [5]종료 : ");
+            int sel = sc.nextInt();
+
+            switch (sel) {
+                case 1 :
+                    List<Inv_OrderVO> list = Inv_OrderSelect();
+                    Inv_OrderSelectResult(list);
+                    break;
+                case 2 :
+                    isSuccess = Inv_OrderInsert();
+                    if (isSuccess) System.out.println("메뉴 등록 성공");
+                    else System.out.println("메뉴 등록 실패");
+                    break;
+                case 3 :
+                    isSuccess = Inv_OrderUpdate();
+                    if (isSuccess) System.out.println("메뉴 수정 성공");
+                    else System.out.println("메뉴 수정 실패");
+                    break;
+                case 4 :
+                    isSuccess = Inv_OrderDelete();
+                    if (isSuccess) System.out.println("메뉴 삭제 성공");
+                    else System.out.println("메뉴 삭제 실패");
+                    break;
+                case 5 :
+                    System.out.println("프로그램을 종료합니다.");
+                    return;
+
+            }
+
+        }
+
+    }
 
     // 메뉴 확인 (Select)
     // 로우데이터를 받아내기 위해 ArrayList 생성
@@ -63,9 +105,7 @@ public class Inv_OrderDAO {
     }
 
     public void Inv_OrderSelectResult(List<Inv_OrderVO> list) {
-        System.out.println("----- -----------------");
         System.out.println("------ 메뉴 정보 -------");
-        System.out.println("-----------------------");
 
         for (Inv_OrderVO e : list) {
             System.out.print(e.getMenuName() + " ");
@@ -78,17 +118,25 @@ public class Inv_OrderDAO {
 
 
     // 메뉴 추가 (Insert)
-    public boolean Inv_OrderInsert(Inv_OrderVO vo) {
+    public boolean Inv_OrderInsert() {
 
-        String sql = "INSERT INTO INV_ORDER(MENU_NAME, PRICE, CATEGORY VALUES (?, ?, ?)";
+        System.out.println("추가하실 메뉴 정보를 입력하세요.");
+        System.out.print("메뉴 이름 : ");
+        String menuName = sc.next();
+        System.out.print("메뉴 가격 : ");
+        int price = sc.nextInt();
+        System.out.print("카테고리(버거, 사이드, 음료) : ");
+        String category = sc.next();
+
+        String sql = "INSERT INTO INV_ORDER(MENU_NAME, PRICE, CATEGORY) VALUES (?, ?, ?)";
 
         try {
             conn = Common.getConnection();
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, vo.getMenuName());
-            pstmt.setInt(2, vo.getPrice());
-            pstmt.setString(3, vo.getCategory());
+            pstmt.setString(1, menuName);
+            pstmt.setInt(2, price);
+            pstmt.setString(3, category);
 
             // INSERT 해당 함수
             pstmt.executeUpdate();
@@ -108,16 +156,25 @@ public class Inv_OrderDAO {
     }
 
     // 메뉴 수정 (Update)
-    public boolean Inv_OrderUpdate(Inv_OrderVO vo) {
+    public boolean Inv_OrderUpdate() {
 
-        String sql = "UPDATE INV_ORDER SET PRICE = ?, CATEGORY = ?";
+        System.out.println("수정하실 메뉴 정보를 입력하세요, 이름은 수정할 수 없습니다.");
+        System.out.print("메뉴 이름 : ");
+        String menuName = sc.next();
+        System.out.print("변경할 가격 : ");
+        int price = sc.nextInt();
+        System.out.print("변경할 카테고리(버거, 사이드, 음료) : ");
+        String category = sc.next();
+
+        String sql = "UPDATE INV_ORDER SET PRICE = ?, CATEGORY = ? WHERE MENU_NAME = ?";
 
         try {
             conn = Common.getConnection();
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setInt(1, vo.getPrice());
-            pstmt.setString(2, vo.getCategory());
+            pstmt.setInt(1, price);
+            pstmt.setString(2, category);
+            pstmt.setString(3, menuName);
 
             // UPDATE 해당 함수
             pstmt.executeUpdate();
@@ -137,7 +194,11 @@ public class Inv_OrderDAO {
     }
 
     // 메뉴 삭제 (Delete)
-    public boolean Inv_OrderDelete(Inv_OrderVO vo) {
+    public boolean Inv_OrderDelete() {
+
+        System.out.println("삭제하실 메뉴 정보를 입력하세요.");
+        System.out.print("삭제할 메뉴 이름 : ");
+        String menuName = sc.next();
 
         String sql = "DELETE FROM INV_ORDER WHERE MENU_NAME = ?";
 
@@ -145,7 +206,7 @@ public class Inv_OrderDAO {
             conn = Common.getConnection();
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, vo.getMenuName());
+            pstmt.setString(1, menuName);
 
             // DELETE 해당 함수
             pstmt.executeUpdate();

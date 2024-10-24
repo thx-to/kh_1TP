@@ -1,4 +1,4 @@
-package TEST_241023.VO;
+package TEST_241024.VO;
 
 public class InvVO {
     private String menuName;

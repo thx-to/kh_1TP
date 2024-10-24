@@ -1,4 +1,4 @@
-package TEST_241023.DAO;
+package TEST_241024.DAO;
 
 import TEST_241022.Common.Common;
 import TEST_241022.VO.InvVO;
