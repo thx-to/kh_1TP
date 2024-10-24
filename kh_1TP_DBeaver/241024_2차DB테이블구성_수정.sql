@@ -52,15 +52,17 @@ INSERT INTO INV_ORDER VALUES ('코카콜라', 2600, '음료', '콜라는 역시 
 INSERT INTO INV_ORDER VALUES ('아메리카노', 3300, '음료', '얼죽아 아시죠?');
 INSERT INTO INV_ORDER VALUES ('바닐라쉐이크', 3500, '음료', '감튀 디핑소스');
 
--- STORE 데이터 생성 쿼리
+-- STORE 데이터 생성 쿼리 (점주용 지점처리)
 INSERT INTO STORE (store_id, sales, capital)
 	VALUES ('구로점', 0, 3000000);
 INSERT INTO STORE (store_id, sales, capital)
 	VALUES ('화곡점', 0, 3000000);
 INSERT INTO STORE (store_id, sales, capital)
 	VALUES ('시청점', 0, 3000000);
+INSERT INTO STORE
+	VALUES ('역삼점', 100000, 3000000);
 
--- ACC_INFO 데이터 생성 쿼리
+-- ACC_INFO 데이터 생성 쿼리 (ADMIN)
 INSERT INTO ACC_INFO (USER_ID, USER_PW, USER_NAME, USER_PHONE, AUTH_LV, STORE_ID)
 	VALUES('RED', 'red12345', 'redMonkey', '010-1234-5678', 1, '구로점');
 INSERT INTO ACC_INFO (USER_ID, USER_PW, USER_NAME, USER_PHONE, AUTH_LV, STORE_ID)
@@ -68,3 +70,32 @@ INSERT INTO ACC_INFO (USER_ID, USER_PW, USER_NAME, USER_PHONE, AUTH_LV, STORE_ID
 INSERT INTO ACC_INFO (USER_ID, USER_PW, USER_NAME, USER_PHONE, AUTH_LV, STORE_ID)
 	VALUES('YELLOW', 'yellow12345', 'yellowMonkey', '010-7891-2345', 1, '시청점');
 
+-- STORE 데이터 생성 쿼리 (본사용 지점처리)
+INSERT INTO STORE (store_id, sales, capital)
+	VALUES ('본사', 0, 1000000000);
+
+-- ACC_INFO 데이터 생성 쿼리 (HQ)
+INSERT INTO ACC_INFO (USER_ID, USER_PW, USER_NAME, USER_PHONE, AUTH_LV, STORE_ID)
+	VALUES('HQ', 'headquarter12345', '본사', '010-9999-9999', 2, '본사');
+	
+INSERT INTO ACC_INFO (USER_ID, USER_PW, USER_NAME, USER_PHONE, AUTH_LV, STORE_ID)
+	VALUES('PINK', 'pink12345', 'pinkMonkey', '010-8888-8888', 1, '역삼점');
+
+
+
+UPDATE INV SET STOCK = 30 WHERE STORE_ID ='역삼점';
+
+-- INV 테이블 테스트 값
+
+INSERT INTO INV VALUES ('빅맥', '역삼점', 6300, 10, '맥도날드의 간판 메뉴');
+INSERT INTO INV VALUES ('슈비버거', '역삼점', 6600, 10, '슈림프와 비프');
+INSERT INTO INV VALUES ('치즈버거', '역삼점', 3600, 10, '패티에 슬라이스 치즈');
+INSERT INTO INV VALUES ('맥너겟', '역삼점', 3400, 10, '맥도날드의 치킨너겟');
+INSERT INTO INV VALUES ('후렌치후라이', '역삼점', 2300, 10, '바싹 튀긴 감자튀김');
+INSERT INTO INV VALUES ('치즈스틱', '역삼점', 3600, 10, '치즈가 쭈욱 늘어나요');
+INSERT INTO INV VALUES ('코카콜라', '역삼점', 2600, 10, '콜라는 역시 COKE');
+INSERT INTO INV VALUES ('아메리카노', '역삼점', 3300, 10, '얼죽아 아시죠?');
+INSERT INTO INV VALUES ('바닐라쉐이크', '역삼점', 3500, 10, '감튀 디핑소스');
+
+SELECT i.MENU_NAME, i.PRICE, o.DESCR, o.CATEGORY 
+FROM INV i JOIN INV_ORDER o ON i.MENU_NAME = o.MENU_NAME WHERE STORE_ID = '역삼점';
