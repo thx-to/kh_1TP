@@ -24,25 +24,24 @@ public class StoreDAO {
     }
 
     // 가상 계좌 충전
-    public boolean cpCharge(StoreVO vo) { // capital Charge
+    public boolean cpCharge(int i, String userId) { // capital Charge
         try {
-            conn = Common.getConnection(); // 오라클 DB연결
+            conn = TEST_241025_취합.Common.Common.getConnection(); // 오라클 DB연결
             String sql = "UPDATE STORE SET capital = capital + ? WHERE store_id = ?"; // 계좌 충전
             psmt = conn.prepareStatement(sql); // 동적인 데이터로 받을때 사용 (?)
-
-            psmt.setInt(1, vo.getCapital()); // capital 설정
-            psmt.setString(2, vo.getStoreId()); // store_id 설정
+            psmt.setInt(1, i); // capital 설정
+            psmt.setString(2, userId); // store_id 설정
 
             if (psmt.executeUpdate() == 0) { // UPDATE
                 throw new Exception();
             };
-            Common.close(psmt);
-            Common.close(conn);
+            TEST_241025_취합.Common.Common.close(psmt);
+            TEST_241025_취합.Common.Common.close(conn);
             return true;
         } catch (Exception e) {
-            System.out.print("계좌 입금 전송 실패");
-            Common.close(psmt);
-            Common.close(conn);
+            System.out.println("계좌 입금 전송 실패");
+            TEST_241025_취합.Common.Common.close(psmt);
+            TEST_241025_취합.Common.Common.close(conn);
             return false;
         }
     }
@@ -138,13 +137,10 @@ public class StoreDAO {
         return storeId;
     }
 
-    public static StoreVO cpChargeInput() {
+    public int cpChargeInput() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("계좌에 송금받을 지점 입력 : ");
-        String storeId = sc.next();
         System.out.print("계좌에 송금할 금액 입력 : ");
-        int capital = sc.nextInt();
-        return new StoreVO(storeId, capital);
+        return sc.nextInt();
     }
 
 

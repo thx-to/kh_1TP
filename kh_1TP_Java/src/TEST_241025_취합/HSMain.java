@@ -34,7 +34,7 @@ public class HSMain {
             System.out.println("버거집에 오신 것을 환영합니다.");
             System.out.println("이용을 위해서는 로그인을 해야합니다. 회원이 아니라면 가입해주세요 :)");
 
-            System.out.print("[1]로그인 [2]회원가입 [3]프로그램 종료 [4]회원정보 조회 [5]ADMIN 로그인 [6]HQ 로그인 : ");
+            System.out.print("[1]로그인 [2]회원가입 [3]프로그램 종료 [4]ADMIN 로그인 [5]HQ 로그인 : ");
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
@@ -46,6 +46,8 @@ public class HSMain {
                     if (user) {
                         System.out.println("로그인 성공!");
                         isLoggedIn = true;
+                        Session.loggedInUserId = userId; // Set the user ID in session
+                        Session.userRole = "customer"; // Set role for customer
                         break;
                     } else {
                         System.out.println("회원권한이 맞지 않는 경우에도 리다이렉트 됩니다.");
@@ -60,10 +62,6 @@ public class HSMain {
                     System.out.println("프로그램을 종료합니다");
                     return;
                 case 4:
-                    List<Acc_InfoVO> list = Acc_InfoDAO.Acc_InfoSelect();
-                    Acc_InfoDAO.accInfoSelectResult(list);
-                    break;
-                case 5:
                     System.out.print("아이디 : ");
                     adminId = sc.next();
                     System.out.print("비밀번호 : ");
@@ -74,7 +72,8 @@ public class HSMain {
                         Session.loggedInUserId = adminId;  // Save the admin ID to the session
                         Session.storeId = aiDAO.adminStore(adminId);
                         Session.isAdminLoggedIn = true;    // Set the admin login flag
-                        isAdminLoggedIn = true;            // Keep the flag in the local method as well (if needed)
+                        Session.userRole = "admin"; // Set role for admin
+//                        isAdminLoggedIn = true;            // Keep the flag in the local method as well (if needed)
                         break;
                     } else {
                         System.out.println("회원권한이 맞지 않는 경우에도 리다이렉트 됩니다.");
@@ -82,7 +81,7 @@ public class HSMain {
                         System.out.println("혹은, 아이디 또는 비밀번호를 확인해주세요.");
                         continue;
                     }
-                case 6:
+                case 5:
                     System.out.print("아이디 : ");
                     hqId = sc.next();
                     System.out.print("비밀번호 : ");
@@ -91,6 +90,7 @@ public class HSMain {
                     if (hq) {
                         System.out.println("HQ 로그인 성공!");
                         isHQLoggedIn = true;
+                        Session.userRole = "hq"; // Set role for HQ
                         break;
                     } else {
                         System.out.println("회원권한이 맞지 않는 경우에도 리다이렉트 됩니다.");
@@ -126,10 +126,11 @@ public class HSMain {
                     MyPageDAO.membUpdate(new Acc_InfoVO(), userId);
                     break;
                 case 5:
-                    MyPageDAO.membDelete(new Acc_InfoVO());
+                    MyPageDAO.membDelete(Session.loggedInUserId); // Use session to get user ID
                     System.out.println("회원탈퇴 처리 되었습니다");
-                    isLoggedIn = false;
-                    menuSelect();
+                    isLoggedIn = false; // Set login flag to false
+                    Session.clear(); // Clear session data
+                    menuSelect(); // Redirect to menu
                     break;
                 case 6:
                     System.out.println("로그아웃 합니다");
@@ -146,6 +147,7 @@ public class HSMain {
             int choice = sc.nextInt();
             switch(choice) {
                 case 1: // 발주
+                    invDAO.ownerOrder();
                     break;
                 case 2: // 재고확인
                     invDAO.invCheck(Session.storeId);
@@ -193,7 +195,7 @@ public class HSMain {
 
         while (isHQLoggedIn) { // 본사 로그인시
             System.out.println("HQ 로그인 페이지");
-            System.out.print("[1]메뉴조회 [2]메뉴추가 [3]메뉴수정 [4]메뉴삭제 [5]로그아웃 : ");
+            System.out.print("[1]메뉴조회 [2]메뉴추가 [3]메뉴수정 [4]메뉴삭제 [5]회원정보 조회 [6]로그아웃 : ");
             int choice = sc.nextInt();
             switch(choice) {
                 case 1:
@@ -216,6 +218,10 @@ public class HSMain {
                     else System.out.println("메뉴 삭제 실패");
                     break;
                 case 5:
+                    List<Acc_InfoVO> accList = Acc_InfoDAO.Acc_InfoSelect();
+                    Acc_InfoDAO.accInfoSelectResult(accList);
+                    break;
+                case 6:
                     System.out.println("로그아웃 합니다");
                     isHQLoggedIn = false;
                     break;
