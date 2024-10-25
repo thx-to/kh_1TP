@@ -18,22 +18,17 @@ public class Acc_InfoDAO {
     static Scanner sc = new Scanner(System.in);
 
     public int checkUserAuthLevel(String userId, String userPw) {
-
         int authLevel = 0;
-
         try {
             conn = Common.getConnection();
-
             String query = "SELECT AUTH_LV FROM ACC_INFO WHERE USER_ID = ? AND USER_PW = ?";
             psmt = conn.prepareStatement(query);
             psmt.setString(1, userId);
             psmt.setString(2, userPw);
             rs = psmt.executeQuery();
-
             if (rs.next()) {
                 authLevel = rs.getInt("AUTH_LV");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
