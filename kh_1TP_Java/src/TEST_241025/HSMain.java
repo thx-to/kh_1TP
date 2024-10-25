@@ -23,12 +23,16 @@ public class HSMain {
         Acc_InfoDAO aiDAO = new Acc_InfoDAO();
 
         boolean isLoggedIn = false;
+        boolean isAdminLoggedIn = false;
+        boolean isHQLoggedIn = false;
+        boolean storeCapital = false;
+
+        System.out.println("버거집에 오신 것을 환영합니다.");
+        System.out.println("이용을 위해서는 로그인을 해야합니다. 회원이 아니라면 가입해주세요 :)");
 
         while (true) {
-            System.out.println("버거집에 오신 것을 환영합니다.");
-            System.out.println("이용을 위해서는 로그인을 해야합니다. 회원이 아니라면 가입해주세요 :)");
 
-            System.out.println("메뉴를 선택하세요.");
+            System.out.println("== 메인 페이지 접속 ==");
             System.out.print("[1]로그인 [2]회원가입 [3]프로그램 종료 : ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -78,10 +82,12 @@ public class HSMain {
         Scanner sc = new Scanner(System.in);
         boolean isCustomerLoggedIn = true;
         InvDAO iDAO = new InvDAO();
+        boolean customerMyPage = false;
 
         while (isCustomerLoggedIn) {
-            System.out.println("CUSTOMER 페이지");
-            System.out.print("[1] 주문하기 [2]주문내역 확인 [2]회원정보 수정 [3]회원탈퇴 [4]종료하기 : ");
+            System.out.println("== CUSTOMER 페이지 접속 ==");
+            System.out.print("[1]주문하기 [2]마이페이지 [9]로그아웃 : ");
+
             int choice = sc.nextInt();
 
             switch (choice) {
@@ -89,16 +95,38 @@ public class HSMain {
                     iDAO.cusOrder();
                     break;
                 case 2:
+                    customerMyPage = true;
+                    break;
+                case 9:
+                    System.out.println("로그아웃 합니다");
+                    isCustomerLoggedIn = false;
+                    menuSelect();
+                    break;
+                default:
+                    System.out.println("메뉴를 잘못 선택하셨습니다.");
+            }
+            if (customerMyPage) break;
+        }
+
+        while (customerMyPage) {
+            System.out.println("== CUSTOMER 마이페이지 접속 ==");
+            System.out.print("[1]주문내역 확인 [2]회원정보 수정 [3]회원탈퇴 [4]뒤로가기 [9]로그아웃 : ");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:
                     List<Order_RecordVO> list = Order_RecordDAO.Order_RecordSelect();
                     Order_RecordDAO.Order_RecordSelectResult(list);
                     break;
-                case 3:
+                case 2:
                     MyPageDAO.membUpdate(new Acc_InfoVO(), HSMain.userId);
                     break;
-                case 4:
+                case 3:
                     MyPageDAO.membDelete(new Acc_InfoVO());
                     System.out.println("회원탈퇴 처리 되었습니다");
                     isCustomerLoggedIn = false;
+                    break;
+                case 4:
+                    customerMenu();
                     break;
                 case 5:
                     System.out.println("로그아웃 합니다");
@@ -108,6 +136,7 @@ public class HSMain {
                     System.out.println("메뉴를 잘못 선택하셨습니다.");
             }
         }
+
     }
 
     // ADMIN 접속 메뉴
@@ -121,7 +150,7 @@ public class HSMain {
         boolean storeCapital = false;
 
         while (isAdminLoggedIn) {
-            System.out.println("ADMIN 페이지");
+            System.out.println("== ADMIN 페이지 접속 ==");
             System.out.print("[1]발주 [2]재고확인 [3]매출현황 [4]매장계좌 [5]로그아웃 : ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -129,7 +158,7 @@ public class HSMain {
                     iDAO.ownerOrder();
                     break;
                 case 2:
-                    System.out.println("재고확인");
+                    iDAO.invCheck();
                     break;
                 case 3:
                     sDAO.slSelectResult(sDAO.slSelect(sDAO.getSlStoreId(HSMain.userId)));
@@ -140,6 +169,7 @@ public class HSMain {
                 case 5:
                     System.out.println("로그아웃 합니다");
                     isAdminLoggedIn = false;
+                    menuSelect();
                     break;
                 default:
                     System.out.println("메뉴를 잘못 선택하셨습니다.");
@@ -147,7 +177,7 @@ public class HSMain {
             if (storeCapital) break;
         }
         while (storeCapital) {
-            System.out.println("매장 계좌 페이지");
+            System.out.println("== ADMIN 매장 계좌 페이지 접속 ==");
             System.out.print("[1]계좌 입금 [2]계좌 잔액 현황 [3]뒤로가기 : ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -176,7 +206,7 @@ public class HSMain {
         boolean isHQLoggedIn = true;
 
         while (isHQLoggedIn) {
-            System.out.println("HQ 페이지");
+            System.out.println("== HQ 페이지 접속 ==");
             System.out.print("[1]메뉴조회 [2]메뉴추가 [3]메뉴수정 [4]메뉴삭제 [5]로그아웃 : ");
             int choice = sc.nextInt();
             switch(choice) {
@@ -202,6 +232,7 @@ public class HSMain {
                 case 5:
                     System.out.println("로그아웃 합니다");
                     isHQLoggedIn = false;
+                    menuSelect();
                     break;
                 default:
                     System.out.println("메뉴를 잘못 선택하셨습니다.");

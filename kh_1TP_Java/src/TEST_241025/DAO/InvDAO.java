@@ -3,6 +3,7 @@ package TEST_241025.DAO;
 import TEST_241025.Common.Common;
 import TEST_241025.Customer.SetMenu;
 import TEST_241025.Customer.SingleMenu;
+import TEST_241025.HSMain;
 import TEST_241025.VO.InvVO;
 
 import java.sql.*;
@@ -11,10 +12,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class InvDAO {
-    Connection conn = null;
-    Statement stmt = null;
+    static Connection conn = null;
+    static Statement stmt = null;
     PreparedStatement psmt = null;
-    ResultSet rs = null;
+    static ResultSet rs = null;
     Scanner sc = new Scanner(System.in);
     String storeId;
 
@@ -52,6 +53,7 @@ public class InvDAO {
         this.storeId = lst.get(storeIdx);
     }
 
+    // 고객 주문
     public void cusOrder() {
         List<InvVO> set = new ArrayList<>();
         List<InvVO> burger = new ArrayList<>();
@@ -60,6 +62,8 @@ public class InvDAO {
 
         String query = "SELECT i.MENU_NAME, i.PRICE, o.DESCR, o.CATEGORY FROM INV i JOIN INV_ORDER o " +
                 "ON i.MENU_NAME = o.MENU_NAME WHERE STORE_ID = ?";
+
+        boolean isCustomerLoggedIn = true;
 
         try {
             conn = Common.getConnection();
@@ -88,15 +92,16 @@ public class InvDAO {
         }
 
 
-        while (true) {
+        while (isCustomerLoggedIn) {
             int i = 1;
-            System.out.print("주문할 메뉴의 분류를 선택 해 주세요 [1]세트, [2]단품, [3]사이드, [4]음료 [9] 주문종료 : ");
+            System.out.println("== CUSTOMER 주문 페이지 접속 ==");
+            System.out.print("[1]세트 [2]단품 [3]사이드 [4]음료 [5]뒤로가기 [6]로그아웃 : ");
             int cat = sc.nextInt();
             sc.nextLine();
 
             switch (cat) {
                 case 1:
-                    System.out.printf("%20s", "세트 메뉴 목록 \n");
+                    System.out.println("== 세트 메뉴 목록 ==");
                     for (InvVO e : set) {
                         System.out.printf("[%d] %s 세트, %s의 세트메뉴, %d원 부터\n", i++, e.getMenuName(), e.getMenuName(), e.getPrice()); // 가격 설정 필요(버거가격+감튀+콜라가 기본가격)
                     }
@@ -134,11 +139,16 @@ public class InvDAO {
                 case 4:
                     menuSelect(drink, "음료");
                     break;
-                case 9:
-                    System.out.println("메뉴 주문을 종료합니다.");
-                    return;
+                case 5:
+                    HSMain.customerMenu();
+                    break;
+                case 6:
+                    System.out.println("로그아웃 합니다");
+                    isCustomerLoggedIn = false;
+                    HSMain.menuSelect();
+                    break;
                 default:
-                    System.out.println("메뉴 분류를 다시 선택 해 주세요.");
+                    System.out.println("메뉴를 잘못 선택하셨습니다.");
             }
 
 
@@ -163,7 +173,7 @@ public class InvDAO {
             }
 
             System.out.println("=".repeat(20));
-            System.out.print("[1]메뉴 수량 변경, [2]전체 취소, [3] 결제 [4] 이전화면: ");
+            System.out.print("[1]메뉴 수량 변경, [2]전체 취소, [3]결제 [4]이전화면 : ");
             int sel = sc.nextInt();
             sc.nextLine();
 
@@ -297,6 +307,8 @@ public class InvDAO {
         List<InvVO> side = new ArrayList<>();
         List<InvVO> drink = new ArrayList<>();
 
+        boolean isAdminLoggedIn = true;
+
         String sqlOrder = "UPDATE INV SET STOCK = STOCK + ? WHERE MENU_NAME = ? AND STORE_ID = ?";
         String sqlCapital = "UPDATE STORE SET CAPITAL = CAPITAL - ? WHERE STORE_ID = ?";
 
@@ -314,8 +326,9 @@ public class InvDAO {
             }
         }
 
-        while (true) {
-            System.out.print("발주를 넣을 메뉴의 분류 선택 [1] 버거, [2] 사이드, [3] 음료, [9] 종료 : ");
+        while (isAdminLoggedIn) {
+            System.out.println("== ADMIN 발주 페이지 접속 ==");
+            System.out.print("[1]버거 [2]사이드 [3]음료 [4] 뒤로가기 [5]로그아웃 : ");
             int sel = sc.nextInt();
             sc.nextLine();
 
@@ -330,20 +343,23 @@ public class InvDAO {
                 case 3:
                     selectedCategory = drink;
                     break;
-                case 9:
+                case 4:
+                    HSMain.adminMenu();
                     return;
                 default:
-                    System.out.println("잘못된 선택입니다. 다시 선택하세요.");
+                    System.out.println("로그아웃 합니다");
+                    isAdminLoggedIn = false;
+                    HSMain.menuSelect();
                     continue;
             }
 
             if (selectedCategory != null && !selectedCategory.isEmpty()) {
                 displayMenu(selectedCategory);
 
-                System.out.print("발주할 메뉴를 선택하세요. : ");
+                System.out.print("발주 메뉴 선택 : ");
                 int idx = sc.nextInt() - 1;
                 sc.nextLine();
-                System.out.print("메뉴의 수량을 입력하세요 : ");
+                System.out.print("수량 : ");
                 int cnt = sc.nextInt();
                 sc.nextLine();
 
@@ -449,6 +465,8 @@ public class InvDAO {
         String sql = "SELECT i.MENU_NAME, i.STOCK, o.CATEGORY FROM INV i JOIN INV_ORDER o " +
                 "ON i.MENU_NAME = o.MENU_NAME WHERE STORE_ID = ?";
 
+        boolean isAdminLoggedIn = true;
+
 
         try {
             conn = Common.getConnection();
@@ -467,14 +485,14 @@ public class InvDAO {
             System.out.println(e.getMessage());
         }
 
-        while (true) {
-            System.out.print("재고를 확인할 메뉴의 분류 선택 [1]버거, [2]사이드, [3]음료 [9]뒤로가기 : ");
+        while (isAdminLoggedIn) {
+            System.out.println("== ADMIN 재고확인 페이지 접속 ==");
+            System.out.print("[1]버거 [2]사이드 [3]음료 [4]뒤로가기 [5]로그아웃 : ");
             int sel = sc.nextInt();
             sc.nextLine();
             switch (sel) {
                 case 1:
                     for (InvVO e : vo) {
-
                         if (e.getCategory().equals("버거")) {
                             System.out.println(e.getMenuName() + " : " + e.getStock() + "개");
                         }
@@ -494,7 +512,13 @@ public class InvDAO {
                         }
                     }
                     break;
-                case 9:
+                case 4:
+                    HSMain.adminMenu();
+                    break;
+                case 5:
+                    System.out.println("로그아웃 합니다");
+                    isAdminLoggedIn = false;
+                    HSMain.menuSelect();
                     return;
             }
         }

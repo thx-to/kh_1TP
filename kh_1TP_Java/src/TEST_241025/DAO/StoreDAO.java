@@ -151,7 +151,7 @@ public class StoreDAO {
     public List<StoreVO> cpSelectResult(List<StoreVO> list ) {
         System.out.println("-------------------------------------------------");
         for (StoreVO e : list) {
-            System.out.print(e.getStoreId() + "계좌 잔액 현황 : " + e.getCapital() + "원");
+            System.out.print("버거집 " + e.getStoreId() + " 계좌 잔액 현황 : " + e.getCapital() + "원");
             System.out.println();
         }
         System.out.println("-------------------------------------------------");
