@@ -58,6 +58,7 @@ public class HSMain {
                         Session.userRole = "customer"; // Set role for customer
                         customerMenu();
                     } else if (authLevel == 1) {
+                        adminId = userId;
                         System.out.println("ADMIN 로그인 성공!");
                         isLoggedIn = true;
                         isAdminLoggedIn = true;
@@ -67,9 +68,11 @@ public class HSMain {
                         Session.userRole = "admin"; // Set role for admin
                         adminMenu();
                     } else if (authLevel == 2) {
+                        hqId = userId;
                         System.out.println("HQ 로그인 성공!");
                         isLoggedIn = true;
                         isHQLoggedIn = true;
+                        Session.loggedInUserId = hqId; // Set the user ID in session
                         Session.userRole = "hq"; // Set role for HQ
                         hqMenu();
                     } else {
@@ -83,8 +86,8 @@ public class HSMain {
 
                 case 3:
                     System.out.println("프로그램을 종료합니다");
-                    return;
-
+                    System.exit(0);
+                    break;
                 default:
                     System.out.println("메뉴를 잘못 선택하셨습니다.");
                 }
@@ -175,7 +178,7 @@ public class HSMain {
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
-                    iDAO.ownerOrder();
+                    iDAO.ownerOrder(Session.storeId);
                     break;
                 case 2:
                     iDAO.invCheck(Session.storeId);
@@ -204,12 +207,14 @@ public class HSMain {
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
-                    boolean isSuccess = sDAO.cpCharge(sDAO.cpChargeInput(), sDAO.getCpStoreId(adminId));
-                    if (isSuccess) System.out.println("계좌에 금액이 송금되었습니다..");
-                    else System.out.println("계좌에 송금이 실패했습니다.");
+                    boolean isSuccess = sDAO.cpCharge(sDAO.cpChargeInput(), sDAO.getCpCStoreId(adminId));
+                    if (isSuccess)
+                        System.out.println("계좌에 금액이 송금되었습니다..");
+                    else
+                        System.out.println("계좌에 송금이 실패했습니다.");
                     break;
                 case 2:
-                    sDAO.cpSelectResult(sDAO.cpSelect(sDAO.getCpStoreId(adminId)));
+                    sDAO.cpSelectResult(sDAO.cpSelect(sDAO.getCpSStoreId(adminId)));
                     break;
                 case 3:
                     storeCapital = false;

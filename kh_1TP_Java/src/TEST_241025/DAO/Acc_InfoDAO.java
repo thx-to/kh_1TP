@@ -74,7 +74,7 @@ public class Acc_InfoDAO {
         String id = "";
 
         try {
-            conn = TEST_241025_취합.Common.Common.getConnection();
+            conn = Common.getConnection();
             psmt = conn.prepareStatement(sql);
             psmt.setString(1, userId);
             rs = psmt.executeQuery();
