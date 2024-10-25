@@ -3,6 +3,7 @@ package TEST_241025.DAO;
 import TEST_241025.Common.Common;
 import TEST_241025.Customer.SetMenu;
 import TEST_241025.Customer.SingleMenu;
+import TEST_241025.HSMain;
 import TEST_241025.VO.InvVO;
 
 
@@ -41,12 +42,11 @@ public class InvDAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-        System.out.printf("%20s", "점포 목록\n");
+        System.out.println("==== CUSTOMER ORDER / SELECT STORE ====");
         for (String e : lst) {
-            System.out.printf("[%d] %s \n", i++, e);
+            System.out.printf("[%d]%s \n", i++, e);
         }
-        System.out.println("주문 지점을 선택 해 주세요 : ");
+        System.out.print("주문 지점 : ");
         storeIdx = sc.nextInt() - 1;
 
         this.storeId = lst.get(storeIdx);
@@ -90,32 +90,36 @@ public class InvDAO {
 
         while (true) {
             int i = 1;
-            System.out.print("주문할 메뉴의 분류를 선택 해 주세요 [1]세트, [2]단품, [3]사이드, [4]음료 [9] 주문종료");
+            System.out.println("==== CUSTOMER ORDER / SELECT CATEGORY ====");
+            System.out.print("[1]세트 [2]단품 [3]사이드 [4]음료 [9]주문종료 : ");
             int cat = sc.nextInt();
             sc.nextLine();
 
             switch (cat) {
                 case 1:
-                    System.out.printf("%20s", "세트 메뉴 목록 \n");
+                    System.out.println("==== CUSTOMER ORDER / SET MENU ====");
                     for (InvVO e : set) {
-                        System.out.printf("[%d] %s 세트, %s의 세트메뉴, %d원 부터\n", i++, e.getMenuName(), e.getMenuName(), e.getPrice()); // 가격 설정 필요(버거가격+감튀+콜라가 기본가격)
+                        System.out.printf("[%d]%s 세트, %s의 세트메뉴, %d원 부터\n", i++, e.getMenuName(), e.getMenuName(), e.getPrice()); // 가격 설정 필요(버거가격+감튀+콜라가 기본가격)
                     }
-                    System.out.print("메뉴를 선택 해 주세요 : ");
+                    System.out.print("주문 메뉴 : ");
                     int b = sc.nextInt() - 1;
                     sc.nextLine();
+                    System.out.println("==== CUSTOMER ORDER / SET / SIDE ====");
                     i = 1;
-                    System.out.print("사이드 선택 : ");
                     for (InvVO e : side) {
-                        System.out.printf("[%d] %s, %s \n", i++, e.getMenuName(), e.getDescr());
+                        System.out.printf("[%d]%s, %s \n", i++, e.getMenuName(), e.getDescr());
                     }
+                    System.out.print("사이드 선택 : ");
                     int s = sc.nextInt() - 1;
+                    System.out.println("==== CUSTOMER ORDER / SET / DRINK ====");
                     i = 1;
-                    System.out.print("음료 선택 : ");
                     for (InvVO e : drink) {
-                        System.out.printf("[%d] %s, %s \n", i++, e.getMenuName(), e.getDescr());
+                        System.out.printf("[%d]%s, %s \n", i++, e.getMenuName(), e.getDescr());
                     }
+                    System.out.print("음료 선택 : ");
                     int d = sc.nextInt() - 1;
-                    System.out.print("수량 선택 : ");
+                    System.out.println("==== CUSTOMER ORDER / SET / AMOUNT ====");
+                    System.out.print("주문 수량 : ");
                     int cnt = sc.nextInt();
                     sc.nextLine();
                     setCart.add(new SetMenu(
@@ -124,6 +128,7 @@ public class InvDAO {
                             new SingleMenu(drink.get(d).getMenuName(), drink.get(d).getPrice()),
                             cnt
                     ));
+                    System.out.println("선택하신 제품이 장바구니에 담겼습니다.");
                     break;
                 case 2:
                     menuSelect(burger, "버거");
@@ -138,7 +143,7 @@ public class InvDAO {
                     System.out.println("메뉴 주문을 종료합니다.");
                     return;
                 default:
-                    System.out.println("메뉴 분류를 다시 선택 해 주세요.");
+                    System.out.println("메뉴를 잘못 선택하셨습니다.");
             }
 
 
@@ -152,18 +157,19 @@ public class InvDAO {
         int change;
 
         while (true) {
+            System.out.println("==== CUSTOMER CART ====");
             int i = 1;
             for (SingleMenu e : singleCart) {
-                System.out.printf("[%d] %s, %d개, %d원\n", i++, e.getName(), e.getCount(), e.getPrice() * e.getCount());
+                System.out.printf("[%d]%s, %d개, %d원\n", i++, e.getName(), e.getCount(), e.getPrice() * e.getCount());
             }
             for (SetMenu e : setCart) {
-                System.out.printf("[%d] %s 세트, %d개, %d원\n", i++, e.getBurger().getName(), e.getCount(), e.getPrice() * e.getCount());
+                System.out.printf("[%d]%s 세트, %d개, %d원\n", i++, e.getBurger().getName(), e.getCount(), e.getPrice() * e.getCount());
                 System.out.printf("     ㄴ 사이드 : %s\n", e.getSide().getName());
                 System.out.printf("     ㄴ 음료 : %s\n", e.getDrink().getName());
             }
 
-            System.out.println("=".repeat(20));
-            System.out.print("[1]메뉴 수량 변경, [2]전체 취소, [3] 결제 [4] 이전화면: ");
+            System.out.println("==== CUSTOMER ORDER / CART ====");
+            System.out.print("[1]수량 변경 [2]전체 취소 [3]결제 [4]뒤로가기 : ");
             int sel = sc.nextInt();
             sc.nextLine();
 
@@ -201,7 +207,7 @@ public class InvDAO {
                         break;
                     }
                 case 2:
-                    System.out.print("정말로 전체 취소 하시겠습니까?(y/n) : ");
+                    System.out.print("정말로 전체 취소 하시겠습니까? (y/n) : ");
                     String yn = sc.nextLine();
                     if (yn.equalsIgnoreCase("y")) {
                         System.out.println("장바구니를 비웁니다.");
@@ -220,7 +226,9 @@ public class InvDAO {
                     for (SetMenu e : setCart) {
                         totalPrice += e.getPrice();
                     }
+                    System.out.println("==== CUSTOMER ORDER / PAYMENT INFO ====");
                     System.out.printf("총 가격 : %d원", totalPrice);
+                    System.out.println();
                     paymentUpdate();
 
                     // totalPrice 매출액으로 쏴주기
@@ -230,7 +238,7 @@ public class InvDAO {
                     setCart.clear();
                     return;
                 case 4:
-                    System.out.println("이전 화면으로 돌아갑니다.");
+                    HSMain.customerMenu();
                     return;
             }
         }
@@ -261,13 +269,13 @@ public class InvDAO {
                 psmt.setString(3, e.getBurger().getName());
                 psmt.setString(4, e.getSide().getName());
                 psmt.setString(5, e.getDrink().getName());
-                System.out.printf("%s, %s, %s : %d개씩 감소\n", e.getBurger().getName(), e.getSide().getName(), e.getDrink().getName(), e.getCount());
+                System.out.printf("(디버깅) %s, %s, %s : %d개씩 감소\n", e.getBurger().getName(), e.getSide().getName(), e.getDrink().getName(), e.getCount());
                 tuple += psmt.executeUpdate();
             }
         } catch (Exception e) {
             System.out.println("Error in paymentUpdate : " + e.getMessage());
         }
-        System.out.println(tuple+"번의 액세스");
+        System.out.println("(디버깅)" + tuple + "번의 액세스");
     }
 
     public String orderToString(List<SetMenu> set, List<SingleMenu> single) {
@@ -291,15 +299,16 @@ public class InvDAO {
 
 
     public void menuSelect(List<InvVO> menu, String cat) {
-        System.out.printf("%20s\n", cat + " 목록");
+        System.out.println("==== CUSTOMER ORDER / " + cat + " MENU ====");
         int i = 1;
         for (InvVO e : menu) {
-            System.out.printf("[%d] %s , %s, %d\n", i++, e.getMenuName(), e.getDescr(), e.getPrice());
+            System.out.printf("[%d]%s , %s, %d\n", i++, e.getMenuName(), e.getDescr(), e.getPrice());
         }
-        System.out.print("메뉴를 선택 해 주세요 : ");
+        System.out.print("주문 메뉴 : ");
         int select = sc.nextInt() - 1;
         sc.nextLine();
-        System.out.print("수량을 선택 해 주세요 : ");
+        System.out.println("==== CUSTOMER ORDER / SINGLE / AMOUNT ====");
+        System.out.print("주문 수량 : ");
         int count = sc.nextInt();
         sc.nextLine();
 
@@ -309,11 +318,13 @@ public class InvDAO {
             for (SingleMenu e : singleCart) {
                 if (e.getName().equals(menu.get(select).getMenuName())) {
                     e.increaseCount(count); // 수량 증가
+                    System.out.println("선택하신 제품이 장바구니에 담겼습니다.");
                     break;
                 }
             }
         } else {
             singleCart.add(new SingleMenu(menu.get(select).getMenuName(), menu.get(select).getPrice(), count));
+            System.out.println("선택하신 제품이 장바구니에 담겼습니다.");
         }
     }
 
@@ -344,35 +355,45 @@ public class InvDAO {
         }
 
         while (true) {
-            System.out.println("발주를 넣을 메뉴의 분류 선택 [1] 버거, [2] 사이드, [3] 음료, [9] 종료");
+
+            System.out.println("==== ADMIN ORDER / SELECT CATEGORY ====");
+            System.out.print("[1]버거 [2]사이드 [3]음료 [4]뒤로가기 [9]주문종료 : ");
             int sel = sc.nextInt();
             sc.nextLine();
 
             List<InvVO> selectedCategory = null;
             switch (sel) {
                 case 1:
+                    System.out.println("==== ADMIN ORDER / BUGER ====");
                     selectedCategory = burger;
                     break;
                 case 2:
+                    System.out.println("==== ADMIN ORDER / SIDE ====");
                     selectedCategory = side;
                     break;
                 case 3:
+                    System.out.println("==== ADMIN ORDER / DRINK ====");
                     selectedCategory = drink;
+                    break;
+                case 4:
+                    HSMain.adminMenu();
                     break;
                 case 9:
                     return;
                 default:
-                    System.out.println("잘못된 선택입니다. 다시 선택하세요.");
+                    System.out.println("메뉴를 잘못 선택하셨습니다.");
                     continue;
             }
 
             if (selectedCategory != null && !selectedCategory.isEmpty()) {
                 displayMenu(selectedCategory);
 
-                System.out.print("발주할 메뉴를 선택하세요. : ");
+                System.out.println("==== ADMIN ORDER / MENU  ====");
+                System.out.print("발주 메뉴 : ");
                 int idx = sc.nextInt() - 1;
                 sc.nextLine();
-                System.out.print("메뉴의 수량을 입력하세요 : ");
+                System.out.println("==== ADMIN ORDER / AMOUNT  ====");
+                System.out.print("발주 수량 : ");
                 int cnt = sc.nextInt();
                 sc.nextLine();
 
@@ -398,7 +419,7 @@ public class InvDAO {
                         }
                     }
                 } else {
-                    System.out.println("가용액이 부족합니다.");
+                    System.out.println("자본금이 부족합니다.");
                 }
             } else {
                 System.out.println("선택한 카테고리에 메뉴가 없습니다.");
@@ -409,7 +430,7 @@ public class InvDAO {
     private void displayMenu(List<InvVO> items) {
         int i = 1;
         for (InvVO e : items) {
-            System.out.printf("[%d] %s %d원\n", i++, e.getMenuName(), e.getPrice());
+            System.out.printf("[%d]%s %d원\n", i++, e.getMenuName(), e.getPrice());
         }
     }
 
@@ -512,7 +533,9 @@ public class InvDAO {
 
         // Menu selection logic remains the same
         while (true) {
-            System.out.print("재고를 확인할 메뉴의 분류 선택 [1]버거, [2]사이드, [3]음료 [9]뒤로가기 : ");
+
+            System.out.println("==== ADMIN STOCK CHECK / SELECT CATEGORY ====");
+            System.out.print("[1]버거 [2]사이드 [3]음료 [4]뒤로가기 [9]종료 : ");
             int sel = sc.nextInt();
             sc.nextLine();
             switch (sel) {
@@ -536,6 +559,8 @@ public class InvDAO {
                             System.out.println(e.getMenuName() + " : " + e.getStock() + "개");
                         }
                     }
+                case 4:
+                    HSMain.adminMenu();
                     break;
                 case 9:
                     return;

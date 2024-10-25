@@ -38,7 +38,7 @@ public class HSMain {
 
         while (true) {
 
-            System.out.println("== 메인 페이지 접속 ==");
+            System.out.println("==== ★ MAIN PAGE ★ ====");
             System.out.print("[1]로그인 [2]회원가입 [3]프로그램 종료 : ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -54,16 +54,23 @@ public class HSMain {
                         System.out.println("CUSTOMER 로그인 성공!");
                         isLoggedIn = true;
                         isCustomerLoggedIn = true;
+                        Session.loggedInUserId = userId; // Set the user ID in session
+                        Session.userRole = "customer"; // Set role for customer
                         customerMenu();
                     } else if (authLevel == 1) {
                         System.out.println("ADMIN 로그인 성공!");
                         isLoggedIn = true;
                         isAdminLoggedIn = true;
+                        Session.loggedInUserId = adminId;  // Save the admin ID to the session
+                        Session.storeId = aiDAO.adminStore(adminId);
+                        Session.isAdminLoggedIn = true;    // Set the admin login flag
+                        Session.userRole = "admin"; // Set role for admin
                         adminMenu();
                     } else if (authLevel == 2) {
                         System.out.println("HQ 로그인 성공!");
                         isLoggedIn = true;
                         isHQLoggedIn = true;
+                        Session.userRole = "hq"; // Set role for HQ
                         hqMenu();
                     } else {
                         System.out.println("아이디 또는 비밀번호를 확인해주세요.");
@@ -94,7 +101,7 @@ public class HSMain {
         boolean customerMyPage = false;
 
         while (isCustomerLoggedIn) {
-            System.out.println("==== CUSTOMER 페이지 접속 ====");
+            System.out.println("==== CUSTOMER MAIN PAGE ====");
             System.out.print("[1]주문하기 [2]주문내역 확인 [3]장바구니 [4]마이페이지 [9]로그아웃 : ");
 
             int choice = sc.nextInt();
@@ -126,7 +133,7 @@ public class HSMain {
         }
 
         while (customerMyPage) {
-            System.out.println("==== CUSTOMER 마이페이지 접속 ====");
+            System.out.println("==== CUSTOMER MYPAGE ====");
             System.out.print("[1]회원정보 수정 [2]회원탈퇴 [3]뒤로가기 [9]로그아웃 : ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -163,7 +170,7 @@ public class HSMain {
         boolean storeCapital = false;
 
         while (isAdminLoggedIn) {
-            System.out.println("==== ADMIN 페이지 접속 ====");
+            System.out.println("==== ADMIN MAIN PAGE ====");
             System.out.print("[1]발주 [2]재고확인 [3]매출현황 [4]매장계좌 [5]로그아웃 : ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -192,7 +199,7 @@ public class HSMain {
             if (storeCapital) break;
         }
         while (storeCapital) {
-            System.out.println("==== ADMIN 매장 계좌 페이지 접속 ====");
+            System.out.println("==== ADMIN ACCOUNT PAGE ====");
             System.out.print("[1]계좌 입금 [2]계좌 잔액 현황 [3]뒤로가기 : ");
             int choice = sc.nextInt();
             switch (choice) {
@@ -222,7 +229,7 @@ public class HSMain {
         boolean isHQLoggedIn = true;
 
         while (isHQLoggedIn) {
-            System.out.println("==== HQ 페이지 접속 ====");
+            System.out.println("==== HQ MAIN PAGE ====");
             System.out.print("[1]메뉴조회 [2]메뉴추가 [3]메뉴수정 [4]메뉴삭제 [5]로그아웃 : ");
             int choice = sc.nextInt();
             switch(choice) {
