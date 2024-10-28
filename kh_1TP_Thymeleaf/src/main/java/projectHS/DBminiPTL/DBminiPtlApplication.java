@@ -17,14 +17,14 @@ import static projectHS.DBminiPTL.DAO.Order_RecordDAO.userOrderList;
 @SpringBootApplication
 public class DBminiPtlApplication {
 
+
+	private static String userId = ""; // 유저 id
+	private static String adminId = "";
+	private static String hqId = "";
+
 	public static void main(String[] args) {
 
 		SpringApplication.run(DBminiPtlApplication.class, args);
-
-		private static String userId = ""; // 유저 id
-		private static String adminId = "";
-		private static String hqId = "";
-
 		menuSelect();
 
 	}
