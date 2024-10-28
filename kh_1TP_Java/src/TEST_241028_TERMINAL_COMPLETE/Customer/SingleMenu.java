@@ -1,4 +1,4 @@
-package TEST_241025_취합.Customer;
+package TEST_241028_TERMINAL_COMPLETE.Customer;
 
 public class SingleMenu {
     String name;

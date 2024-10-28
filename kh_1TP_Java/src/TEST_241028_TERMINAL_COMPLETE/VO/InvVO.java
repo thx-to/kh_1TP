@@ -1,6 +1,4 @@
-package TEST_241025_취합.VO;
-
-import java.util.Objects;
+package TEST_241028_TERMINAL_COMPLETE.VO;
 
 public class InvVO {
     private String menuName;

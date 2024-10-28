@@ -1,4 +1,4 @@
-package TEST_241025_취합.VO;
+package TEST_241028_TERMINAL_COMPLETE.VO;
 
 import java.sql.Date;
 

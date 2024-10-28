@@ -1,4 +1,4 @@
-package TEST_241025_취합.Common;
+package TEST_241028_TERMINAL_COMPLETE.Common;
 
 public class Session {
     public static String loggedInUserId = null; // For normal customers

@@ -84,6 +84,7 @@ INSERT INTO ACC_INFO (USER_ID, USER_PW, USER_NAME, USER_PHONE, AUTH_LV, STORE_ID
 
 
 UPDATE INV SET STOCK = 30 WHERE STORE_ID ='역삼점';
+UPDATE INV SET STOCK = 30 WHERE STORE_ID ='화곡점';
 
 -- INV 테이블 테스트 값
 
@@ -99,3 +100,44 @@ INSERT INTO INV VALUES ('바닐라쉐이크', '역삼점', 3500, 10, '감튀 디
 
 SELECT i.MENU_NAME, i.PRICE, o.DESCR, o.CATEGORY 
 FROM INV i JOIN INV_ORDER o ON i.MENU_NAME = o.MENU_NAME WHERE STORE_ID = '역삼점';
+
+-- ORDER_RECORD 테이블의 제약조건중 참조(REFERENCE; R)을 쓰는 제약 조건 검색
+SELECT constraint_name
+FROM user_constraints
+WHERE table_name = 'ORDER_RECORD'
+AND constraint_type = 'R';
+
+-- 제약 이름이 시스템에서 생성되서 뭐가 뭔지 모를 때 쓰는 쿼리
+SELECT 
+    uc.constraint_name, 
+    uc.constraint_type, 
+    ucc.table_name, 
+    ucc.column_name, 
+    uc.r_constraint_name AS referenced_constraint, 
+    ur.table_name AS referenced_table
+FROM 
+    user_constraints uc
+JOIN 
+    user_cons_columns ucc ON uc.constraint_name = ucc.constraint_name
+LEFT JOIN 
+    user_constraints ur ON uc.r_constraint_name = ur.constraint_name
+WHERE 
+    uc.constraint_name = 'SYS_C007136';
+-- 저의 경우는 위에서 검색시
+-- 해당 sys-gen처리된 제약조건의 이름이 위와 같아서 이것으로 검색
+  
+  --해당 제약 조건으로 이게 ORDER_RECORD가 ACC_INFO 테이블의 USER_ID를
+  --받아서 쓴다는 것을 확인.
+  
+  -- 그 해당 제약을 DROP 처리
+  ALTER TABLE order_record
+	DROP CONSTRAINT SYS_C007136;
+	
+	--그 이후, CASCADE DELETE 제약 조건을 다시 걸어준다.
+	-- 이게 적용되면 ACC_INFO에서 짤라버리면 ORDER_RECORD에서
+	--그 user_id를 쓰던 열을 지워준다.
+ALTER TABLE order_record
+ADD CONSTRAINT fk_user_id
+FOREIGN KEY (user_id)
+REFERENCES acc_info(user_id)
+ON DELETE CASCADE;
