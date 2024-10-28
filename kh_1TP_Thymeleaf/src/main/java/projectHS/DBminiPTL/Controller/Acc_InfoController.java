@@ -15,29 +15,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/ACC_INFO")
+@RequestMapping("/acc_info")
 
 public class Acc_InfoController {
 
-    @GetMapping("/SELECT")
+    @GetMapping("/select")
     public String selectAccInfo(Model model) {
         Acc_InfoDAO aiDAO = new Acc_InfoDAO();
         List<Acc_InfoVO> aiVO = aiDAO.Acc_InfoSelect();
-        model.addAttribute("accountinfo", aiVO);
-        return "accInfoSelect";
+        model.addAttribute("accountInfo", aiVO);
+        return "thymeleaf/accInfoSelect";
     }
 
     @GetMapping("/insert")
     public String insertViewAccInfo(Model model) {
-        model.addAttribute("accountinfo", new Acc_InfoVO());
-        return "accInfoInsert";
+        model.addAttribute("accountInfo", new Acc_InfoVO());
+        return "thymeleaf/accInfoInsert";
     }
 
     @PostMapping("/insert")
-    public String insertDBAccInfo(@ModelAttribute("accountinfo") Acc_InfoVO accInfoVO) {
+    public String insertDBAccInfo(@ModelAttribute("accountInfo") Acc_InfoVO accInfoVO) {
         Acc_InfoDAO aiDAO = new Acc_InfoDAO();
         aiDAO.Acc_InfoInsert();
-        return "accInfoInsertRst";
+        return "thymeleaf/accInfoInsertRst";
     }
 
 }
