@@ -1,5 +1,9 @@
 package projectHS.DBminiPTL.DAO;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import projectHS.DBminiPTL.Common.Common;
 import projectHS.DBminiPTL.Customer.SetMenu;
 import projectHS.DBminiPTL.Customer.SingleMenu;
@@ -12,195 +16,84 @@ import java.util.*;
 import static projectHS.DBminiPTL.DAO.Order_RecordDAO.orderRecordInsert;
 import static projectHS.DBminiPTL.DAO.StoreDAO.salesPTp;
 
+@Repository
+@Slf4j
 
 public class InvDAO {
-    Connection conn = null;
-    Statement stmt = null;
-    PreparedStatement psmt = null;
-    ResultSet rs = null;
-    Scanner sc = new Scanner(System.in);
-    String storeId = null;
+
+    @Autowired
+    private final JdbcTemplate jdbcTemplate;
+
+    public InvDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+
+    // Scanner sc = new Scanner(System.in);
+    // String storeId = null;
 
     List<SetMenu> setCart = new ArrayList<>();
     List<SingleMenu> singleCart = new ArrayList<>();
+    private String storeId; // 선택된 storeId 저장
 
     public void choiceStore() { // 지점 설정 메서드
         List<String> lst = new ArrayList<>();
-        int i = 1;
-        int storeIdx;
+        String query = "SELECT DISTINCT STORE_ID FROM INV";
 
         try {
-            conn = Common.getConnection();
-            stmt = conn.createStatement();
-            String sql = "SELECT DISTINCT STORE_ID FROM INV";
-            rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                lst.add(rs.getString("STORE_ID"));
-            }
+            lst = jdbcTemplate.queryForList(query, String.class);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return;
         }
 
-        System.out.printf("%20s", "점포 목록\n");
-        for (String e : lst) {
-            System.out.printf("[%d] %s \n", i++, e);
+        // 점포 목록 출력
+        int i = 1;
+        int storeIdx;
+        for (String store : lst) {
+            System.out.printf("[%d] %s \n", i++, store);
         }
-        System.out.println("주문 지점을 선택 해 주세요 : ");
-        storeIdx = sc.nextInt() - 1;
+        if (!lst.isEmpty() && storeIdx >= 0 && storeIdx < lst.size()) {
+            String selectedStoreId = lst.get(storeIdx);
 
-        if(storeId != null && !this.storeId.equals(lst.get(storeIdx))){
-            setCart.clear();
-            singleCart.clear();
+            if (storeId != null && !storeId.equals(selectedStoreId)) {
+                setCart.clear();
+                singleCart.clear();
+            }
+
+            this.storeId = selectedStoreId;
         }
-
-        this.storeId = lst.get(storeIdx);
-    }
 
     // 고객의 주문 관련 메서드
     public void cusOrder() {
-        //List<InvVO> burger = new ArrayList<>();
-        List<InvVO> burger = new ArrayList<>();
-        List<InvVO> side = new ArrayList<>();
-        List<InvVO> drink = new ArrayList<>();
+            List<InvVO> burger = new ArrayList<>();
+            List<InvVO> side = new ArrayList<>();
+            List<InvVO> drink = new ArrayList<>();
 
-        String query = "SELECT i.MENU_NAME, i.PRICE, o.DESCR, o.CATEGORY, i.STOCK FROM INV i JOIN INV_ORDER o " +
-                "ON i.MENU_NAME = o.MENU_NAME WHERE STORE_ID = ?";
+            String query = "SELECT i.MENU_NAME, i.PRICE, o.DESCR, o.CATEGORY, i.STOCK FROM INV i JOIN INV_ORDER o " +
+                    "ON i.MENU_NAME = o.MENU_NAME WHERE STORE_ID = ?";
 
-        try {
-            conn = Common.getConnection();
-            psmt = conn.prepareStatement(query);
-            psmt.setString(1, this.storeId);
-            rs = psmt.executeQuery();
+            // 각 리스트 초기화
+            burger.clear();
+            side.clear();
+            drink.clear();
 
-            while (rs.next()) {
-                String menuName = rs.getString("MENU_NAME");
-                int price = rs.getInt("PRICE");
-                String descr = rs.getString("DESCR");
-                String cat = rs.getString("CATEGORY");
-                int stock = rs.getInt("STOCK");
-
-                InvVO vo = new InvVO(menuName, price, descr, cat, stock);
-                if (vo.getCategory().equals("버거")) {
-                    burger.add(vo);
-                } else if (vo.getCategory().equals("사이드")) {
-                    side.add(vo);
-                } else {
-                    drink.add(vo);
+            jdbcTemplate.query(query, new Object[]{storeId}, rs -> {
+                InvVO iVO = new InvVO(
+                        rs.getString("MENU_NAME"),
+                        rs.getInt("PRICE"),
+                        rs.getString("DESCR"),
+                        rs.getString("CATEGORY"),
+                        rs.getInt("STOCK")
+                );
+                switch (iVO.getCategory()) {
+                    case "버거" -> burger.add(iVO);
+                    case "사이드" -> side.add(iVO);
+                    case "음료" -> drink.add(iVO);
                 }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            });
         }
 
-
-        while (true) {
-            int i = 1;
-            System.out.print("주문할 메뉴의 분류를 선택 해 주세요 [1]세트, [2]단품, [3]사이드, [4]음료 [9] 주문종료 : ");
-            int cat = sc.nextInt();
-            sc.nextLine();
-
-            switch (cat) {
-                case 1:
-                    System.out.println("-".repeat(40));
-                    System.out.printf("%20s", "세트 메뉴 목록 \n");
-                    for (InvVO e : burger) {
-                        System.out.printf("[%d] %s 세트, %s의 세트메뉴, %d원 부터\n", i++, e.getMenuName(), e.getMenuName(), e.getPrice()); // 가격 설정 필요(버거가격+감튀+콜라가 기본가격)
-                    }
-                    System.out.print("메뉴를 선택 해 주세요 : ");
-                    int b = sc.nextInt() - 1;
-                    if (burger.size() < b || b < 0) {
-                        System.out.println("해당 메뉴가 존재하지 않습니다.");
-                        break;
-                    }
-
-                    i = 1;
-                    System.out.println("-".repeat(40));
-                    for (InvVO e : side) {
-                        System.out.printf("[%d] %s, %s \n", i++, e.getMenuName(), e.getDescr());
-                    }
-                    System.out.print("사이드 선택 : ");
-                    int s = sc.nextInt() - 1;
-                    if (side.size() < s || s < 0) {
-                        System.out.println("해당 메뉴가 존재하지 않습니다.");
-                        break;
-                    }
-
-                    i = 1;
-                    System.out.println("-".repeat(40));
-                    for (InvVO e : drink) {
-                        System.out.printf("[%d] %s, %s \n", i++, e.getMenuName(), e.getDescr());
-                    }
-                    System.out.print("음료 선택 : ");
-                    int d = sc.nextInt() - 1;
-                    if (drink.size() < d || d < 0) {
-                        System.out.println("해당 메뉴가 존재하지 않습니다.");
-                        break;
-                    }
-
-                    System.out.print("수량 선택 : "); // 0 이하의 수를 입력하면 주문 안되게 수정
-                    int cnt = sc.nextInt();
-                    sc.nextLine();
-
-                    boolean isExist = false;
-                    int idx = -1;
-                    for (SetMenu setMenu : setCart) {
-                        idx++;
-                        if (setMenu.getBurger().getName().equals(burger.get(b).getMenuName()) &&
-                                setMenu.getSide().getName().equals(side.get(s).getMenuName()) &&
-                                setMenu.getDrink().getName().equals(drink.get(d).getMenuName())) {
-                            isExist = true;
-                            break;
-                        }
-                    }
-
-                    if (isExist) {
-                        int add = cnt + setCart.get(idx).getCount();
-                        System.out.println("이미 동일한 세트 메뉴가 장바구니에 존재합니다.");
-
-                        if (burger.get(b).getStock() < add || side.get(s).getStock() < add || drink.get(d).getStock() < add) {
-                            System.out.printf("선택하신 메뉴의 재고가 부족합니다. \n %s : %d개, %s : %d개, %s : %d개\n",
-                                    burger.get(b).getMenuName(), burger.get(b).getStock(),
-                                    side.get(s).getMenuName(), side.get(s).getStock(),
-                                    drink.get(d).getMenuName(), drink.get(d).getStock());
-                            break;
-                        } else {
-                            System.out.println("해당 세트의 개수는 " + add + "개 입니다.");
-                            setCart.get(idx).setCount(add);
-                        }
-                    } else if (burger.get(b).getStock() < cnt || side.get(s).getStock() < cnt || drink.get(d).getStock() < cnt) {
-                        System.out.printf("선택하신 메뉴의 재고가 부족합니다. \n %s : %d개, %s : %d개, %s : %d개\n",
-                                burger.get(b).getMenuName(), burger.get(b).getStock(),
-                                side.get(s).getMenuName(), side.get(s).getStock(),
-                                drink.get(d).getMenuName(), drink.get(d).getStock());
-                    } else {
-                        setCart.add(new SetMenu(
-                                new SingleMenu(burger.get(b).getMenuName(), burger.get(b).getPrice()),
-                                new SingleMenu(side.get(s).getMenuName(), side.get(s).getPrice()),
-                                new SingleMenu(drink.get(d).getMenuName(), drink.get(d).getPrice()),
-                                cnt
-                        ));
-                    }
-                    break;
-                case 2:
-                    menuSelect(burger, "버거");
-                    break;
-                case 3:
-                    menuSelect(side, "사이드");
-                    break;
-                case 4:
-                    menuSelect(drink, "음료");
-                    break;
-                case 9:
-                    System.out.println("메뉴 주문을 종료합니다.");
-                    return;
-                default:
-                    System.out.println("메뉴 분류를 다시 선택 해 주세요.");
-            }
-
-
-        }
-
-    }
 
     // 고객의 장바구니 내부 동작
     public void inCart(String userId) {
