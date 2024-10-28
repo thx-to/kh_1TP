@@ -1,9 +1,8 @@
 package projectHS.DBminiPTL.DAO;
 
-package projectHS.DBminiPTL.DAO;
-
+import com.sun.tools.javac.Main;
 import projectHS.DBminiPTL.Common.Common;
-import projectHS.DBminiPTL.HSMain;
+import projectHS.DBminiPTL.DBminiPtlApplication;
 import projectHS.DBminiPTL.VO.Inv_OrderVO;
 
 import java.sql.Connection;
@@ -60,7 +59,7 @@ public class Inv_OrderDAO {
                     else System.out.println("메뉴 삭제 실패");
                     break;
                 case 5:
-                    HSMain.hqMenu();
+                    DBminiPtlApplication.hqMenu();
                     break;
                 case 9 :
                     System.out.println("프로그램을 종료합니다.");

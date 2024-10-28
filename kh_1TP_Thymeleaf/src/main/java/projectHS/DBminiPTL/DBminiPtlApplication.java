@@ -7,7 +7,6 @@ import projectHS.DBminiPTL.Common.Session;
 import projectHS.DBminiPTL.DAO.*;
 import projectHS.DBminiPTL.VO.Acc_InfoVO;
 import projectHS.DBminiPTL.VO.Inv_OrderVO;
-import projectHS.DBminiPTL.VO.Order_RecordVO;
 
 import java.util.List;
 import java.util.Scanner;
