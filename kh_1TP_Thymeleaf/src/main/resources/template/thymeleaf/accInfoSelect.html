@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http:/www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>계정 정보</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class = "container">
+<h2>계정 정보</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>PW</th>
+        <th>이름</th>
+        <th>전화번호</th>
+        <th>가입일</th>
+        <th>권한</th>
+        <th>점포</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ACC_INFO : ${accountinfo}">
+        <td th:text="${ACC_INFO.USER_ID}"></td>
+        <td th:text="${ACC_INFO.USER_PW}"></td>
+        <td th:text="${ACC_INFO.USER_NAME}"></td>
+        <td th:text="${ACC_INFO.USER_PHONE}"></td>
+        <td th:text="${ACC_INFO.JOIN_DATE}"></td>
+        <td th:text="${ACC_INFO.AUTH_LV}"></td>
+        <td th:text="${ACC_INFO.STORE_ID}"></td>
+    </tr>
+    </tbody>
+
+</table>
+</body>
+</html>

@@ -1,7 +1,5 @@
 package projectHS.DBminiPTL.DAO;
 
-package projectHS.DBminiPTL.DAO;
-
 import projectHS.DBminiPTL.Common.Common;
 import projectHS.DBminiPTL.VO.StoreVO;
 
