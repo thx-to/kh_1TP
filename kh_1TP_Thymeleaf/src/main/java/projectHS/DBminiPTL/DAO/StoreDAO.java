@@ -1,9 +1,9 @@
-package TEST_241028.DAO;
+package projectHS.DBminiPTL.DAO;
 
-package TEST_241028.DAO;
+package projectHS.DBminiPTL.DAO;
 
-import TEST_241028.Common.Common;
-import TEST_241028.VO.StoreVO;
+import projectHS.DBminiPTL.Common.Common;
+import projectHS.DBminiPTL.VO.StoreVO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

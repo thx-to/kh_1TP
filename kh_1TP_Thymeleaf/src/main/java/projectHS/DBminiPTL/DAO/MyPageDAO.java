@@ -1,9 +1,9 @@
-package TEST_241028.DAO;
+package projectHS.DBminiPTL.DAO;
 
-package TEST_241028.DAO;
+package projectHS.DBminiPTL.DAO;
 
-import TEST_241028.Common.Common;
-import TEST_241028.VO.Acc_InfoVO;
+import projectHS.DBminiPTL.Common.Common;
+import projectHS.DBminiPTL.VO.Acc_InfoVO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,8 +11,8 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Scanner;
 
-import static TEST_241028.DAO.Acc_InfoDAO.Acc_InfoSelect;
-import static TEST_241028.DAO.Acc_InfoDAO.psmt;
+import static projectHS.DBminiPTL.DAO.Acc_InfoDAO.Acc_InfoSelect;
+import static projectHS.DBminiPTL.DAO.Acc_InfoDAO.psmt;
 
 public class MyPageDAO {
     static Connection conn = null;

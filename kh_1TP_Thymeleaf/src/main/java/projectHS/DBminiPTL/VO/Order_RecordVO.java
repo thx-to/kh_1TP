@@ -1,4 +1,4 @@
-package TEST_241028.VO;
+package projectHS.DBminiPTL.VO;
 
 import java.sql.Timestamp;
 

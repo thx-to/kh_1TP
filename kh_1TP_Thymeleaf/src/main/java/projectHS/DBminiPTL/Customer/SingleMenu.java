@@ -1,4 +1,4 @@
-package TEST_241028.Customer;
+package projectHS.DBminiPTL.Customer;
 
 public class SingleMenu {
     String name;

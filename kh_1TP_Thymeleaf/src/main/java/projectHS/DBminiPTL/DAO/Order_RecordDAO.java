@@ -1,7 +1,7 @@
-package TEST_241028.DAO;
+package projectHS.DBminiPTL.DAO;
 
-import TEST_241028.Common.Common;
-import TEST_241028.VO.Order_RecordVO;
+import projectHS.DBminiPTL.Common.Common;
+import projectHS.DBminiPTL.O.Order_RecordVO;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;

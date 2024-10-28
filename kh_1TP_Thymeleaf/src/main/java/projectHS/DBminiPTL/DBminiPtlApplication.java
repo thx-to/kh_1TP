@@ -1,33 +1,32 @@
 package projectHS.DBminiPTL;
 
-import TEST_241028.Common.Session;
-import TEST_241028.DAO.*;
-import TEST_241028.VO.Acc_InfoVO;
-import TEST_241028.VO.Inv_OrderVO;
-import TEST_241028.VO.Order_RecordVO;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import projectHS.DBminiPTL.Common.Session;
+import projectHS.DBminiPTL.DAO.*;
+import projectHS.DBminiPTL.VO.Acc_InfoVO;
+import projectHS.DBminiPTL.VO.Inv_OrderVO;
+import projectHS.DBminiPTL.VO.Order_RecordVO;
 
 import java.util.List;
 import java.util.Scanner;
 
-import static TEST_241028.DAO.Order_RecordDAO.userOrderList;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import static projectHS.DBminiPTL.DAO.Order_RecordDAO.userOrderList;
 
 @SpringBootApplication
 public class DBminiPtlApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(DBminiPtlApplication.class, args);
-	}
 
+		private static String userId = ""; // 유저 id
+		private static String adminId = "";
+		private static String hqId = "";
 
-	private static String userId = ""; // 유저 id
-	private static String adminId = "";
-	private static String hqId = "";
-
-	public static void main(String[] args) {
 		menuSelect();
+
 	}
 
 

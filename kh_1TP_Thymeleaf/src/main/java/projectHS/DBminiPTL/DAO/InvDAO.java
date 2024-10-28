@@ -1,16 +1,16 @@
-package TEST_241028.DAO;
+package projectHS.DBminiPTL.DAO;
 
-import TEST_241028.Common.Common;
-import TEST_241028.Customer.SetMenu;
-import TEST_241028.Customer.SingleMenu;
-import TEST_241028.VO.InvVO;
+import projectHS.DBminiPTL.Common.Common;
+import projectHS.DBminiPTL.Customer.SetMenu;
+import projectHS.DBminiPTL.Customer.SingleMenu;
+import projectHS.DBminiPTL.VO.InvVO;
 
 
 import java.sql.*;
 import java.util.*;
 
-import static TEST_241028.DAO.Order_RecordDAO.orderRecordInsert;
-import static TEST_241028.DAO.StoreDAO.salesPTp;
+import static projectHS.DBminiPTL.DAO.Order_RecordDAO.orderRecordInsert;
+import static projectHS.DBminiPTL.DAO.StoreDAO.salesPTp;
 
 
 public class InvDAO {

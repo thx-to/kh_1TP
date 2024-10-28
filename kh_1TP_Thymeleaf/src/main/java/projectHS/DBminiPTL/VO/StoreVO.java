@@ -1,4 +1,4 @@
-package TEST_241028.VO;
+package projectHS.DBminiPTL.VO;
 // 생성자를 원래 (String storeId, int sales), (String storeId, int capital) 두개를 생성하고 싶은데
 // 컴파일이 String, int의 나열을 정확하게 인식을 못하는지 계속 already defined 오류가 떠서
 // GPT한테 죽도록 물어봐서 '정적 팩토리 메소드'로 설정

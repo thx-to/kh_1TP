@@ -1,4 +1,4 @@
-package TEST_241028.Common;
+package projectHS.DBminiPTL.Common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

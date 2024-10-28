@@ -1,9 +1,7 @@
-package TEST_241028.DAO;
+package projectHS.DBminiPTL.DAO;
 
-package TEST_241028.DAO;
-
-import TEST_241028.Common.Common;
-import TEST_241028.VO.Acc_InfoVO;
+import projectHS.DBminiPTL.Common.Common;
+import projectHS.DBminiPTL.VO.Acc_InfoVO;
 
 import java.sql.*;
 import java.util.ArrayList;
