@@ -1,6 +1,10 @@
 package projectHS.DBminiPTL.DAO;
 
 import com.sun.tools.javac.Main;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import projectHS.DBminiPTL.Common.Common;
 import projectHS.DBminiPTL.DBminiPtlApplication;
 import projectHS.DBminiPTL.VO.Inv_OrderVO;
@@ -13,31 +17,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+@Repository
+@Slf4j
+
 public class Inv_OrderDAO {
 
+    @Autowired
+    private final JdbcTemplate jdbcTemplate;
 
-    // 기본 인스턴스필드
-    // Connection : 자바와 오라클 DB 연결 설정
-    // PreparedStatement : SQL문 수행 객체
-    // ResultSet : PreparedStatement 동작에 대한 결과로 전달되는 DB 내용
-    static Connection conn = null;
-    static Statement stmt = null;
-    static PreparedStatement pstmt = null;
-    static ResultSet rs = null;
+    public Inv_OrderDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
-    static Scanner sc = new Scanner(System.in);
     boolean isSuccess = false;
 
 
     // 메뉴 선택
-    public void runInv_Order() {
+    public String runInv_Order() {
 
         while (true) {
 
             System.out.println("==== HQ STOCK ADJUSTMENT ====");
             System.out.print("[1]메뉴조회 [2]메뉴추가 [3]메뉴수정 [4]메뉴삭제 [5]뒤로가기 [9]종료 : ");
-            int sel = sc.nextInt();
+            //int sel = sc.nextInt();
 
+            /*
             switch (sel) {
                 case 1 :
                     List<Inv_OrderVO> list = Inv_OrderSelect();
@@ -59,18 +64,17 @@ public class Inv_OrderDAO {
                     else System.out.println("메뉴 삭제 실패");
                     break;
                 case 5:
-                    DBminiPtlApplication.hqMenu();
-                    break;
+                    return "thymeleaf/hqMain";
                 case 9 :
                     System.out.println("프로그램을 종료합니다.");
-                    return;
+                    return null;
 
-            }
+            }*/
 
         }
 
     }
-
+/*
     // 메뉴 확인 (Select)
     // 로우데이터를 받아내기 위해 ArrayList 생성
     // Inv_Order테이블과 똑같이 만들어둔 Inv_OrderVO 클래스
@@ -108,7 +112,7 @@ public class Inv_OrderDAO {
             Common.close(conn);
             return list;
         }
-    }
+    }*/
 
     public static void Inv_OrderSelectResult(List<Inv_OrderVO> list) {
         System.out.println("==== HQ STOCK INFO ====");
@@ -122,7 +126,7 @@ public class Inv_OrderDAO {
         }
     }
 
-
+/*
     // 메뉴 추가 (Insert)
     public static boolean Inv_OrderInsert() {
 
@@ -162,8 +166,8 @@ public class Inv_OrderDAO {
             Common.close(pstmt);
             Common.close(conn);
         }
-    }
-
+    }*/
+/*
     // 메뉴 수정 (Update)
     public static boolean Inv_OrderUpdate() {
 
@@ -203,8 +207,8 @@ public class Inv_OrderDAO {
             Common.close(pstmt);
             Common.close(conn);
         }
-    }
-
+    }*/
+/*
     // 메뉴 삭제 (Delete)
     public static boolean Inv_OrderDelete() {
 
@@ -235,7 +239,7 @@ public class Inv_OrderDAO {
             Common.close(pstmt);
             Common.close(conn);
         }
-    }
+    }*/
 
 
 }

@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Scanner;
-
+/*
 import static projectHS.DBminiPTL.DAO.Acc_InfoDAO.Acc_InfoSelect;
 import static projectHS.DBminiPTL.DAO.Acc_InfoDAO.psmt;
 
@@ -116,4 +116,4 @@ public class MyPageDAO {
             Common.close(conn);
         }
     }
-}
+}*/
