@@ -40,15 +40,15 @@ public class Acc_InfoController {
         if (authLevel == 3) {
             // CUSTOMER 로그인 성공
             model.addAttribute("message", "CUSTOMER 로그인 성공!");
-            return "thymeleaf/customer/customerMain"; // 고객 메인 페이지로 리디렉션
+            return "thymeleaf/customerMain"; // 고객 메인 페이지로 리디렉션
         } else if (authLevel == 1) {
             // ADMIN 로그인 성공
             model.addAttribute("message", "ADMIN 로그인 성공!");
-            return "thymeleaf/admin/adminMain"; // 관리자 메인 페이지로 리디렉션
+            return "thymeleaf/adminMain"; // 관리자 메인 페이지로 리디렉션
         } else if (authLevel == 2) {
             // HQ 로그인 성공
             model.addAttribute("message", "HQ 로그인 성공!");
-            return "thymeleaf/hq/hqMain"; // HQ 메인 페이지로 리디렉션
+            return "thymeleaf/hqMain"; // HQ 메인 페이지로 리디렉션
         } else {
             // 로그인 실패
             model.addAttribute("error", "아이디 또는 비밀번호를 확인해주세요.");

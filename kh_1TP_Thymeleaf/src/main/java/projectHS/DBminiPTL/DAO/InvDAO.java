@@ -15,9 +15,10 @@ import java.util.*;
 
 import static projectHS.DBminiPTL.DAO.Order_RecordDAO.orderRecordInsert;
 import static projectHS.DBminiPTL.DAO.StoreDAO.salesPTp;
-
+/*
 @Repository
 @Slf4j
+
 
 public class InvDAO {
 
@@ -612,4 +613,4 @@ public class InvDAO {
     }
 
 
-}
+}*/
