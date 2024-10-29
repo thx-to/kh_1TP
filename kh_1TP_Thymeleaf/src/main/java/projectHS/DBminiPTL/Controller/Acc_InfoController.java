@@ -13,7 +13,7 @@ import projectHS.DBminiPTL.VO.Acc_InfoVO;
 import java.util.List;
 
 @Controller
-@RequestMapping("/acc_info")
+@RequestMapping("/main")
 
 public class Acc_InfoController {
 
@@ -40,15 +40,15 @@ public class Acc_InfoController {
         if (authLevel == 3) {
             // CUSTOMER 로그인 성공
             model.addAttribute("message", "CUSTOMER 로그인 성공!");
-            return "thymeleaf/customerMain"; // 고객 메인 페이지로 리디렉션
+            return "redirect:/main/customer"; // 고객 메인 페이지로 리디렉션
         } else if (authLevel == 1) {
             // ADMIN 로그인 성공
             model.addAttribute("message", "ADMIN 로그인 성공!");
-            return "thymeleaf/adminMain"; // 관리자 메인 페이지로 리디렉션
+            return "redirect:/main/admin"; // 관리자 메인 페이지로 리디렉션
         } else if (authLevel == 2) {
             // HQ 로그인 성공
             model.addAttribute("message", "HQ 로그인 성공!");
-            return "thymeleaf/hqMain"; // HQ 메인 페이지로 리디렉션
+            return "redirect:/main/hq"; // HQ 메인 페이지로 리디렉션
         } else {
             // 로그인 실패
             model.addAttribute("error", "아이디 또는 비밀번호를 확인해주세요.");
@@ -56,8 +56,26 @@ public class Acc_InfoController {
         }
     }
 
+    @GetMapping("/customer")
+    public String rdCustomerMain(Model model) {
+        // 고객 메인 페이지에 필요한 데이터 추가
+        return "thymeleaf/customerMain"; // 고객 메인 페이지 템플릿
+    }
+
+    @GetMapping("/admin")
+    public String rdAdminMain(Model model) {
+        // 관리자 메인 페이지에 필요한 데이터 추가
+        return "thymeleaf/adminMain"; // 관리자 메인 페이지 템플릿
+    }
+
+    @GetMapping("/hq")
+    public String rdHqMain(Model model) {
+        // HQ 메인 페이지에 필요한 데이터 추가
+        return "thymeleaf/hqMain"; // HQ 메인 페이지 템플릿
+    }
+
     // 회원가입 페이지 요청 처리
-    @GetMapping("/thymeleaf/signup")
+    @GetMapping("/signup")
     public String signupView(Model model) {
         model.addAttribute("accountInfo", new Acc_InfoVO());
         return "thymeleaf/signup";
@@ -65,14 +83,10 @@ public class Acc_InfoController {
 
     // 회원가입 처리 메소드
     @PostMapping("/signup")
-    public String signup(@ModelAttribute Acc_InfoVO aiVO) {
-
-        boolean success = aiDAO.Acc_InfoInsert(aiVO);
-        if (success) {
-            return "thymeleaf/signupSuccess";
-        } else {
-            return "thymeleaf/signup";
-        }
+    public String signup(@ModelAttribute Acc_InfoVO aiVO, Model model) {
+        boolean isSuccess = aiDAO.Acc_InfoInsert(aiVO);
+        model.addAttribute("isSuccess", isSuccess);
+        return "thymeleaf/signupRst";
     }
 
     // 모든 회원 목록 조회

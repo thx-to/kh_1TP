@@ -21,16 +21,17 @@
   </tr>
   </thead>
   <tbody>
-  <tr th:each="inv_order : ${invMenuList}">
-    <td th:text="${inv_order.menuName}"></td>
-    <td th:text="${inv_order.category}"></td>
-    <td th:text="${inv_order.price}"></td>
-    <td th:text="${inv_order.descr}"></td>
+  <tr th:each="hq : ${invMenuList}">
+    <td th:text="${hq.menuName}"></td>
+    <td th:text="${hq.category}"></td>
+    <td th:text="${hq.price}"></td>
+    <td th:text="${hq.descr}"></td>
   </tr>
   <tr th:if="${#lists.isEmpty(invMenuList)}">
     <td colspan="4">현재 발주 가능한 메뉴가 없습니다.</td>
   </tr>
   </tbody>
 </table>
+<input type="button" value="뒤로가기" onclick="history.back();" />
 </body>
 </html>

@@ -13,7 +13,7 @@ import projectHS.DBminiPTL.VO.Inv_OrderVO;
 import java.util.List;
 
 @Controller
-@RequestMapping("/inv_order")
+@RequestMapping("/main/hq")
 
 public class Inv_OrderController {
 
@@ -29,7 +29,7 @@ public class Inv_OrderController {
         return "thymeleaf/hqSelect";
     }
 
-    // 메뉴 추가
+    // 메뉴 추가 요청 처리
     @GetMapping("/hqInsert")
     // View로 모델을 넘겨주는 객체
     public String ioInsertView(Model model) {
@@ -38,10 +38,27 @@ public class Inv_OrderController {
         return "thymeleaf/hqInsert";
     }
 
-    @PostMapping("hqInsert")
-    public String ioInsertDB(@ModelAttribute("invMenuList") Inv_OrderVO ioVO) {
-        ioDAO.Inv_OrderInsert(ioVO);
+    // 메뉴 추가 메소드
+    @PostMapping("/hqInsert")
+    public String ioInsertDB(@ModelAttribute("invMenuList") Inv_OrderVO ioVO, Model model) {
+        boolean isSuccess = ioDAO.Inv_OrderInsert(ioVO);
+        model.addAttribute("isSuccess", isSuccess);
         return "thymeleaf/hqInsertRst";
+    }
+
+    // 메뉴 수정 요청 처리
+    @GetMapping("/hqUpdate")
+    public String ioUpdateView(Model model) {
+        model.addAttribute("invMenuList", new Inv_OrderVO());
+        return "thymeleaf/hqUpdate";
+    }
+
+    // 메뉴 수정 메소드
+    @PostMapping("/hqUpdate")
+    public String ioUpdateDB(@ModelAttribute("invMenuList") Inv_OrderVO ioVO, Model model) {
+        boolean isSuccess = ioDAO.Inv_OrderUpdate(ioVO);
+        model.addAttribute("isSucceess", isSuccess);
+        return "thymeleaf/hqUpdateRst";
     }
 
 
