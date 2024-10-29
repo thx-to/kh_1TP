@@ -124,11 +124,11 @@ public class Acc_InfoDAO {
             return false;
         }
 
-        String query = "INSERT INTO ACC_INFO(USER_ID, USER_PW, USER_NAME, USER_PHONE, JOIN_DATE, AUTH_LV) VALUES (?, ?, ?, ?, SYSDATE, ?)";
+        String query = "INSERT INTO ACC_INFO(USER_ID, USER_PW, USER_NAME, USER_PHONE, JOIN_DATE, AUTH_LV) VALUES (?, ?, ?, ?, SYSDATE, 3)";
         int result = 0;
 
         try {
-            result = jdbcTemplate.update(query, aiVO.getUserId(), aiVO.getUserPw(), aiVO.getUserName(), aiVO.getUserPhone(), aiVO.getAuthLv());
+            result = jdbcTemplate.update(query, aiVO.getUserId(), aiVO.getUserPw(), aiVO.getUserName(), aiVO.getUserPhone());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

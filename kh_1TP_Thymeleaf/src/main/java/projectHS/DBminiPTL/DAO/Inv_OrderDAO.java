@@ -35,11 +35,11 @@ public class Inv_OrderDAO {
     public List<Inv_OrderVO> Inv_OrderSelect() {
 
         String query = "SELECT * FROM INV_ORDER";
-        return jdbcTemplate.query(query, new Inv_OrderRowMapper());
+        return jdbcTemplate.query(query, new ioVOSelectRowMapper());
 
     }
 
-    private static class Inv_OrderRowMapper implements RowMapper<Inv_OrderVO> {
+    private static class ioVOSelectRowMapper implements RowMapper<Inv_OrderVO> {
 
         @Override
         public Inv_OrderVO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -64,14 +64,28 @@ public class Inv_OrderDAO {
         return result > 0;
     }
 
-    public boolean Inv_OrderUpdateByName(String menuName) {
+    public Inv_OrderVO Inv_OrderUpdateByName(String menuName) {
         String query = "SELECT * FROM INV_ORDER WHERE MENU_NAME = ?";
-        return jdbcTemplate.queryForObject(query, new Object[]{menuName}, new Inv_OrderRowMapper());
+        try {
+            return jdbcTemplate.queryForObject(query, new Object[]{menuName}, ioVOUpdateRowMapper());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private RowMapper<Inv_OrderVO> ioVOUpdateRowMapper() {
+        return (rs, rowNum) -> new Inv_OrderVO(
+                rs.getString("menuName"),
+                rs.getInt("price"),
+                rs.getString("category"),
+                rs.getString("descr")
+        );
 
     }
+
     public boolean Inv_OrderUpdate(Inv_OrderVO ioVO) {
         String query = "UPDATE INV_ORDER SET PRICE = ?, CATEGORY = ?, DESCR = ? WHERE MENU_NAME = ?";
-        int result = jdbcTemplate.update(query, ioVO.getPrice(), ioVO.getDescr(), ioVO.getMenuName());
+        int result = jdbcTemplate.update(query, ioVO.getPrice(), ioVO.getCategory(), ioVO.getDescr(), ioVO.getMenuName());
         return result > 0;
     }
 

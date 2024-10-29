@@ -54,7 +54,7 @@ public class Inv_OrderController {
     }
 
     // 수정을 원하는 메뉴 찾기
-    @PostMapping("/findMenu")
+    @PostMapping("/hqUpdate/findMenu")
     public String findMenu(@ModelAttribute("menuName") String menuName, Model model) {
         // DAO 메소드 호출
         Inv_OrderVO ioVO = ioDAO.Inv_OrderUpdateByName(menuName);
