@@ -1,5 +1,10 @@
 package projectHS.DBminiPTL.VO;
 
+import org.springframework.jdbc.core.RowMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Inv_OrderVO {
     private String menuName;
     private int price;
@@ -17,7 +22,6 @@ public class Inv_OrderVO {
     // 빈 생성자
     public Inv_OrderVO() {
     }
-
 
     // Getter
     public String getMenuName() {
