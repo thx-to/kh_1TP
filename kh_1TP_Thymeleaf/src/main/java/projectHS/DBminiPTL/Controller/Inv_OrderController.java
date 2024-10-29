@@ -40,9 +40,8 @@ public class Inv_OrderController {
 
     @PostMapping("hqInsert")
     public String ioInsertDB(@ModelAttribute("invMenuList") Inv_OrderVO ioVO) {
-        Inv_OrderDAO ioDAO = new Inv_OrderDAO();
         ioDAO.Inv_OrderInsert(ioVO);
-        return "thymeleaf/hqInsertRst"
+        return "thymeleaf/hqInsertRst";
     }
 
 
