@@ -11,24 +11,28 @@
     <p>안녕하세요, 본사 담당자님!</p>
     <p>발주 가능 메뉴를 수정합니다.</p>
 </div>
-<form action="/hq/hqUpdate" method="post">
+<form action="/hq/findMenu" method="post">
     <label for="menuName">메뉴명</label>
-    <input type="text" id="menuName" name="menuName"><br>
-    <label for="category">카테고리</label>
-    <select name="category" id="category">
-        <option value="">카테고리 선택-</option>
-        <option value="버거">버거</option>
-        <option value="사이드">사이드</option>
-        <option value="음료">음료</option>
-    </select><br>
-    <label for="price">발주가격</label>
-    <input type="number" id="price" name="price"><br>
-    <label for="descr">메뉴설명</label>
-    <input type="text" id="descr" name="descr"><br>
+    <input type="text" id="menuName" name="menuName" required>
+    <button type="submit">검색</button>
+    </form>
 
-    <button type="submit">메뉴등록</button>
-    <input type="button" value="뒤로가기" onclick="history.back();" />
-
-</form>
+<div th:if="${invMenuList}">
+    <form action="/hq/updateMenu" method="post">
+        <label for="category">카테고리</label>
+        <select name="category" id="category">
+            <option value="">카테고리 선택-</option>
+            <option value="버거">버거</option>
+            <option value="사이드">사이드</option>
+            <option value="음료">음료</option>
+        </select><br>
+        <label for="price">발주가격</label>
+        <input type="number" id="price" name="price"><br>
+        <label for="descr">메뉴설명</label>
+        <input type="text" id="descr" name="descr"><br>
+        <button type="submit">메뉴수정</button>
+        <input type="button" value="뒤로가기" onclick="history.back();" />
+    </form>
+</div>
 </body>
 </html>

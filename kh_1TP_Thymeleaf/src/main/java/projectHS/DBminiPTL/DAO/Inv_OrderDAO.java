@@ -64,6 +64,11 @@ public class Inv_OrderDAO {
         return result > 0;
     }
 
+    public boolean Inv_OrderUpdateByName(String menuName) {
+        String query = "SELECT * FROM INV_ORDER WHERE MENU_NAME = ?";
+        return jdbcTemplate.queryForObject(query, new Object[]{menuName}, new Inv_OrderRowMapper());
+
+    }
     public boolean Inv_OrderUpdate(Inv_OrderVO ioVO) {
         String query = "UPDATE INV_ORDER SET PRICE = ?, CATEGORY = ?, DESCR = ? WHERE MENU_NAME = ?";
         int result = jdbcTemplate.update(query, ioVO.getPrice(), ioVO.getDescr(), ioVO.getMenuName());

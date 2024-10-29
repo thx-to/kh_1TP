@@ -53,6 +53,21 @@ public class Inv_OrderController {
         return "thymeleaf/hqUpdate";
     }
 
+    // 수정을 원하는 메뉴 찾기
+    @PostMapping("/findMenu")
+    public String findMenu(@ModelAttribute("menuName") String menuName, Model model) {
+        // DAO 메소드 호출
+        Inv_OrderVO ioVO = ioDAO.Inv_OrderUpdateByName(menuName);
+        if (ioVO != null) {
+            // 메뉴가 없지 않다면 검색된 메뉴 정보를 모델에 추가
+            model.addAttribute("invMenuList", ioVO);
+            return "thymeleaf/hqUpdate";
+        } else {
+            model.addAttribute("error", "해당 메뉴를 찾을 수 없습니다.");
+            return "thymeleaf/hqUpdate";
+        }
+    }
+
     // 메뉴 수정 메소드
     @PostMapping("/hqUpdate")
     public String ioUpdateDB(@ModelAttribute("invMenuList") Inv_OrderVO ioVO, Model model) {
@@ -60,6 +75,8 @@ public class Inv_OrderController {
         model.addAttribute("isSucceess", isSuccess);
         return "thymeleaf/hqUpdateRst";
     }
+
+
 
 
 
