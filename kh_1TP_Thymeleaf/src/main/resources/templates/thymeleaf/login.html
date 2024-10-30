@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <title>BUGERZIP MAIN</title>
 </head>
+
 <body>
 <div class="container"></div>
 <h1>🍔버거집🍔</h1>
@@ -22,11 +24,19 @@
   <button type="submit">로그인</button>
 </form>
 
+<a href="main/signup">
+  <button type="button">회원가입</button>
+</a>
 
-  <a href="main/signup">
-    <button type="button">회원가입</button>
-  </a>
-
-
+<!-- 클라이언트 사이드 자바스크립트 alert블록. 로그인 실패시에만 뜨게 수정 -->
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  const alertMessage = /*[[${alertMessage}]]*/ '';
+  if (alertMessage) {
+      alert(alertMessage);
+  }
+  /*]]>*/
+</script>
 </body>
+
 </html>

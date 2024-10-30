@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import projectHS.DBminiPTL.Common.Session;
 import projectHS.DBminiPTL.DAO.Acc_InfoDAO;
 import projectHS.DBminiPTL.VO.Acc_InfoVO;
 
@@ -14,21 +15,17 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/main")
-
 public class Acc_InfoController {
 
-    // Acc_InfoDAO 주입
     @Autowired
     private Acc_InfoDAO aiDAO;
 
-    // 로그인 페이지 요청 처리
     @GetMapping
     public String loginView(Model model) {
         model.addAttribute("aiVO", new Acc_InfoVO());
         return "thymeleaf/login";
     }
 
-    // 로그인 처리
     @PostMapping("/login")
     public String login(@ModelAttribute("aiVO") Acc_InfoVO aiVO, Model model) {
 
@@ -39,20 +36,23 @@ public class Acc_InfoController {
 
         if (authLevel == 3) {
             // CUSTOMER 로그인 성공
+            Session.loggedInUserId = userId; // Set user ID in session
             model.addAttribute("message", "CUSTOMER 로그인 성공!");
-            return "redirect:/main/customer"; // 고객 메인 페이지로 리디렉션
+            return "redirect:/main/customer"; // Redirect to customer main page
         } else if (authLevel == 1) {
             // ADMIN 로그인 성공
+            Session.loggedInUserId = userId; // Set user ID in session
             model.addAttribute("message", "ADMIN 로그인 성공!");
-            return "redirect:/main/admin"; // 관리자 메인 페이지로 리디렉션
+            return "redirect:/main/admin"; // Redirect to the admin main page
         } else if (authLevel == 2) {
             // HQ 로그인 성공
+            Session.loggedInUserId = userId; // Set user ID in session
             model.addAttribute("message", "HQ 로그인 성공!");
-            return "redirect:/main/hq"; // HQ 메인 페이지로 리디렉션
+            return "redirect:/main/hq"; // Redirect to the HQ main page
         } else {
             // 로그인 실패
-            model.addAttribute("error", "아이디 또는 비밀번호를 확인해주세요.");
-            return "thymeleaf/login"; // 로그인 페이지로 돌아감
+            model.addAttribute("alertMessage", "아이디 또는 비밀번호를 확인해주세요."); // Add alert message
+            return "thymeleaf/login"; // Redirect to login page with error
         }
     }
 
@@ -61,7 +61,6 @@ public class Acc_InfoController {
         // 고객 메인 페이지에 필요한 데이터 추가
         return "thymeleaf/customerMain"; // 고객 메인 페이지 템플릿
     }
-
 
     @GetMapping("/admin")
     public String rdAdminMain(Model model) {
