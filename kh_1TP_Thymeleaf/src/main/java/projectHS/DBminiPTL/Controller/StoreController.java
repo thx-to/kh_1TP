@@ -66,24 +66,4 @@ public class StoreController { // http://localhost:8112/store
         model.addAttribute("capitalSc", formattedCapital);
         return "thymeleaf/storeAdminAcctSearch";
     }
-
-
-
-//    @GetMapping("/capital") // http://localhost:8112/store/capital
-//    public ResponseEntity<StoreVO> getCapital(@RequestParam String storeId) {
-//        List<StoreVO> capital = storeDAO.cpSelect(storeDAO.getCpSStoreId(storeId));
-//        if (capital.isEmpty()) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
-//        return ResponseEntity.ok(capital.get(0));
-//    }
-
-//    @GetMapping("/sales") // http://localhost:8112/store/sales
-//    public ResponseEntity<StoreVO> getSales(@RequestParam String storeId) {
-//        List<StoreVO> sales = storeDAO.slSelect(storeDAO.getSlStoreId(storeId));
-//        if (sales.isEmpty()) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
-//        return ResponseEntity.ok(sales.get(0));
-//    }
 }

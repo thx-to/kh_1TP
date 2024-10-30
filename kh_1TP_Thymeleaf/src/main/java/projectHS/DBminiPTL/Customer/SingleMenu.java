@@ -1,7 +1,5 @@
 package projectHS.DBminiPTL.Customer;
 
-
-
 public class SingleMenu {
     String name;
     int price;
@@ -14,22 +12,13 @@ public class SingleMenu {
         this.count = count;
     }
 
-    public SingleMenu(String name, int price, String descr ,int count) {
-        this.name = name;
-        this.price = price;
-        this.descr = descr;
-        this.count = count;
-    }
-
     // 세트용
     public SingleMenu(String name, int price) {
         this.name = name;
         this.price = price;
     }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
+
 
     public void changeCount(int count) {
         this.count += count;
@@ -49,5 +38,9 @@ public class SingleMenu {
 
     public int getCount() {
         return count;
+    }
+
+    public void setCount(int cnt) {
+        this.count = cnt;
     }
 }

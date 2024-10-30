@@ -1,6 +1,7 @@
 package projectHS.DBminiPTL.DAO;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -33,14 +34,6 @@ public class StoreDAO {
         }
     }
 
-    // DataBase Table Store에 store_id와 로그인 했을때 지점이 같은지 확인
-//    public String getCpCStoreId(String userId) {
-//        String storeId = null;
-//        String sql = "SELECT STORE_ID FROM ACC_INFO WHERE USER_ID = '" + userId + "'";
-//        storeId = jdbcTemplate.queryForObject(sql, new Object[]{userId},String.class);
-//        return storeId;
-//    }
-
     // 가용금액 표시
     public BigDecimal cpSelect(String user_Id) { // capitalSelect
         String sql = "SELECT s.capital FROM Store s JOIN ACC_INFO  a ON s.store_id = a.store_id" +
@@ -48,68 +41,18 @@ public class StoreDAO {
         return jdbcTemplate.queryForObject(sql, new Object[]{user_Id}, BigDecimal.class);
     }
 
-    // DataBase Table Store에 store_id와 로그인 했을때 지점이 같은지 확인
-//    public String getCpSStoreId(String userId) {
-//        String storeId = null;
-//        String sql = "SELECT STORE_ID FROM ACC_INFO WHERE USER_ID = '" + userId + "'";
-//        storeId = jdbcTemplate.queryForObject(sql, new Object[]{userId},String.class);
-//        return storeId;
-//    }
 
     // 매출현황
     public BigDecimal slSelect(String user_Id) {
         String sql = "SELECT s.sales FROM Store s JOIN ACC_INFO  a ON s.store_id = a.store_id" +
                 " WHERE a.user_id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{user_Id}, BigDecimal.class);
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{user_Id}, BigDecimal.class);
+        } catch (EmptyResultDataAccessException e) {
+            log.warn("No sales record found for user ID: " + user_Id);
+            return BigDecimal.ZERO; // Or any default value appropriate for your use case
+        }
+
     }
 
-    // DataBase Table Store에 store_id와 로그인 했을때 지점이 같은지 확인
-//    public String getSlStoreId(String userId) {
-//        String storeId = null;
-//        String sql = "SELECT STORE_ID FROM ACC_INFO WHERE USER_ID = '" + userId + "'";
-//        storeId = jdbcTemplate.queryForObject(sql, new Object[]{userId},String.class);
-//        return storeId;
-//    }
-
-//    // 매출현황에 소비자가 지불한 메뉴 금액만큼 추가
-//    public static void salesPTp(int tp, String store_id) { // sales + Totalprice
-//        try {
-//            conn = Common.getConnection(); // 오라클 DB연결
-//            String sql = "UPDATE STORE SET sales = sales + ? WHERE store_id = ?"; // 계좌 충전
-//            psmt = conn.prepareStatement(sql); // 동적인 데이터로 받을때 사용 (?)
-//            psmt.setInt(1, tp); // capital 설정
-//            psmt.setString(2,store_id); // store_id 설정
-//
-//            if (psmt.executeUpdate() == 0) { // UPDATE
-//                throw new Exception();
-//            };
-//            Common.close(psmt);
-//            Common.close(conn);
-//
-//        } catch (Exception e) {
-//            System.out.println("매출액 합산 실패");
-//            Common.close(psmt);
-//            Common.close(conn);
-//        }
-//    }
-
-//    public static class cpSelectRowMapper implements RowMapper<StoreVO> {
-//        @Override
-//        public StoreVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-//            return new StoreVO(
-//                    rs.getString("storeId"),
-//                    rs.getInt("capital")
-//            );
-//        }
-//    }
-//
-//    public static class slSelectRowMapper implements RowMapper<StoreVO> {
-//
-//        @Override
-//        public StoreVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-//            return new StoreVO(
-//                    rs.getBigDecimal("sales")
-//            );
-//        }
-//    }
 }

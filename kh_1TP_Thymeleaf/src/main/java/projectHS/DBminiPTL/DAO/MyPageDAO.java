@@ -99,4 +99,3 @@ public class MyPageDAO {
         return rst > 0;
     }
 }
-
