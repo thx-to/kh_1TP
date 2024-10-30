@@ -3,13 +3,10 @@ package projectHS.DBminiPTL.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import projectHS.DBminiPTL.DAO.Inv_OrderDAO;
+import projectHS.DBminiPTL.VO.InvVO;
 import projectHS.DBminiPTL.VO.Inv_OrderVO;
-
 import java.util.List;
 
 @Controller
@@ -21,58 +18,72 @@ public class Inv_OrderController {
     @Autowired
     private Inv_OrderDAO ioDAO;
 
-    // 메뉴 확인 처리
-    @GetMapping("/hqSelect")
-    public String ioSelectView(Model model) {
-        List<Inv_OrderVO> ioList = ioDAO.Inv_OrderSelect();
-        model.addAttribute("invMenuList", ioList);
-        return "thymeleaf/hqSelect";
+    public Inv_OrderController(Inv_OrderDAO ioDAO) {
+        this.ioDAO = ioDAO;
     }
 
-    // 메뉴 추가 요청 처리
-    @GetMapping("/hqMngInv/Insert")
-    // View로 모델을 넘겨주는 객체
-    public String ioInsertView(Model model) {
-        // 빈 객체를 넘겨줌
+
+    // 전체 메뉴 출력
+    @GetMapping("/hqInvMngr")
+    public String Inv_OrderSelect(Model model) {
+        List<Inv_OrderVO> ioVO = ioDAO.Inv_OrderSelect();
+        model.addAttribute("invMenuList", ioVO);
+        return "thymeleaf/hqInvMngr";
+    }
+
+    // 수정
+    @PostMapping("/hqInvMngr/update")
+    public String Inv_OrderUpdate(Inv_OrderVO ioVO) {
+        ioDAO.Inv_OrderUpdate(ioVO);
+        return "redirect:/main/hq/hqInvMngr";
+    }
+
+    // 수정버튼 클릭시 editMode
+    @PostMapping("/hqInvMngr/editMode")
+    public String editMode(@RequestParam String menuName, Model model) {
+        List<Inv_OrderVO> ioVO = ioDAO.Inv_OrderSelect();
+        // 클릭한 메뉴 항목의 editMode를 true로 설정
+        for (Inv_OrderVO item : ioVO) {
+            if (item.getMenuName().equals(menuName)) {
+                item.setEditMode(true);
+            } else {
+                item.setEditMode(false);
+            }
+        }
+        model.addAttribute("invMenuList", ioVO);
+        return "thymeleaf/hqInvMngr"; // 수정할 페이지 이름
+    }
+
+    // 삭제
+    @PostMapping("/hqInvMngr/delete")
+    public String Inv_OrderDelete(@RequestParam String menuName) {
+        ioDAO.Inv_OrderDelete(menuName);
+        return "redirect:/main/hq/hqInvMngr";
+    }
+
+    // 추가 버튼 클릭시 addMode
+    @PostMapping("/hqInvMngr/addMode")
+    public String addMode(@ModelAttribute Inv_OrderVO ioVO) {
+        ioDAO.Inv_OrderInsert(ioVO);
+        return "redirect:/main/hq/hqInvMngr"; // 수정할 페이지 이름
+    }
+
+    /*
+    // 메뉴 추가 GetMapping으로 추가 페이지 이동
+    @GetMapping("/hqInvMngr/insert")
+    public String ioUpdateView(Model model) {
         model.addAttribute("invMenuList", new Inv_OrderVO());
         return "thymeleaf/hqInsert";
     }
 
-    // 메뉴 추가 메소드
-    @PostMapping("/hqMngInv/Insert")
-    public String ioInsertDB(@ModelAttribute("invMenuList") Inv_OrderVO ioVO, Model model) {
+    // 메뉴 추가 PostMapping으로 실제 추가 작업 처리
+    @PostMapping("/hqInvMngr/insert")
+    public String Inv_OrderInsert(@ModelAttribute("invMenuList") Inv_OrderVO ioVO, Model model) {
         boolean isSuccess = ioDAO.Inv_OrderInsert(ioVO);
         model.addAttribute("isSuccess", isSuccess);
         return "thymeleaf/hqInsertRst";
     }
-
-
-    // 메뉴 수정 요청 처리
-    @GetMapping("/hqUpdate")
-    public String ioUpdateView(@ModelAttribute("invMenuList") Inv_OrderVO ioVO, Model model) {
-        Inv_OrderVO menuInfo = ioDAO.getMenuByName(ioVO.getMenuName());
-        model.addAttribute("menuName", ioVO.getMenuName());
-        return "thymeleaf/hqUpdate";
-    }
-
-    // 메뉴 수정 메소드
-    @PostMapping("/hqUpdate")
-    public String ioUpdateDB(@ModelAttribute("invMenuList") Inv_OrderVO ioVO, Model model) {
-        boolean isSuccess = ioDAO.Inv_OrderUpdate(ioVO);
-        model.addAttribute("isSucceess", isSuccess);
-        return "thymeleaf/hqUpdateRst";
-    }
-
-    // 한 페이지로 구성하는 중
-    @GetMapping("/hqMngInv")
-    public String getInventory(Model model) {
-        List<Inv_OrderVO> ioVO = ioDAO.getAllInventory();
-        model.addAttribute("invMenuList", ioVO);
-        return "thymeleaf/hqMngInv";
-    }
-
-
-
+    */
 
 
 

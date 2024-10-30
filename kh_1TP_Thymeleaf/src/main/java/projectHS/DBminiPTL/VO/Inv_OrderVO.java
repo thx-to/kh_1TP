@@ -10,6 +10,7 @@ public class Inv_OrderVO {
     private int price;
     private String category;
     private String descr;
+    private boolean editMode;
 
     // 생성자
     public Inv_OrderVO(String menuName, int price, String category, String descr) {
@@ -21,6 +22,14 @@ public class Inv_OrderVO {
 
     // 빈 생성자
     public Inv_OrderVO() {
+    }
+
+    public boolean isEditMode() {
+        return editMode;
+    }
+
+    public void setEditMode(boolean editMode) {
+        this.editMode = editMode;
     }
 
     // Getter
