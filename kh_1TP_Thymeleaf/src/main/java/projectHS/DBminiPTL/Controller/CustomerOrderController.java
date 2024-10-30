@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/customerOrdering")
+@RequestMapping("/main/customer")
 public class CustomerOrderController {
     private final InvDAO invDAO;
     private final Order_RecordDAO orderRecordDAO;
@@ -41,7 +41,7 @@ public class CustomerOrderController {
             Session.storeId = storeId;
         }
 
-        return "redirect:/customerOrdering/showMenu";
+        return "redirect:/main/customer/showMenu";
     }
 
 
@@ -76,7 +76,7 @@ public class CustomerOrderController {
         System.out.println("세트 메뉴 추가 메서드 호출");
 
         if (burgerName == null || sideName == null || drinkName == null || setCount <= 0) {
-            return "redirect:/customerOrdering/showMenu"; // 유효하지 않은 경우 메뉴 페이지로 리다이렉트
+            return "redirect:/main/customer/showMenu"; // 유효하지 않은 경우 메뉴 페이지로 리다이렉트
         }
 
         // SingleMenu 객체 생성
@@ -90,21 +90,21 @@ public class CustomerOrderController {
         invDAO.addSetMenu(setMenu);
         // 디버깅
 
-        return "redirect:/customerOrdering/showMenu";
+        return "redirect:/main/customer/showMenu";
     }
 
     @PostMapping("/cart/updateSet")
     public String updateSetCart(@RequestParam String burgerName, @RequestParam String sideName, @RequestParam String drinkName, @RequestParam int newCount) {
         invDAO.updateSetMenu(burgerName, sideName, drinkName, newCount);
 
-        return "redirect:/customerOrdering/showMenu";
+        return "redirect:/main/customer/showMenu";
     }
 
     @PostMapping("/cart/removeSet")
     public String removeSetCart(@RequestParam String burgerName, @RequestParam String sideName, @RequestParam String drinkName) {
         invDAO.removeSetMenu(burgerName, sideName, drinkName);
 
-        return "redirect:/customerOrdering/showMenu";
+        return "redirect:/main/customer/showMenu";
     }
 
     @PostMapping("/cart/single")
@@ -114,7 +114,7 @@ public class CustomerOrderController {
         System.out.println("단일 메뉴 추가 메서드 호출");
 
         if (menuName == null || count <= 0) {
-            return "redirect:/customerOrdering/showMenu"; // 유효하지 않은 경우 메뉴 페이지로 리다이렉트
+            return "redirect:/main/customer/showMenu"; // 유효하지 않은 경우 메뉴 페이지로 리다이렉트
         }
 
         // SingleMenu 객체 생성
@@ -124,21 +124,21 @@ public class CustomerOrderController {
         invDAO.addSingleMenu(singleMenu);
         System.out.println(singleMenu.getName() + "추가");
 
-        return "redirect:/customerOrdering/showMenu";
+        return "redirect:/main/customer/showMenu";
     }
 
     @PostMapping("/cart/updateSingle")
     public String updateSingleCart(@RequestParam String menuName, @RequestParam int newCount) {
         invDAO.updateSingleMenu(menuName, newCount);
 
-        return "redirect:/customerOrdering/showMenu";
+        return "redirect:/main/customer/showMenu";
     }
 
     @PostMapping("/cart/removeSingle")
     public String removeSingleCart(@RequestParam String menuName) {
         invDAO.removeSingleMenu(menuName);
 
-        return "redirect:/customerOrdering/showMenu";
+        return "redirect:/main/customer/showMenu";
     }
 
 
@@ -152,7 +152,7 @@ public class CustomerOrderController {
             System.out.println(stockCheckMessage);
             // 재고가 부족한 경우, 메시지를 모델에 추가
             redirectAttributes.addFlashAttribute("stockCheckMsg", stockCheckMessage);
-            return "redirect:/customerOrdering/showMenu"; // 재고 부족 메시지를 표시할 메뉴 페이지로 리다이렉트
+            return "redirect:/main/customer/showMenu"; // 재고 부족 메시지를 표시할 메뉴 페이지로 리다이렉트
         }
 
         try {
@@ -171,10 +171,10 @@ public class CustomerOrderController {
         } catch (Exception e) {
             System.out.println("결제 실패 : " + e.getMessage());
             model.addAttribute("errorMsg", "결제 처리 중 오류가 발생했습니다.");
-            return "redirect:/customerOrdering/showMenu";
+            return "redirect:/main/customer/showMenu";
         }
 
-        return "redirect:/customerOrdering/stores"; // 가게 선택 페이지로 리다이렉트
+        return "redirect:/main/customer/stores"; // 가게 선택 페이지로 리다이렉트
     }
 
 

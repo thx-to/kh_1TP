@@ -14,7 +14,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("/customer/myPage")
+@RequestMapping("/main/customer/myPage")
 public class MyPageController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class MyPageController {
         String userId = Session.loggedInUserId; // 세션으로 부터 로그인 ID 값 받아서 설정
         if (userId == null) {
             model.addAttribute("alertMessage", "아이디나 비밀번호가 맞지 않습니다. 메인페이지로 이동합니다.");
-            return "redirect:/main"; // 만일 존재하지 않으면 main으로 되돌려보내기
+            return "redirect:/main/customer"; // 만일 존재하지 않으면 main으로 되돌려보내기
         }
 
         List<Acc_InfoVO> accInfoList = accInfoDAO.Acc_InfoSelect(); // Retrieve all user info
@@ -84,7 +84,7 @@ public class MyPageController {
         String userId = Session.loggedInUserId; // 세션으로 부터 로그인 ID 값 받아서 설정
         if (userId == null) {
             model.addAttribute("alertMessage", "아이디나 비밀번호가 맞지 않습니다. 메인페이지로 이동합니다.");
-            return "redirect:/main"; // 만일 존재하지 않으면 main으로 되돌려보내기
+            return "redirect:/main/customer"; // 만일 존재하지 않으면 main으로 되돌려보내기
         }
 
         List<Acc_InfoVO> accInfoList = accInfoDAO.Acc_InfoSelect(); // Retrieve all user info

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import projectHS.DBminiPTL.Common.Common;
-import projectHS.VO.Order_RecordVO;
+import projectHS.DBminiPTL.VO.Order_RecordVO;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;

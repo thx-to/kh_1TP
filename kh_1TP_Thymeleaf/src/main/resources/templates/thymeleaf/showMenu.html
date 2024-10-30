@@ -46,9 +46,9 @@
 <body>
 <h2>선택된 지점: <span th:text="${selectedStore}">지점 이름</span></h2>
 <br><br>
-<a href="http://localhost:8112/customerOrdering/stores">지점 선택</a>
+<a href="/main/customer/stores">지점 선택</a>
 
-<form th:action="@{/customerOrdering/cart/set}" method="post">
+<form th:action="@{/main/customer/cart/set}" method="post">
   <h2>세트메뉴</h2>
 
   <label>버거:</label>
@@ -90,7 +90,7 @@
       <span th:text="${menu.menuName}">버거 이름</span> -
       <span th:text="${menu.price}">가격</span> 원
       <span th:text="${menu.descr}">설명</span>
-      <form th:action="@{/customerOrdering/cart/single}" method="post">
+      <form th:action="@{/main/customer/cart/single}" method="post">
         <input type="hidden" th:value="${menu.menuName}" name="menuName" />
         <input type="hidden" th:value="${menu.price}" name="menuPrice" />
         <input type="number" name="count" value="1" min="1" th:max="${menu.stock}" required />
@@ -105,7 +105,7 @@
       <span th:text="${menu.menuName}">사이드 이름</span> -
       <span th:text="${menu.price}">가격</span> 원
       <span th:text="${menu.descr}">설명</span>
-      <form th:action="@{/customerOrdering/cart/single}" method="post">
+      <form th:action="@{/main/customer/cart/single}" method="post">
         <input type="hidden" th:value="${menu.menuName}" name="menuName" />
         <input type="hidden" th:value="${menu.price}" name="menuPrice" />
         <input type="number" name="count" value="1" min="1" th:max="${menu.stock}" required />
@@ -120,7 +120,7 @@
       <span th:text="${menu.menuName}">음료 이름</span> -
       <span th:text="${menu.price}">가격</span> 원
       <span th:text="${menu.descr}">설명</span>
-      <form th:action="@{/customerOrdering/cart/single}" method="post">
+      <form th:action="@{/main/customer/cart/single}" method="post">
         <input type="hidden" th:value="${menu.menuName}" name="menuName" />
         <input type="hidden" th:value="${menu.price}" name="menuPrice" />
         <input type="number" name="count" value="1" min="1" th:max="${menu.stock}" required />
@@ -142,7 +142,7 @@
       <span th:text="${setMenu.price}">가격</span> 원 -
       <span th:text="${setMenu.count}">수량</span> 개
 
-      <form th:action="@{/customerOrdering/cart/updateSet}" method="post" style="display:inline;">
+      <form th:action="@{/main/customer/cart/updateSet}" method="post" style="display:inline;">
         <input type="hidden" th:value="${setMenu.burger.name}" name="burgerName" />
         <input type="hidden" th:value="${setMenu.side.name}" name="sideName" />
         <input type="hidden" th:value="${setMenu.drink.name}" name="drinkName" />
@@ -150,7 +150,7 @@
         <button type="submit">수량 변경</button>
       </form>
 
-      <form th:action="@{/customerOrdering/cart/removeSet}" method="post" style="display:inline;">
+      <form th:action="@{/main/customer/cart/removeSet}" method="post" style="display:inline;">
         <input type="hidden" th:value="${setMenu.burger.name}" name="burgerName" />
         <input type="hidden" th:value="${setMenu.side.name}" name="sideName" />
         <input type="hidden" th:value="${setMenu.drink.name}" name="drinkName" />
@@ -166,13 +166,13 @@
       <span th:text="${singleMenu.price}">가격</span> 원 -
       <span th:text="${singleMenu.count}">수량</span> 개
 
-      <form th:action="@{/customerOrdering/cart/updateSingle}" method="post" style="display:inline;">
+      <form th:action="@{/main/customer/cart/updateSingle}" method="post" style="display:inline;">
         <input type="hidden" th:value="${singleMenu.name}" name="menuName" />
         <input type="number" name="newCount" th:value="${singleMenu.count}" min="1" required />
         <button type="submit">수량 변경</button>
       </form>
 
-      <form th:action="@{/customerOrdering/cart/removeSingle}" method="post" style="display:inline;">
+      <form th:action="@{/main/customer/cart/removeSingle}" method="post" style="display:inline;">
         <input type="hidden" th:value="${singleMenu.name}" name="menuName" />
         <button type="submit">삭제</button>
       </form>
@@ -182,7 +182,7 @@
   <h3>총 합계: <span th:text="${totalPrice}" name="totalPrice">0</span> 원</h3>
 
   <div style="display: flex; justify-content: space-between; align-items: center;">
-    <form th:action="@{/customerOrdering/checkout}" method="post" onsubmit="showAlert()">
+    <form th:action="@{/main/customer/checkout}" method="post" onsubmit="showAlert()">
       <button type="submit">결제하기</button>
     </form>
 

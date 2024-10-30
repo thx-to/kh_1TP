@@ -13,17 +13,19 @@
 <h1>회원 정보 갱신</h1>
 <div>
 </div>
-<form action="/customer/myPage/accInfoUpdate" method="post">
+<form th:action="@{/main/customer/myPage/accInfoUpdate}" method="post">
   <input type="hidden" id="userId" name="userId" th:value="${accInfoVO.userId}">
 
   <label for="userPw">새로운 비밀번호 (8-20 characters):</label>
-  <input type="password" id="userPw" name="userPw"><br>
+  <input type="password" id="userPw" name="userPw" placeholder="8자 이상, 영문/숫자/특수문자 조합"><br>
+  <p>※ 비밀번호는 8자 이상 20자 이하로, 영문자, 숫자, 특수기호의 조합이어야 합니다. '&'는 사용할 수 없습니다.</p>
 
   <label for="userPhone">New Phone Number:</label>
-  <input type="text" id="userPhone" name="userPhone"><br>
+  <input type="text" id="userPhone" name="userPhone" placeholder="010-1234-5678" pattern="\d{3}-\d{4}-\d{4}"><br>
+  <p>※ 전화번호는 '010-1234-5678' 형식으로 입력해주세요.</p>
 
   <button type="submit">Update</button>
-  <a href="/customer/myPage">취소</a>
+  <a href="/main/customer/myPage">취소</a>
 </form>
 </body>
 
