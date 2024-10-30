@@ -18,10 +18,6 @@
         text-align: center;
     }
 
-    form {
-        display: inline;
-    }
-
     button {
         margin-left: 5px;
     }
@@ -32,6 +28,8 @@
         alert("결제를 실행합니다.");
     }
   </script>
+
+
 
 </head>
 
@@ -49,12 +47,194 @@
 
     <h2>주문 지점 : <span th:text="${selectedStore}">지점 이름</span>🚩</h2>
     <br><br>
-    <span class="submit"><input type="button" value="주문 지점 다시 선택하기" onclick="window.location.href='/main/customer/stores';" /></span>
-    <br><br>
 
+
+
+
+    <!-- 세트 메뉴 주문 버튼 -->
+    <span class="submit"><input type="button" value="세트 메뉴 주문하기" onclick="document.getElementById('setOrderMode').style.display='block'"></span>
+
+    <!-- 세트 메뉴 리스트 -->
+    <div id="input_box_customer_order_set">
+    <div class="menu" id="setOrderMode" style="display: none;">
+
+      <form th:action="@{/main/customer/cart/set}" method="post">
+        <h2>세트메뉴</h2><br><br>
+
+        <label>버거 선택</label>
+        <select class="input" name="burgerName" required>
+          <option th:each="menu : ${allMenus}" th:if="${menu.category == '버거'}" th:value="${menu.menuName}"
+                  th:text="${menu.menuName}"></option>
+        </select>
+        <input type="hidden" th:each="menu : ${allMenus}" th:if="${menu.category == '버거'}" th:value="${menu.price}"
+               name="burgerPrice" /><br>
+
+        <br><label>사이드 선택</label>
+        <select class="input" name="sideName" required>
+          <option th:each="menu : ${allMenus}" th:if="${menu.category == '사이드'}" th:value="${menu.menuName}"
+                  th:text="${menu.menuName}"></option>
+        </select>
+        <input type="hidden" th:each="menu : ${allMenus}" th:if="${menu.category == '사이드'}" th:value="${menu.price}"
+               name="sidePrice" /><br>
+
+        <br><label>음료 선택</label>
+        <select class="input" name="drinkName" required>
+          <option th:each="menu : ${allMenus}" th:if="${menu.category == '음료'}" th:value="${menu.menuName}"
+                  th:text="${menu.menuName}"></option>
+        </select>
+        <input type="hidden" th:each="menu : ${allMenus}" th:if="${menu.category == '음료'}" th:value="${menu.price}"
+               name="drinkPrice" /><br><br>
+
+        <label>주문 수량</label>
+        <input class="inputcnt" type="number" name="setCount" value="1" min="1" required />
+        <br><br>
+
+        <span class="submit_order"><input type="submit" value="장바구니에 담기" /></span>
+        <span class="submit_order"><input type="button" value="세트 주문 닫기" onclick="document.getElementById('setOrderMode').style.display='none'"></span>
+        <br><br>
+      </form>
+    </div>
+    </div>
+
+    <!-- 버거 단품 메뉴 주문 버튼 --><br>
+    <span class="submit"><input type="button" value="🍔버거 단품 메뉴 주문하기" onclick="document.getElementById('singleOrderBurger').style.display='block'"></span>
+
+    <!-- 버거 단품 메뉴 리스트 -->
+    <div class="menu" id="singleOrderBurger" style="display: none;">
+        <h2>버거 단품</h2><br>
+        <table>
+          <thead>
+          <tr>
+            <th>이름</th>
+            <th>가격</th>
+            <th>설명</th>
+            <th>수량</th>
+            <th>장바구니</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="menu : ${allMenus}" th:if="${menu.category == '버거'}">
+            <td th:text="${menu.menuName}">버거 이름</td>
+            <td th:text="${menu.price}">가격</td>
+            <td th:text="${menu.descr}">설명</td>
+            <td>
+              <form th:action="@{/main/customer/cart/single}" method="post">
+                <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+                <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+                <input type="number" name="count" value="1" min="1" th:max="${menu.stock}" required />
+            </td>
+            <td>
+              <form th:action="@{/main/customer/cart/single}" method="post">
+                <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+                <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+                <span class="sub_button3"><input type="submit" value="장바구니에 담기"></span>
+
+              </form>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      <br><br>
+      <span class="submit_order"><input type="button" value="버거 단품 주문 닫기" onclick="document.getElementById('singleOrderBurger').style.display='none'"></span>
+      <br><br>
+    </div>
+
+    <!-- 사이드 단품 메뉴 주문 버튼 -->
+    <span class="submit"><input type="button" value="🍟사이드 단품 메뉴 주문하기" onclick="document.getElementById('singleOrderSide').style.display='block'"></span>
+
+    <!-- 사이드 단품 메뉴 리스트 -->
+    <div class="menu" id="singleOrderSide" style="display: none;">
+      <h2>사이드 단품</h2><br>
+      <table>
+        <thead>
+        <tr>
+          <th>이름</th>
+          <th>가격</th>
+          <th>설명</th>
+          <th>수량</th>
+          <th>장바구니</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="menu : ${allMenus}" th:if="${menu.category == '사이드'}">
+          <td th:text="${menu.menuName}">사이드 이름</td>
+          <td th:text="${menu.price}">가격</td>
+          <td th:text="${menu.descr}">설명</td>
+          <td>
+            <form th:action="@{/main/customer/cart/single}" method="post">
+              <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+              <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+              <input type="number" name="count" value="1" min="1" th:max="${menu.stock}" required />
+          </td>
+          <td>
+            <form th:action="@{/main/customer/cart/single}" method="post">
+              <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+              <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+              <span class="sub_button3"><input type="submit" value="장바구니에 담기"></span>
+
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <br><br>
+      <span class="submit_order"><input type="button" value="사이드 단품 주문 닫기" onclick="document.getElementById('singleOrderSide').style.display='none'"></span>
+      <br><br>
+    </div>
+
+
+    <!-- 음료 단품 메뉴 주문 버튼 -->
+    <span class="submit"><input type="button" value="🥤음료 단품 메뉴 주문하기" onclick="document.getElementById('singleOrderDrink').style.display='block'"></span>
+
+    <!-- 음료 단품 메뉴 리스트 -->
+    <div class="menu" id="singleOrderDrink" style="display: none;">
+      <h2>음료 단품</h2><br>
+      <table>
+        <thead>
+        <tr>
+          <th>이름</th>
+          <th>가격</th>
+          <th>설명</th>
+          <th>수량</th>
+          <th>장바구니</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="menu : ${allMenus}" th:if="${menu.category == '음료'}">
+          <td th:text="${menu.menuName}">음료 이름</td>
+          <td th:text="${menu.price}">가격</td>
+          <td th:text="${menu.descr}">설명</td>
+          <td>
+            <form th:action="@{/main/customer/cart/single}" method="post">
+              <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+              <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+              <input type="number" name="count" value="1" min="1" th:max="${menu.stock}" required />
+          </td>
+          <td>
+            <form th:action="@{/main/customer/cart/single}" method="post">
+              <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+              <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+              <span class="sub_button3"><input type="submit" value="장바구니에 담기"></span>
+
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <br><br>
+      <span class="submit_order"><input type="button" value="음료 단품 주문 닫기" onclick="document.getElementById('singleOrderDrink').style.display='none'"></span>
+      <br><br>
+    </div>
+
+
+    <span class="submit">
+      <input type="button" value="주문 지점 다시 선택하기" onclick="window.location.href='/main/customer/stores';" /></span>
+    <br><br>
+    <!--
     <div class="menu">
       <form th:action="@{/main/customer/cart/set}" method="post">
-      <h2>세트메뉴</h2>
+      <h2>세트메뉴</h2><br>
 
       <label>버거 선택</label>
       <select class="input" name="burgerName" required>
@@ -85,12 +265,13 @@
       <br>
 
         <span class="submit"><input type="submit" value="장바구니에 담기" /></span>
-
+    <br><br>
     </form>
     </div>
 
+
     <div class="menu">
-      <h2>버거</h2>
+      <h2>버거 단품</h2><br>
       <ul>
         <li th:each="menu : ${allMenus}" th:if="${menu.category == '버거'}">
           <span th:text="${menu.menuName}">버거 이름</span> -
@@ -99,11 +280,49 @@
           <form th:action="@{/main/customer/cart/single}" method="post">
             <input type="hidden" th:value="${menu.menuName}" name="menuName" />
             <input type="hidden" th:value="${menu.price}" name="menuPrice" />
-            <input type="number" name="count" value="1" min="1" th:max="${menu.stock}" required />
-            <button type="submit">장바구니에 담기</button>
+            <input class="input" type="number" name="count" value="1" min="1" th:max="${menu.stock}" required />
+            <span class="sub_button3"><input type="submit" value="장바구니에 담기" /></span>
           </form>
         </li>
       </ul>
+   <br><br>
+    <div class="menu">
+      <h2>버거 단품</h2><br>
+    <table>
+      <thead>
+      <tr>
+        <th>이름</th>
+        <th>가격</th>
+        <th>설명</th>
+        <th>수량</th>
+        <th>장바구니</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="menu : ${allMenus}" th:if="${menu.category == '버거'}">
+        <td th:text="${menu.menuName}">버거 이름</td>
+        <td th:text="${menu.price}">가격</td>
+        <td th:text="${menu.descr}">설명</td>
+        <td>
+          <form th:action="@{/main/customer/cart/single}" method="post">
+            <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+            <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+            <input type="number" name="count" value="1" min="1" th:max="${menu.stock}" required />
+        </td>
+        <td>
+          <form th:action="@{/main/customer/cart/single}" method="post">
+            <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+            <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+            <span class="sub_button3"><input type="submit" value="장바구니에 담기"></span>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+      </div>
+
+    <br><br>
+
 
       <h2>사이드</h2>
       <ul>
@@ -119,6 +338,44 @@
           </form>
         </li>
       </ul>
+
+    <div class="menu">
+      <h2>사이드 단품</h2><br>
+      <table>
+        <thead>
+        <tr>
+          <th>이름</th>
+          <th>가격</th>
+          <th>설명</th>
+          <th>수량</th>
+          <th>장바구니</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="menu : ${allMenus}" th:if="${menu.category == '사이드'}">
+          <td th:text="${menu.menuName}">사이드 이름</td>
+          <td th:text="${menu.price}">가격</td>
+          <td th:text="${menu.descr}">설명</td>
+          <td>
+            <form th:action="@{/main/customer/cart/single}" method="post">
+              <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+              <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+              <input type="number" name="count" value="1" min="1" th:max="${menu.stock}" required />
+          </td>
+          <td>
+            <form th:action="@{/main/customer/cart/single}" method="post">
+              <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+              <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+              <span class="sub_button3"><input type="submit" value="장바구니에 담기"></span>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br><br>
+
 
       <h2>음료</h2>
       <ul>
@@ -136,8 +393,46 @@
       </ul>
     </div>
 
-    <div class="cart">
-      <h1>장바구니</h1>
+
+    <div class="menu">
+      <h2>음료 단품</h2><br>
+      <table>
+        <thead>
+        <tr>
+          <th>이름</th>
+          <th>가격</th>
+          <th>설명</th>
+          <th>수량</th>
+          <th>장바구니</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="menu : ${allMenus}" th:if="${menu.category == '음료'}">
+          <td th:text="${menu.menuName}">음료 이름</td>
+          <td th:text="${menu.price}">가격</td>
+          <td th:text="${menu.descr}">설명</td>
+          <td>
+            <form th:action="@{/main/customer/cart/single}" method="post">
+              <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+              <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+              <input type="number" name="count" value="1" min="1" th:max="${menu.stock}" required />
+          </td>
+          <td>
+            <form th:action="@{/main/customer/cart/single}" method="post">
+              <input type="hidden" th:value="${menu.menuName}" name="menuName" />
+              <input type="hidden" th:value="${menu.price}" name="menuPrice" />
+              <span class="sub_button3"><input type="submit" value="장바구니에 담기"></span>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+-->
+    <br><br>
+  <div id="input_box_customer_order_cart" class="centered">
+    <div class="cart"><br><br><br>
+      <h1>🛒장바구니</h1><br><br>
 
       <h2>세트 메뉴</h2>
       <ul>
@@ -152,7 +447,7 @@
             <input type="hidden" th:value="${setMenu.burger.name}" name="burgerName" />
             <input type="hidden" th:value="${setMenu.side.name}" name="sideName" />
             <input type="hidden" th:value="${setMenu.drink.name}" name="drinkName" />
-            <input type="number" name="newCount" th:value="${setMenu.count}" min="1" required />
+            <input type="number" name="newCount" class="inputcnt"  th:value="${setMenu.count}" min="1" required />
             <button type="submit">수량 변경</button>
           </form>
 
@@ -164,8 +459,8 @@
           </form>
         </li>
       </ul>
-
-      <h2>단일 메뉴</h2>
+<br><br>
+      <h2>단품 메뉴</h2>
       <ul>
         <li th:each="singleMenu : ${singleCart}">
           <span th:text="${singleMenu.name}">메뉴 이름</span> -
@@ -174,7 +469,7 @@
 
           <form th:action="@{/main/customer/cart/updateSingle}" method="post" style="display:inline;">
             <input type="hidden" th:value="${singleMenu.name}" name="menuName" />
-            <input type="number" name="newCount" th:value="${singleMenu.count}" min="1" required />
+            <span class="sub_button"><input type="number" class="inputcnt" name="newCount" th:value="${singleMenu.count}" min="1" required />
             <button type="submit">수량 변경</button>
           </form>
 
@@ -184,7 +479,7 @@
           </form>
         </li>
       </ul>
-
+  <br><br>
       <h3>총 합계: <span th:text="${totalPrice}" name="totalPrice">0</span> 원</h3>
 
       <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -196,12 +491,14 @@
         <div th:if="${stockCheckMsg}" style="color: red; margin-left: 10px;">
           <p th:text="${stockCheckMsg}"></p>
         </div>
+        </div>
       </div>
-    </div>
 
 
 
 
+
+  </div>
   </div>
 
 </div>

@@ -19,31 +19,50 @@ body {
 #wrap_customer_main {
   width: 800px;
   min-width: 400px;
-  height: 800px;
-  margin: 100px auto auto;
+  height: 600px;
+  margin: 100px auto 100px;
+  background-color: #ffffff;
+}
+
+#wrap_customer_mypage {
+  width: 800px;
+  min-width: 400px;
+  height: 550px;
+  margin: 100px auto 100px;
   background-color: #ffffff;
 }
 
 #wrap_customer_order_stores {
   width: 800px;
   min-width: 400px;
-  height: 800px;
-  margin: 100px auto auto;
+  margin: 100px auto 100px;
+  padding: auto auto 100px;
   background-color: #ffffff;
+  text-align: center;
 }
 
 #wrap_customer_order_menu {
   width: 800px;
   min-width: 400px;
-  height: 800px;
-  margin: 100px auto auto;
+  height: 1500px;
+  margin: 100px auto 100px;
   background-color: #ffffff;
+  text-align: center;
 }
 
 #area {
   width: 800px;
   background-color: #ffffff;
   margin: 0 auto;
+  position: relative;
+
+}
+
+#area_customer_order_stores {
+  width: 800px;
+  background-color: #ffffff;
+  margin: auto auto 200px;
+  padding: 0 auto 100px;
   position: relative;
   text-align: center;
 }
@@ -71,6 +90,18 @@ body {
 
 .submit > input {
   width: 80%;
+  height: 60px;
+  color: #ffffff;
+  background: #000000;
+  text-align: center;
+  border: none;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.submit1 > input {
+  width: 100%;
   height: 60px;
   color: #ffffff;
   background: #000000;
@@ -114,11 +145,26 @@ body {
   font-size: 12px;
 }
 
+cart .sub_button3 {
+    display: flex;
+    justify-content: center; /* 버튼 가로 중앙 정렬 */
+      width: 100px;
+      height: 30px;
+      color: #ffffff !important;
+      background: #000000 !important;
+      border: 1px solid #000;
+      text-align: center;
+      display: inline;
+      font-size: 12px;
+      margin: 0 5px;
+}
+
 .menu,
 .cart {
-    width: 45%;
+    width: 80%;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
     }
 
 .menu {
@@ -126,13 +172,176 @@ body {
     margin: auto;
     padding: 50px 0 0;
     text-align: center;
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 수평 중앙 정렬 */
     }
 
+.menu table {
+    margin: 0 auto;
+}
+
 .menu .input {
-    width: 30%;
+    width: 2000px;
     height: 30px;
     padding: 5px 5px 5px;
     box-sizing: border-box;
     border: 1px solid #cccccc;
     margin-bottom: 10px;
     }
+
+.form {
+    display: inline;
+    text-align: center;
+        }
+
+
+.sub_button3 {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.sub_button3 > input {
+  width: 100px;
+  height: 30px;
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 1px solid #000;
+  text-align: center;
+  display: inline;
+  font-size: 12px;
+  margin: 0 5px;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    text-align: center;
+    margin: auto;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 12px;
+    margin: auto;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: black;
+}
+
+td .sub_button2 {
+    display: flex;
+    justify-content: center; /* 버튼 가로 중앙 정렬 */
+}
+
+.submit_order {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 10px;
+
+}
+
+.submit_order > input {
+  width: 400px;
+  height: 60px;
+  color: #ffffff !important;
+  background: #000000 !important;
+  text-align: center;
+  border: none;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.submit_order > button {
+  width: 50%;
+  height: 60px;
+  color: #ffffff !important;
+  background: #000000 !important;
+  text-align: center;
+  border: 1px #000000;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#input_box_customer_order_set {
+  width: 90%;
+  margin: auto;
+  padding: 5px 0 0;
+  text-align: center;
+}
+
+#input_box_customer_order_set .input {
+  width: 30%;
+  height: 30px;
+  padding: 5px 5px 5px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+}
+
+#input_box_customer_order_set .inputcnt {
+  width: 50px;
+  height: 30px;
+  padding: 5px 5px 5px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+}
+
+#input_box_customer_order_cart {
+  width: 90%;
+  margin: auto;
+  padding: 5px 0 0;
+  text-align: center;
+}
+
+#input_box_customer_order_cart .inputcnt {
+  width: 50px;
+  height: 20px;
+  padding: 5px 5px 5px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+}
+
+
+#input_box_customer_order_cart .sub_button3 {
+  width: 50px;
+  height: 30px;
+  color: #ffffff;
+  background: #000000;
+  border: 1px solid #000;
+  text-align: center;
+  display: inline;
+  font-size: 12px;
+  margin: 0 5px;
+}
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+#input_box_infoup {
+  width: 40%;
+  margin: 0 auto;
+  padding: 30px 0 0;
+}
+
+#input_box_infoup .input {
+  width: 100%;
+  height: 50px;
+  padding: 15px 10px 14px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+}

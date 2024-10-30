@@ -10,7 +10,7 @@
 <body>
 
 <div id="wrap_customer_order_stores">
-    <div id="area">
+    <div id="area_customer_order_stores">
         <div id="header">
             <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F64Fyi%2FbtsKopBV7f8%2FV9c159yoKN4R6s0C6HV2i0%2Fimg.png" width="100"/>
             <br><h3>버거집 CUSTOMER ORDER🍔</h3>
@@ -25,7 +25,7 @@
         <span class="submit" th:each="store : ${stores}">
             <input type="submit" name="storeId" th:value="${store}">
         </span>
-        </form>
+        </form><br><br><br>
 
     </div>
 </div>

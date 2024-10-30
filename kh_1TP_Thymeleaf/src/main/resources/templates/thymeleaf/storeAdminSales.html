@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>매출 현황</title>
+  <title>BURGERZIP ADMIN SALES</title>
+  <link rel="stylesheet" th:href="@{/css/style_admin.css}">
+  <!--
   <style>
     body {
         font-family: Arial, sans-serif;
@@ -36,13 +38,29 @@
         background-color: #0056b3;
     }
   </style>
+  -->
 </head>
+
 <body>
-<h1>매출 현황</h1>
+<div id="wrap_admin_sales">
+  <div id="area_admin_sales">
+    <div id="header">
+      <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F64Fyi%2FbtsKopBV7f8%2FV9c159yoKN4R6s0C6HV2i0%2Fimg.png" width="100"/>
+      <br><h3>버거집 ADMIN 매출 현황🍔</h3>
+      <p>안녕하세요 관리자님,</p>
+      <p>여기서 매출 현황을 볼 수 있습니다.</p><br>
+    </div>
+<body>
+<br><br><br>
+
+
+<h1>매출 현황</h1><br>
 <div class="total-sales" th:text="'총 매출액: ' + ${sales} + ' 원'"></div>
 
-<!-- 뒤로가기 버튼 추가 -->
-<button class="back-button" onclick="window.history.back()">뒤로가기</button>
 
+<br><br>
+<span class="submit"><input type="button" value="뒤로가기" onclick="window.history.back()" /></span><br><br><br>
+</div>
+</div>
 </body>
 </html>
