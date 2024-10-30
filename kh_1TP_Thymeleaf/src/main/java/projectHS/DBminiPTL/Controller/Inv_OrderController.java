@@ -68,24 +68,4 @@ public class Inv_OrderController {
         return "redirect:/main/hq/hqInvMngr"; // 수정할 페이지 이름
     }
 
-    /*
-    // 메뉴 추가 GetMapping으로 추가 페이지 이동
-    @GetMapping("/hqInvMngr/insert")
-    public String ioUpdateView(Model model) {
-        model.addAttribute("invMenuList", new Inv_OrderVO());
-        return "thymeleaf/hqInsert";
-    }
-
-    // 메뉴 추가 PostMapping으로 실제 추가 작업 처리
-    @PostMapping("/hqInvMngr/insert")
-    public String Inv_OrderInsert(@ModelAttribute("invMenuList") Inv_OrderVO ioVO, Model model) {
-        boolean isSuccess = ioDAO.Inv_OrderInsert(ioVO);
-        model.addAttribute("isSuccess", isSuccess);
-        return "thymeleaf/hqInsertRst";
-    }
-    */
-
-
-
-
 }

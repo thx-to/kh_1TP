@@ -60,26 +60,11 @@ public class Inv_OrderDAO {
         }
         return result > 0;
     }
-/*
+
     // 메뉴 추가
-    public boolean Inv_OrderInsert(Inv_OrderVO ioVO) {
-        int result = 0;
-        String query = "INSERT INTO INV_ORDER(MENU_NAME, PRICE, CATEGORY, DESCR) VALUES (?, ?, ?, ?)";
-
-        try {
-            result = jdbcTemplate.update(query, ioVO.getMenuName(), ioVO.getPrice(), ioVO.getCategory(), ioVO.getDescr());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return result > 0;
-    }*/
-
-    // 메뉴 추가 (수정)
     public void Inv_OrderInsert(Inv_OrderVO ioVO) {
-
         String query = "INSERT INTO INV_ORDER(MENU_NAME, PRICE, CATEGORY, DESCR) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(query, ioVO.getMenuName(), ioVO.getPrice(), ioVO.getCategory(), ioVO.getDescr());
-
     }
 
 }
