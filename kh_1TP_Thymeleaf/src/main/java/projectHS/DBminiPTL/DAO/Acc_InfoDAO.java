@@ -2,6 +2,7 @@ package projectHS.DBminiPTL.DAO;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -30,11 +31,18 @@ public class Acc_InfoDAO {
     public int checkUserAuthLevel(String userId, String userPw) {
         int authLevel = 0;
         String query = "SELECT AUTH_LV FROM ACC_INFO WHERE USER_ID = ? AND USER_PW = ?";
+        System.out.println("Checking user auth level for ID: " + userId);
 
         try {
-            // queryForObject 매개변수 : 해당 쿼리, 순서대로 자리 표시자에 대응하는 값, 결과값을 변환할 클래스
-            authLevel = jdbcTemplate.queryForObject(query,new Object[]{userId, userPw}, Integer.class);
+            // Try to get the authentication level from the database
+            authLevel = jdbcTemplate.queryForObject(query, new Object[]{userId, userPw}, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
+            // 주어진 ID 와 비밀번호로 나오는 결과 값이 없음
+            System.out.println("No auth level found for ID: " + userId);
+            return 0; // 혹은 authlevel 이 없는 쪽이라던지..
         } catch (Exception e) {
+            // 디버깅용; 결과 로깅.
+            System.err.println("Error while checking user auth level: " + e.getMessage());
             e.printStackTrace();
         }
         return authLevel;
