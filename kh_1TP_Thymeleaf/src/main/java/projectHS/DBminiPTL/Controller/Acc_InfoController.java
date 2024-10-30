@@ -62,6 +62,7 @@ public class Acc_InfoController {
         return "thymeleaf/customerMain"; // 고객 메인 페이지 템플릿
     }
 
+
     @GetMapping("/admin")
     public String rdAdminMain(Model model) {
         // 관리자 메인 페이지에 필요한 데이터 추가
