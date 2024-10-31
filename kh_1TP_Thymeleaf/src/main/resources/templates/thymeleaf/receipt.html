@@ -3,23 +3,22 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>BURGERZIP CUSTOMER ORDER HISTORY</title>
-  <link rel="stylesheet" th:href="@{/css/style_customer.css}">
+  <title>주문내역 확인</title>
+  <link rel="stylesheet" href="/css/style_customer.css">
 </head>
 
 <body>
-<div id="wrap_customer_order_stores">
-  <div id="area_customer_order_stores">
+<!-- Main container -->
+<div id="wrap_customer_main">
+  <div id="area">
+    <!-- Header -->
     <div id="header">
-      <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F64Fyi%2FbtsKopBV7f8%2FV9c159yoKN4R6s0C6HV2i0%2Fimg.png" width="100"/>
-      <br><h3>버거집 CUSTOMER ORDER HISTORY🍔</h3>
-      <p>안녕하세요 고객님,</p>
-      <p>여기에서 주문 내역을 확인하실 수 있습니다.</p><br>
+      <img
+              src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F64Fyi%2FbtsKopBV7f8%2FV9c159yoKN4R6s0C6HV2i0%2Fimg.png"
+              width="100" />
+      <h1>주문 내역</h1>
     </div>
-    <br><br><br>
-
-    <h2>주문 내역 확인🧾</h2><br>
-    </div>
+    <br><br>
 
     <!-- Receipt container -->
     <div class="receipt-container">
@@ -33,12 +32,13 @@
         <p><strong>지점:</strong> <span th:text="${order.storeId}"></span></p>
       </div>
       <hr>
-
-    </div><br><br>
-  <!-- Back button -->
-  <span class="submit"><input type="button" value="뒤로가기" onclick="history.go(-1);" /></span>
-  <br><br>
-  </div><br>
+    </div>
+    <div>
+      <!-- Back button -->
+      <span class="submit"><input type="button" value="뒤로가기" onclick="history.go(-1);" /></span>
+    </div>
+  </div>
+</div>
 </body>
 
 </html>
