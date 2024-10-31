@@ -16,62 +16,60 @@ body {
   background-color: #f1f1f1;
 }
 
-#wrap_customer_main {
+#wrap_admin_main {
   width: 800px;
   min-width: 400px;
-  height: 600px;
+  height: 500px;
   margin: 100px auto 100px;
   background-color: #ffffff;
 }
 
-#wrap_customer_mypage {
+#wrap_admin_order {
   width: 800px;
   min-width: 400px;
-  height: 550px;
+  height: 1000px;
   margin: 100px auto 100px;
   background-color: #ffffff;
+  text-align: center;
 }
 
-#wrap_customer_order_stores {
+#area_admin_main {
   width: 800px;
-  min-width: 400px;
-  margin: 100px auto 100px;
+  background-color: #ffffff;
+  margin: 0 auto 100px;
   padding: auto auto 100px;
-  background-color: #ffffff;
-  text-align: center;
+  position: relative;
 }
 
-#wrap_customer_order_menu {
+#wrap_admin_sales {
   width: 800px;
   min-width: 400px;
-  height: 1500px;
+  height: 500px;
   margin: 100px auto 100px;
   background-color: #ffffff;
   text-align: center;
 }
 
-#area {
+#area_admin_sales {
   width: 800px;
   background-color: #ffffff;
-  margin: 0 auto;
+  margin: 0 auto 100px;
+  padding: auto auto 100px;
   position: relative;
-
 }
 
-#area_customer_order_stores {
-  width: 800px;
-  background-color: #ffffff;
-  margin: auto auto 200px;
-  padding: 0 auto 100px;
-  position: relative;
-  text-align: center;
+#table_area {
+  display: flex;
+  /* Flexbox 사용 */
+  justify-content: center;
+  /* 수평 중앙 정렬 */
 }
 
 #header {
   width: 100%;
   height: 50px;
-  padding: 60px 0 60px;
-  margin-bottom: 100px;
+  padding: 60px 0 100px;
+  margin-bottom: 50px;
   text-align: center;
 }
 
@@ -100,32 +98,77 @@ body {
   font-weight: bold;
 }
 
-.submit1>input {
-  width: 100%;
+/* submit 파생버튼 */
+.styled-button {
+  width: 80%; /* Adjust to fit your layout */
   height: 60px;
-  color: #ffffff;
-  background: #000000;
+  color: #ffffff; /* Text color */
+  background: #000000; /* Background color */
   text-align: center;
-  border: none;
-  display: block;
-  font-size: 18px;
-  font-weight: bold;
+  border: none; /* Remove border */
+  font-size: 18px; /* Font size */
+  font-weight: bold; /* Font weight */
+  cursor: pointer; /* Pointer cursor on hover */
 }
 
-.submit>button {
-  width: 100%;
-  height: 60px;
+/* Optional: Add hover effects */
+.styled-button:hover {
+  background: #444444; /* Change background color on hover */
+}
+
+.sub_button {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.sub_button>input {
+  width: 70px;
+  height: 30px;
+  color: #000000;
+  background: #ffffff;
+  text-align: center;
+  border: 1px solid #000;
+  display: block;
+  font-size: 12px;
+  margin: 5px;
+}
+
+.sub_button2 {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.sub_button2>input {
+  width: 50px;
+  height: 30px;
+  color: #000000;
+  background: #ffffff;
+  text-align: center;
+  border: 1px solid #000;
+  display: inline;
+  font-size: 12px;
+  margin: 0 5px;
+}
+
+.sub_button3 {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.sub_button3>input {
+  width: 66px;
+  height: 30px;
   color: #ffffff;
   background: #000000;
+  border: 1px solid #000;
   text-align: center;
-  border: none;
-  display: block;
-  font-size: 18px;
-  font-weight: bold;
+  display: inline;
+  font-size: 12px;
+  margin: 0 5px;
 }
 
 #input_box>#sub_menu {
-  margin: 36px 0;
   display: block;
   height: 22px;
 }
@@ -145,11 +188,52 @@ body {
   font-size: 12px;
 }
 
+table {
+  width: 80%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 12px;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: black;
+}
+
+td .sub_button2 {
+  display: flex;
+  justify-content: center;
+  /* 버튼 가로 중앙 정렬 */
+}
+
+#input_box_AcctCharge {
+  width: 40%;
+  margin: 0 auto;
+  padding: 30px 0 0;
+}
+
+#input_box_AcctCharge .input {
+  width: 100%;
+  height: 50px;
+  padding: 15px 10px 14px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+}
+
 cart .sub_button3 {
   display: flex;
   justify-content: center;
   /* 버튼 가로 중앙 정렬 */
-  width: 100px;
+  width: auto;
   height: 30px;
   color: #ffffff !important;
   background: #000000 !important;
@@ -170,13 +254,10 @@ cart .sub_button3 {
 
 .menu {
   border-right: 1px solid #ccc;
-  margin: auto;
+  margin: auto auto 10px;
   padding: 50px 0 0;
   text-align: center;
-  display: flex;
-  /* Flexbox 사용 */
-  justify-content: center;
-  /* 수평 중앙 정렬 */
+
 }
 
 .menu table {
@@ -192,19 +273,20 @@ cart .sub_button3 {
   margin-bottom: 10px;
 }
 
-.form {
-  display: inline;
-  text-align: center;
+.menu .inputcnt {
+  width: 50px;
+  height: 30px;
+  padding: 5px 5px 5px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
 }
 
-
-.sub_button3 {
-  display: inline-block;
-  margin: 0 auto;
-}
-
-.sub_button3>input {
-  width: 100px;
+menu .sub_button3 {
+  display: flex;
+  justify-content: center;
+  /* 버튼 가로 중앙 정렬 */
+  width: auto;
   height: 30px;
   color: #ffffff !important;
   background: #000000 !important;
@@ -215,32 +297,55 @@ cart .sub_button3 {
   margin: 0 5px;
 }
 
-table {
-  width: 80%;
-  border-collapse: collapse;
-  text-align: center;
+#input_box_invStatus {
+  width: 90%;
   margin: auto;
-}
-
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  padding: 5px 0 0;
   text-align: center;
-  vertical-align: middle;
-  font-size: 12px;
+}
+
+#input_box_invStatus .input {
+  width: 30%;
+  height: 30px;
+  padding: 5px 5px 5px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+}
+
+#input_box_invStatus .inputcnt {
+  width: 50px;
+  height: 30px;
+  padding: 5px 5px 5px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+}
+
+
+#input_box_invOrder {
+  width: 90%;
   margin: auto;
+  padding: 5px 0 0;
+  text-align: center;
 }
 
-th {
-  background-color: #f2f2f2;
-  color: black;
+#input_box_invOrder .input {
+  width: 30%;
+  height: 30px;
+  padding: 5px 5px 5px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
 }
 
-td .sub_button2 {
-  display: flex;
-  justify-content: center;
-  /* 버튼 가로 중앙 정렬 */
+#input_box_invOrder .inputcnt {
+  width: 50px;
+  height: 30px;
+  padding: 5px 5px 5px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
 }
 
 .submit_order {
@@ -251,7 +356,7 @@ td .sub_button2 {
 }
 
 .submit_order>input {
-  width: 400px;
+  width: 80%;
   height: 60px;
   color: #ffffff !important;
   background: #000000 !important;
@@ -263,7 +368,7 @@ td .sub_button2 {
 }
 
 .submit_order>button {
-  width: 50%;
+  width: 100% !important;
   height: 60px;
   color: #ffffff !important;
   background: #000000 !important;
@@ -274,39 +379,15 @@ td .sub_button2 {
   font-weight: bold;
 }
 
-#input_box_customer_order_set {
+
+#input_box_invOrder_cart {
   width: 90%;
   margin: auto;
   padding: 5px 0 0;
   text-align: center;
 }
 
-#input_box_customer_order_set .input {
-  width: 30%;
-  height: 30px;
-  padding: 5px 5px 5px;
-  box-sizing: border-box;
-  border: 1px solid #cccccc;
-  margin-bottom: 10px;
-}
-
-#input_box_customer_order_set .inputcnt {
-  width: 50px;
-  height: 30px;
-  padding: 5px 5px 5px;
-  box-sizing: border-box;
-  border: 1px solid #cccccc;
-  margin-bottom: 10px;
-}
-
-#input_box_customer_order_cart {
-  width: 90%;
-  margin: auto;
-  padding: 5px 0 0;
-  text-align: center;
-}
-
-#input_box_customer_order_cart .inputcnt {
+#input_box_invOrder_cart .inputcnt {
   width: 50px;
   height: 20px;
   padding: 5px 5px 5px;
@@ -316,7 +397,7 @@ td .sub_button2 {
 }
 
 
-#input_box_customer_order_cart .sub_button3 {
+#input_box_invOrder_cart .sub_button3 {
   width: 50px;
   height: 30px;
   color: #ffffff;
@@ -337,42 +418,4 @@ td .sub_button2 {
   /* 수평 가운데 정렬 */
   text-align: center;
   /* 텍스트 가운데 정렬 */
-}
-
-#input_box_infoup {
-  width: 40%;
-  margin: 0 auto;
-  padding: 30px 0 0;
-}
-
-#input_box_infoup .input {
-  width: 100%;
-  height: 50px;
-  padding: 15px 10px 14px;
-  box-sizing: border-box;
-  border: 1px solid #cccccc;
-  margin-bottom: 10px;
-}
-
-.receipt-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.receipt-card {
-  width: 80%;
-  max-width: 600px;
-  padding: 15px;
-  margin: 15px 0;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  background-color: #ffffff;
-}
-
-.receipt-card + .receipt-card {
-  border-top: 1px solid #ccc;
 }
