@@ -80,22 +80,22 @@
     }
   </style>
   -->
-  <script>
+<script>
 
-    function showAlert() {
-        alert("발주를 실행합니다.");
-    }
-
-      function toggleMenu(menuId) {
-      const menu = document.getElementById(menuId);
-      // 메뉴가 보이는 상태에서 클릭하면 숨기고, 숨겨진 상태에서 클릭하면 보여줍니다.
-      if (menu.style.display === "block") {
-          menu.style.display = "none"; // 현재 펼쳐져 있으면 접기
-      } else {
-          menu.style.display = "block"; // 현재 접혀 있으면 펼치기
-      }
+  function showAlert() {
+    alert("발주를 실행합니다.");
   }
-  </script>
+
+  function toggleMenu(menuId) {
+    const menu = document.getElementById(menuId);
+    // 메뉴가 보이는 상태에서 클릭하면 숨기고, 숨겨진 상태에서 클릭하면 보여줍니다.
+    if (menu.style.display === "block") {
+      menu.style.display = "none"; // 현재 펼쳐져 있으면 접기
+    } else {
+      menu.style.display = "block"; // 현재 접혀 있으면 펼치기
+    }
+  }
+</script>
 
 </head>
 
@@ -105,8 +105,11 @@
 <div id="wrap_admin_order">
   <div id="area_admin_main">
     <div id="header">
-      <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F64Fyi%2FbtsKopBV7f8%2FV9c159yoKN4R6s0C6HV2i0%2Fimg.png" width="100"/>
-      <br><h3>버거집 ADMIN ORDER🍔</h3>
+      <img
+              src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F64Fyi%2FbtsKopBV7f8%2FV9c159yoKN4R6s0C6HV2i0%2Fimg.png"
+              width="100" />
+      <br>
+      <h3>버거집 ADMIN ORDER🍔</h3>
       <p>안녕하세요 관리자님,</p>
       <p>매장 재고 발주 페이지입니다.</p><br>
     </div>
@@ -117,12 +120,13 @@
     <br><br>
 
     <!-- 현재 재고 현황 버튼 -->
-    <span class="submit"><input type="button" value="현재 재고 현황" onclick="document.getElementById('invStatus').style.display='block'"></span>
+    <span class="submit"><input type="button" value="현재 재고 현황"
+                                onclick="document.getElementById('invStatus').style.display='block'"></span>
 
     <!-- 현재 재고 리스트 -->
     <div id="invStatus" style="display: none;">
-    <div class="menu" th:if="${#lists.size(stockList) > 0}">
-      <h3>💰현재 매출액 : <span th:text="${sales}">\0</span>원</h3><br><br>
+      <div class="menu" th:if="${#lists.size(stockList) > 0}">
+        <h3>💰현재 매출액 : <span th:text="${sales}">\0</span>원</h3><br><br>
       </div>
       <div class="menu" th:if="${#lists.size(stockList) > 0}">
 
@@ -145,52 +149,53 @@
           </tr>
           </tbody>
         </table><br><br><br>
-</div>
+      </div>
 
-    <div class="menu" th:if="${#lists.size(stockList) > 0}">
-      <h3>🍟사이드 재고</h3><br>
+      <div class="menu" th:if="${#lists.size(stockList) > 0}">
+        <h3>🍟사이드 재고</h3><br>
 
-      <table>
-        <thead>
-        <tr>
-          <th>카테고리</th>
-          <th>이름</th>
-          <th>재고수량</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- 사이드 카테고리 -->
-        <tr th:each="item : ${stockList}" th:if="${item.category == '사이드'}">
-          <td>사이드</td>
-          <td th:text="${item.menuName}">이름</td>
-          <td th:text="${item.stock}">재고수량</td>
-        </tr>
-        </tbody>
-      </table><br><br><br>
-</div>
+        <table>
+          <thead>
+          <tr>
+            <th>카테고리</th>
+            <th>이름</th>
+            <th>재고수량</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!-- 사이드 카테고리 -->
+          <tr th:each="item : ${stockList}" th:if="${item.category == '사이드'}">
+            <td>사이드</td>
+            <td th:text="${item.menuName}">이름</td>
+            <td th:text="${item.stock}">재고수량</td>
+          </tr>
+          </tbody>
+        </table><br><br><br>
+      </div>
 
-    <div class="menu" th:if="${#lists.size(stockList) > 0}">
-      <h3>🥤음료 재고</h3><br>
+      <div class="menu" th:if="${#lists.size(stockList) > 0}">
+        <h3>🥤음료 재고</h3><br>
 
-      <table>
-        <thead>
-        <tr>
-          <th>카테고리</th>
-          <th>이름</th>
-          <th>재고수량</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- 음료 카테고리 -->
-        <tr th:each="item : ${stockList}" th:if="${item.category == '음료'}">
-          <td>음료</td>
-          <td th:text="${item.menuName}">이름</td>
-          <td th:text="${item.stock}">재고수량</td>
-        </tr>
-        </tbody>
-      </table><br><br><br>
-</div>
-      <span class="submit_order"><input type="button" value="현재 재고 현황 닫기" onclick="document.getElementById('invStatus').style.display='none'"></span>
+        <table>
+          <thead>
+          <tr>
+            <th>카테고리</th>
+            <th>이름</th>
+            <th>재고수량</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!-- 음료 카테고리 -->
+          <tr th:each="item : ${stockList}" th:if="${item.category == '음료'}">
+            <td>음료</td>
+            <td th:text="${item.menuName}">이름</td>
+            <td th:text="${item.stock}">재고수량</td>
+          </tr>
+          </tbody>
+        </table><br><br><br>
+      </div>
+      <span class="submit_order"><input type="button" value="현재 재고 현황 닫기"
+                                        onclick="document.getElementById('invStatus').style.display='none'"></span>
     </div>
 
 
@@ -198,7 +203,8 @@
 
 
     <!-- 재고 발주 버튼 -->
-    <span class="submit"><input type="button" value="재고 발주하기" onclick="document.getElementById('invOrder').style.display='block'"></span>
+    <span class="submit"><input type="button" value="재고 발주하기"
+                                onclick="document.getElementById('invOrder').style.display='block'"></span>
 
     <!-- 재고 발주 -->
     <div id="invOrder" style="display: none;">
@@ -306,7 +312,8 @@
         </table><br><br><br>
       </div>
 
-      <span class="submit_order"><input type="button" value="재고 발주하기 닫기" onclick="document.getElementById('invOrder').style.display='none'"></span>
+      <span class="submit_order"><input type="button" value="재고 발주하기 닫기"
+                                        onclick="document.getElementById('invOrder').style.display='none'"></span>
     </div>
 
 
@@ -324,7 +331,7 @@
 
             <form th:action="@{/main/admin/cartUpdate}" method="post" style="display:inline;">
               <input type="hidden" th:value="${cart.name}" name="menuName" />
-              <input type="number" name="newCount" class="inputcnt"  th:value="${cart.count}" min="1" required />
+              <input type="number" name="newCount" class="inputcnt" th:value="${cart.count}" min="1" required />
               <button type="submit">수량 변경</button>
             </form>
 
@@ -337,20 +344,24 @@
         <br><br>
         <br><br>
         <h3>총 합계: <span th:text="${totalPrice}" name="totalPrice">0</span> 원</h3>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <form th:action="@{/main/admin/checkout}" method="post" onsubmit="showAlert()">
-            <button type="submit">발주 실행</button>
+        <div>
+          <form th:action="@{/main/admin/storeCheckout}" method="post" onsubmit="showAlert()">
+              <span class="submit">
+                <button type="submit" class="styled-button">발주 실행</button>
+              </span>
           </form>
-
+          <span class="submit">
+              <input type="button" value="관리 메인페이지로 이동" class="styled-button" onclick="location.href='/main/admin'" />
+            </span>
         </div>
       </div>
 
 
+    </div>
+    <br><br><br>
+
+
   </div>
-  <br><br><br>
-
-
-</div>
 </div>
 
 

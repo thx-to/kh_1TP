@@ -9,11 +9,19 @@
     .success {
       color: green;
       font-weight: bold;
+      text-align: center;
+      /* Center the text */
+      margin: 20px 0;
+      /* Add some vertical spacing */
     }
 
     .failure {
       color: red;
       font-weight: bold;
+      text-align: center;
+      /* Center the text */
+      margin: 20px 0;
+      /* Add some vertical spacing */
     }
   </style>
 </head>
@@ -22,26 +30,36 @@
 <div id="wrap_customer_mypage">
   <div id="area">
     <div id="header">
-      <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F64Fyi%2FbtsKopBV7f8%2FV9c159yoKN4R6s0C6HV2i0%2Fimg.png" width="100"/>
-      <br><h3>버거집 CUSTOMER 회원정보 수정 결과🍔</h3>
+      <img
+              src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F64Fyi%2FbtsKopBV7f8%2FV9c159yoKN4R6s0C6HV2i0%2Fimg.png"
+              width="100" />
+      <br>
+      <h3>버거집 CUSTOMER 회원정보 수정 결과🍔</h3>
       <p>안녕하세요 고객님,</p>
       <p>여기는 회원정보 수정 결과 페이지입니다.</p><br>
     </div>
 
-    <br><br><br><br><br><br>
+    <br><br><br><br>
 
-<!-- Success Message -->
-<div th:if="${isSuccess}" class="success">
-  회원정보 수정 성공
+    <!-- Success Message -->
+    <div th:if="${isSuccess}" class="success">
+      회원정보 수정 성공
+    </div>
+
+    <!-- Failure Message -->
+    <div th:if="${isSuccess == false}" class="failure">
+      회원정보 수정 실패: <span th:text="${error}"></span>
+    </div>
+
+    <div class="submit">
+      <input type="button" value="마이페이지로 돌아가기" onclick="window.location.href='/main/customer/myPage';" />
+    </div>
+
+    <div class="submit" style="margin-top: 20px;">
+      <input type="button" class="button" value="재작성 하기" onclick="history.go(-1);" />
+    </div>
+  </div>
 </div>
-
-<!-- Failure Message -->
-<div th:if="${isSuccess == false}" class="failure">
-  회원정보 수정 실패: <span th:text="${error}"></span>
-</div>
-
-<a href="/main/customer/myPage">마이페이지로 돌아가기</a>
-<input type="button" value="재작성 하기" onclick="history.go(-1);" />
 </body>
 
 </html>

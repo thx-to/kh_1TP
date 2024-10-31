@@ -11,62 +11,67 @@ a {
   text-decoration: none;
   color: black;
 }
+
 body {
   background-color: #f1f1f1;
 }
 
-#wrap_admin_main {
+#wrap_customer_main {
   width: 800px;
   min-width: 400px;
-  height: 500px;
+  height: 600px;
   margin: 100px auto 100px;
   background-color: #ffffff;
 }
 
-#wrap_admin_order {
+#wrap_customer_mypage {
   width: 800px;
   min-width: 400px;
-  height: 1000px;
+  height: 550px;
+  margin: 100px auto 100px;
+  background-color: #ffffff;
+}
+
+#wrap_customer_order_stores {
+  width: 800px;
+  min-width: 400px;
+  margin: 100px auto 100px;
+  padding: auto auto 100px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+#wrap_customer_order_menu {
+  width: 800px;
+  min-width: 400px;
+  height: 1500px;
   margin: 100px auto 100px;
   background-color: #ffffff;
   text-align: center;
 }
 
-#area_admin_main {
+#area {
   width: 800px;
   background-color: #ffffff;
-  margin: 0 auto 100px;
-  padding: auto auto 100px;
+  margin: 0 auto;
   position: relative;
+
 }
 
-#wrap_admin_sales {
+#area_customer_order_stores {
   width: 800px;
-  min-width: 400px;
-  height: 500px;
-  margin: 100px auto 100px;
   background-color: #ffffff;
+  margin: auto auto 200px;
+  padding: 0 auto 100px;
+  position: relative;
   text-align: center;
-}
-
-#area_admin_sales {
-  width: 800px;
-  background-color: #ffffff;
-  margin: 0 auto 100px;
-  padding: auto auto 100px;
-  position: relative;
-}
-
-#table_area {
-  display: flex; /* Flexbox 사용 */
-  justify-content: center; /* 수평 중앙 정렬 */
 }
 
 #header {
   width: 100%;
   height: 50px;
-  padding: 60px 0 100px;
-  margin-bottom: 50px;
+  padding: 60px 0 60px;
+  margin-bottom: 100px;
   text-align: center;
 }
 
@@ -83,7 +88,7 @@ body {
 
 }
 
-.submit > input {
+.submit>input {
   width: 80%;
   height: 60px;
   color: #ffffff;
@@ -95,59 +100,32 @@ body {
   font-weight: bold;
 }
 
-.sub_button {
-  display: flex;
-  justify-content: center;
-  margin: 0;
-}
-
-.sub_button > input {
-  width: 70px;
-  height: 30px;
-  color: #000000;
-  background: #ffffff;
-  text-align: center;
-  border: 1px solid #000;
-  display: block;
-  font-size: 12px;
-  margin: 5px;
-}
-
-.sub_button2 {
-  display: inline-block;
-  margin: 0 auto;
-}
-
-.sub_button2 > input {
-  width: 50px;
-  height: 30px;
-  color: #000000;
-  background: #ffffff;
-  text-align: center;
-  border: 1px solid #000;
-  display: inline;
-  font-size: 12px;
-  margin: 0 5px;
-}
-
-.sub_button3 {
-  display: inline-block;
-  margin: 0 auto;
-}
-
-.sub_button3 > input {
-  width: 66px;
-  height: 30px;
+.submit1>input {
+  width: 100%;
+  height: 60px;
   color: #ffffff;
   background: #000000;
-  border: 1px solid #000;
   text-align: center;
-  display: inline;
-  font-size: 12px;
-  margin: 0 5px;
+  border: none;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-#input_box > #sub_menu {
+.submit>button {
+  width: 100%;
+  height: 60px;
+  color: #ffffff;
+  background: #000000;
+  text-align: center;
+  border: none;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#input_box>#sub_menu {
+  margin: 36px 0;
   display: block;
   height: 22px;
 }
@@ -157,7 +135,7 @@ body {
   text-align: center;
 }
 
-#sub_menu > li > a {
+#sub_menu>li>a {
   color: #aaa;
   font-size: 14px;
 }
@@ -167,161 +145,103 @@ body {
   font-size: 12px;
 }
 
-table {
-    width: 80%;
-    border-collapse: collapse;
-    text-align: center;
+cart .sub_button3 {
+  display: flex;
+  justify-content: center;
+  /* 버튼 가로 중앙 정렬 */
+  width: 100px;
+  height: 30px;
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 1px solid #000;
+  text-align: center;
+  display: inline;
+  font-size: 12px;
+  margin: 0 5px;
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 12px;
+.menu,
+.cart {
+  width: 80%;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-th {
-    background-color: #f2f2f2;
-    color: black;
+.menu {
+  border-right: 1px solid #ccc;
+  margin: auto;
+  padding: 50px 0 0;
+  text-align: center;
+  display: flex;
+  /* Flexbox 사용 */
+  justify-content: center;
+  /* 수평 중앙 정렬 */
 }
 
-td .sub_button2 {
-    display: flex;
-    justify-content: center; /* 버튼 가로 중앙 정렬 */
-}
-
-#input_box_AcctCharge {
-  width: 40%;
+.menu table {
   margin: 0 auto;
-  padding: 30px 0 0;
 }
 
-#input_box_AcctCharge .input {
-  width: 100%;
-  height: 50px;
-  padding: 15px 10px 14px;
+.menu .input {
+  width: 2000px;
+  height: 30px;
+  padding: 5px 5px 5px;
   box-sizing: border-box;
   border: 1px solid #cccccc;
   margin-bottom: 10px;
 }
 
-cart .sub_button3 {
-    display: flex;
-    justify-content: center; /* 버튼 가로 중앙 정렬 */
-      width: auto;
-      height: 30px;
-      color: #ffffff !important;
-      background: #000000 !important;
-      border: 1px solid #000;
-      text-align: center;
-      display: inline;
-      font-size: 12px;
-      margin: 0 5px;
+.form {
+  display: inline;
+  text-align: center;
 }
 
-.menu,
-.cart {
-    width: 80%;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    }
 
-.menu {
-    border-right: 1px solid #ccc;
-    margin: auto auto 10px;
-    padding: 50px 0 0;
-    text-align: center;
-
-    }
-
-.menu table {
-    margin: 0 auto;
+.sub_button3 {
+  display: inline-block;
+  margin: 0 auto;
 }
 
-.menu .input {
-    width: 2000px;
-    height: 30px;
-    padding: 5px 5px 5px;
-    box-sizing: border-box;
-    border: 1px solid #cccccc;
-    margin-bottom: 10px;
-    }
-
-.menu .inputcnt {
-      width: 50px;
-      height: 30px;
-      padding: 5px 5px 5px;
-      box-sizing: border-box;
-      border: 1px solid #cccccc;
-      margin-bottom: 10px;
-    }
-
-menu .sub_button3 {
-    display: flex;
-    justify-content: center; /* 버튼 가로 중앙 정렬 */
-      width: auto;
-      height: 30px;
-      color: #ffffff !important;
-      background: #000000 !important;
-      border: 1px solid #000;
-      text-align: center;
-      display: inline;
-      font-size: 12px;
-      margin: 0 5px;
+.sub_button3>input {
+  width: 100px;
+  height: 30px;
+  color: #ffffff !important;
+  background: #000000 !important;
+  border: 1px solid #000;
+  text-align: center;
+  display: inline;
+  font-size: 12px;
+  margin: 0 5px;
 }
 
-#input_box_invStatus {
-      width: 90%;
-      margin: auto;
-      padding: 5px 0 0;
-      text-align: center;
-    }
+table {
+  width: 80%;
+  border-collapse: collapse;
+  text-align: center;
+  margin: auto;
+}
 
-#input_box_invStatus .input {
-      width: 30%;
-      height: 30px;
-      padding: 5px 5px 5px;
-      box-sizing: border-box;
-      border: 1px solid #cccccc;
-      margin-bottom: 10px;
-    }
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 12px;
+  margin: auto;
+}
 
-#input_box_invStatus .inputcnt {
-      width: 50px;
-      height: 30px;
-      padding: 5px 5px 5px;
-      box-sizing: border-box;
-      border: 1px solid #cccccc;
-      margin-bottom: 10px;
-    }
+th {
+  background-color: #f2f2f2;
+  color: black;
+}
 
-
-#input_box_invOrder {
-      width: 90%;
-      margin: auto;
-      padding: 5px 0 0;
-      text-align: center;
-    }
-
-#input_box_invOrder .input {
-      width: 30%;
-      height: 30px;
-      padding: 5px 5px 5px;
-      box-sizing: border-box;
-      border: 1px solid #cccccc;
-      margin-bottom: 10px;
-    }
-
-#input_box_invOrder .inputcnt {
-      width: 50px;
-      height: 30px;
-      padding: 5px 5px 5px;
-      box-sizing: border-box;
-      border: 1px solid #cccccc;
-      margin-bottom: 10px;
-    }
+td .sub_button2 {
+  display: flex;
+  justify-content: center;
+  /* 버튼 가로 중앙 정렬 */
+}
 
 .submit_order {
   display: flex;
@@ -330,8 +250,8 @@ menu .sub_button3 {
 
 }
 
-.submit_order > input {
-  width: 80%;
+.submit_order>input {
+  width: 400px;
   height: 60px;
   color: #ffffff !important;
   background: #000000 !important;
@@ -342,8 +262,8 @@ menu .sub_button3 {
   font-weight: bold;
 }
 
-.submit_order > button {
-  width: 100% !important;
+.submit_order>button {
+  width: 50%;
   height: 60px;
   color: #ffffff !important;
   background: #000000 !important;
@@ -354,15 +274,39 @@ menu .sub_button3 {
   font-weight: bold;
 }
 
-
-#input_box_invOrder_cart {
+#input_box_customer_order_set {
   width: 90%;
   margin: auto;
   padding: 5px 0 0;
   text-align: center;
 }
 
-#input_box_invOrder_cart .inputcnt {
+#input_box_customer_order_set .input {
+  width: 30%;
+  height: 30px;
+  padding: 5px 5px 5px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+}
+
+#input_box_customer_order_set .inputcnt {
+  width: 50px;
+  height: 30px;
+  padding: 5px 5px 5px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+}
+
+#input_box_customer_order_cart {
+  width: 90%;
+  margin: auto;
+  padding: 5px 0 0;
+  text-align: center;
+}
+
+#input_box_customer_order_cart .inputcnt {
   width: 50px;
   height: 20px;
   padding: 5px 5px 5px;
@@ -372,7 +316,7 @@ menu .sub_button3 {
 }
 
 
-#input_box_invOrder_cart .sub_button3 {
+#input_box_customer_order_cart .sub_button3 {
   width: 50px;
   height: 30px;
   color: #ffffff;
@@ -385,9 +329,50 @@ menu .sub_button3 {
 }
 
 .centered {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 수직 가운데 정렬 */
-    justify-content: center; /* 수평 가운데 정렬 */
-    text-align: center; /* 텍스트 가운데 정렬 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 수직 가운데 정렬 */
+  justify-content: center;
+  /* 수평 가운데 정렬 */
+  text-align: center;
+  /* 텍스트 가운데 정렬 */
+}
+
+#input_box_infoup {
+  width: 40%;
+  margin: 0 auto;
+  padding: 30px 0 0;
+}
+
+#input_box_infoup .input {
+  width: 100%;
+  height: 50px;
+  padding: 15px 10px 14px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+}
+
+.receipt-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.receipt-card {
+  width: 80%;
+  max-width: 600px;
+  padding: 15px;
+  margin: 15px 0;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.receipt-card + .receipt-card {
+  border-top: 1px solid #ccc;
 }
