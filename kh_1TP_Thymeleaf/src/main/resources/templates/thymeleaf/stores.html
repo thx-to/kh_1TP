@@ -25,7 +25,9 @@
         <span class="submit" th:each="store : ${stores}">
             <input type="submit" name="storeId" th:value="${store}">
         </span>
-        </form><br><br><br>
+        </form>
+        <span class="submit"><input type="submit" value="뒤로가기" onclick="window.location.href='/main/customer';" /></span>
+        <br><br><br>
 
     </div>
 </div>
