@@ -98,6 +98,26 @@ INSERT INTO INV VALUES ('코카콜라', '역삼점', 2600, 10, '콜라는 역시
 INSERT INTO INV VALUES ('아메리카노', '역삼점', 3300, 10, '얼죽아 아시죠?');
 INSERT INTO INV VALUES ('바닐라쉐이크', '역삼점', 3500, 10, '감튀 디핑소스');
 
+INSERT INTO INV VALUES ('빅맥', '구로점', 6300, 10, '맥도날드의 간판 메뉴');
+INSERT INTO INV VALUES ('슈비버거', '구로점', 6600, 10, '슈림프와 비프');
+INSERT INTO INV VALUES ('치즈버거', '구로점', 3600, 10, '패티에 슬라이스 치즈');
+INSERT INTO INV VALUES ('맥너겟', '구로점', 3400, 10, '맥도날드의 치킨너겟');
+INSERT INTO INV VALUES ('후렌치후라이', '구로점', 2300, 10, '바싹 튀긴 감자튀김');
+INSERT INTO INV VALUES ('치즈스틱', '구로점', 3600, 10, '치즈가 쭈욱 늘어나요');
+INSERT INTO INV VALUES ('코카콜라', '구로점', 2600, 10, '콜라는 역시 COKE');
+INSERT INTO INV VALUES ('아메리카노', '구로점', 3300, 10, '얼죽아 아시죠?');
+INSERT INTO INV VALUES ('바닐라쉐이크', '구로점', 3500, 10, '감튀 디핑소스');
+
+INSERT INTO INV VALUES ('빅맥', '화곡점', 6300, 10, '맥도날드의 간판 메뉴');
+INSERT INTO INV VALUES ('슈비버거', '화곡점', 6600, 10, '슈림프와 비프');
+INSERT INTO INV VALUES ('치즈버거', '화곡점', 3600, 10, '패티에 슬라이스 치즈');
+INSERT INTO INV VALUES ('맥너겟', '화곡점', 3400, 10, '맥도날드의 치킨너겟');
+INSERT INTO INV VALUES ('후렌치후라이', '화곡점', 2300, 10, '바싹 튀긴 감자튀김');
+INSERT INTO INV VALUES ('치즈스틱', '화곡점', 3600, 10, '치즈가 쭈욱 늘어나요');
+INSERT INTO INV VALUES ('코카콜라', '화곡점', 2600, 10, '콜라는 역시 COKE');
+INSERT INTO INV VALUES ('아메리카노', '화곡점', 3300, 10, '얼죽아 아시죠?');
+INSERT INTO INV VALUES ('바닐라쉐이크', '화곡점', 3500, 10, '감튀 디핑소스');
+
 SELECT i.MENU_NAME, i.PRICE, o.DESCR, o.CATEGORY 
 FROM INV i JOIN INV_ORDER o ON i.MENU_NAME = o.MENU_NAME WHERE STORE_ID = '역삼점';
 
@@ -141,3 +161,11 @@ ADD CONSTRAINT fk_user_id
 FOREIGN KEY (user_id)
 REFERENCES acc_info(user_id)
 ON DELETE CASCADE;
+
+-- INV_ORDER 테이블 varchar40으로 변경
+ALTER TABLE INV_ORDER
+MODIFY (menu_name VARCHAR2(40));
+
+-- INV 테이블 varchar40 으로 변경
+ALTER TABLE INV 
+MODIFY (menu_name VARCHAR2(40));
